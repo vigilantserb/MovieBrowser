@@ -36,5 +36,4 @@ class DiscoverMoviesFragment : Fragment() {
         viewModel = ViewModelProviders.of(this).get(DiscoverMoviesViewModel::class.java)
         // TODO: Use the ViewModel
     }
-
 }
