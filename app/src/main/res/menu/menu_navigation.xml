@@ -6,18 +6,18 @@
             android:title="Discover"/>
     <item
             android:id="@+id/destination_my_list"
-            android:icon="@mipmap/ic_discover"
+            android:icon="@mipmap/ic_list"
             android:title="My list"/>
     <item
             android:id="@+id/destination_search"
-            android:icon="@mipmap/ic_discover"
+            android:icon="@mipmap/ic_search"
             android:title="Search"/>
     <item
             android:id="@+id/destination_news"
-            android:icon="@mipmap/ic_discover"
+            android:icon="@mipmap/ic_news"
             android:title="News"/>
     <item
             android:id="@+id/destination_settings"
-            android:icon="@mipmap/ic_discover"
+            android:icon="@mipmap/ic_settings"
             android:title="Settings"/>
 </menu>
