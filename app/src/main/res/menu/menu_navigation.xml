@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+            android:id="@+id/destination_discover"
+            android:icon="@mipmap/ic_discover"
+            android:title="Discover"/>
+    <item
+            android:id="@+id/destination_my_list"
+            android:icon="@mipmap/ic_discover"
+            android:title="My list"/>
+    <item
+            android:id="@+id/destination_search"
+            android:icon="@mipmap/ic_discover"
+            android:title="Search"/>
+    <item
+            android:id="@+id/destination_news"
+            android:icon="@mipmap/ic_discover"
+            android:title="News"/>
+    <item
+            android:id="@+id/destination_settings"
+            android:icon="@mipmap/ic_discover"
+            android:title="Settings"/>
+</menu>

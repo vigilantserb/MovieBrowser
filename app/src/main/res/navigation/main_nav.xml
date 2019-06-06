@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            xmlns:tools="http://schemas.android.com/tools" android:id="@+id/main_nav"
+            app:startDestination="@id/destination_discover">
+    <fragment android:id="@+id/destination_discover"
+              android:name="com.stameni.com.whatshouldiwatch.screens.discover.DiscoverMoviesFragment"
+              android:label="discover_movies_fragment" tools:layout="@layout/discover_movies_fragment"/>
+    <fragment android:id="@+id/destination_my_list" android:name="com.stameni.com.whatshouldiwatch.screens.mylist.MyListFragment"
+              android:label="my_list_fragment" tools:layout="@layout/my_list_fragment"/>
+    <fragment android:id="@+id/destination_news" android:name="com.stameni.com.whatshouldiwatch.screens.news.NewsFragment"
+              android:label="news_fragment" tools:layout="@layout/news_fragment"/>
+    <fragment android:id="@+id/destination_search" android:name="com.stameni.com.whatshouldiwatch.screens.search.SearchFragment"
+              android:label="search_fragment" tools:layout="@layout/search_fragment"/>
+    <fragment android:id="@+id/destination_settings"
+              android:name="com.stameni.com.whatshouldiwatch.screens.settings.SettingsFragment" android:label="settings_fragment"
+              tools:layout="@layout/settings_fragment"/>
+</navigation>
