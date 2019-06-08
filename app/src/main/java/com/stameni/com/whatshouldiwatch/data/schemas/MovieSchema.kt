@@ -3,7 +3,7 @@ package com.stameni.com.whatshouldiwatch.data.schemas
 
 import com.google.gson.annotations.SerializedName
 
-data class Item(
+data class MovieSchema(
     @SerializedName("adult")
     val adult: Boolean,
     @SerializedName("backdrop_path")

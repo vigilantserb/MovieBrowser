@@ -17,7 +17,7 @@ data class MovieListSchema(
     @SerializedName("item_count")
     val itemCount: Int,
     @SerializedName("items")
-    val items: List<Item>,
+    val items: List<MovieSchema>,
     @SerializedName("name")
     val name: String,
     @SerializedName("poster_path")
