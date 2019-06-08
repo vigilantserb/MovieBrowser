@@ -7,9 +7,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.stameni.com.whatshouldiwatch.R
 import com.stameni.com.whatshouldiwatch.common.BaseFragment
 import com.stameni.com.whatshouldiwatch.common.ViewModelFactory
+import com.stameni.com.whatshouldiwatch.screens.discover.topLists.MovieListAdapter
+import kotlinx.android.synthetic.main.genre_movies_fragment.*
 import javax.inject.Inject
 
 class GenreMovies : BaseFragment() {
@@ -29,12 +32,15 @@ class GenreMovies : BaseFragment() {
         super.onActivityCreated(savedInstanceState)
         controllerComponent.inject(this)
 
+        recycler_view.setHasFixedSize(true)
+        recycler_view.layoutManager = LinearLayoutManager(context)
+
         viewModel = ViewModelProviders.of(this, viewModelFactory).get(GenreMoviesViewModel::class.java)
 
         viewModel.getGenreList()
 
         viewModel.fetchedGenres.observe(this, Observer {
-            println(it[0].genreName)
+            recycler_view.adapter = GenreListAdapter(it)
         })
 
         viewModel.fetchError.observe(this, Observer {
