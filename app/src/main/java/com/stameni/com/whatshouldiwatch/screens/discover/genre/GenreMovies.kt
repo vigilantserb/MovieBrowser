@@ -1,18 +1,15 @@
 package com.stameni.com.whatshouldiwatch.screens.discover.genre
 
-import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
-import androidx.fragment.app.Fragment
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
-
+import androidx.lifecycle.ViewModelProviders
 import com.stameni.com.whatshouldiwatch.R
 import com.stameni.com.whatshouldiwatch.common.BaseFragment
 import com.stameni.com.whatshouldiwatch.common.ViewModelFactory
-import com.stameni.com.whatshouldiwatch.data.MovieApi
-import com.stameni.com.whatshouldiwatch.data.networkdata.FetchGenreListUseCaseImpl
 import javax.inject.Inject
 
 class GenreMovies : BaseFragment() {
@@ -37,14 +34,13 @@ class GenreMovies : BaseFragment() {
         viewModel.getGenreList()
 
         viewModel.fetchedGenres.observe(this, Observer {
-            if(it != null){
-                println(it[0].genreName)
-            }else{
-                println("jbg null")
-            }
+            println(it[0].genreName)
         })
 
-        // TODO: Use the ViewModel
+        viewModel.fetchError.observe(this, Observer {
+            Log.e("test", Log.getStackTraceString(it))
+        })
+
     }
 
 }

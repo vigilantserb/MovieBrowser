@@ -4,11 +4,10 @@ import android.content.Context
 import com.stameni.com.quizforall.common.ConnectivityInterceptor
 import com.stameni.com.quizforall.common.ConnectivityInterceptorImpl
 import com.stameni.com.whatshouldiwatch.data.MovieApi
-import com.stameni.com.whatshouldiwatch.data.networkdata.FetchGenreListUseCase
-import com.stameni.com.whatshouldiwatch.data.networkdata.FetchGenreListUseCaseImpl
+import com.stameni.com.whatshouldiwatch.data.networkData.FetchGenreListUseCase
+import com.stameni.com.whatshouldiwatch.data.networkData.FetchGenreListUseCaseImpl
 import dagger.Module
 import dagger.Provides
-import retrofit2.Retrofit
 import javax.inject.Singleton
 
 @Module

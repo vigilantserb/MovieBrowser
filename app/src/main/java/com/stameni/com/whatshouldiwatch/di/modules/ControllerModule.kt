@@ -5,10 +5,6 @@ import android.content.Context
 import android.view.LayoutInflater
 import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentManager
-import com.stameni.com.whatshouldiwatch.common.BaseActivity
-import com.stameni.com.whatshouldiwatch.data.MovieApi
-import com.stameni.com.whatshouldiwatch.data.networkdata.FetchGenreListUseCase
-import com.stameni.com.whatshouldiwatch.data.networkdata.FetchGenreListUseCaseImpl
 import dagger.Module
 import dagger.Provides
 

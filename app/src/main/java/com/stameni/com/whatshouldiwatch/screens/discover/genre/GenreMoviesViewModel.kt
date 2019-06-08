@@ -1,17 +1,22 @@
 package com.stameni.com.whatshouldiwatch.screens.discover.genre
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.stameni.com.whatshouldiwatch.data.models.Genre
-import com.stameni.com.whatshouldiwatch.data.networkdata.FetchGenreListUseCase
+import com.stameni.com.whatshouldiwatch.data.networkData.FetchGenreListUseCase
 import io.reactivex.disposables.CompositeDisposable
+import java.lang.Exception
 
 class GenreMoviesViewModel(private val fetchGenreListUseCase: FetchGenreListUseCase) : ViewModel() {
 
-    var fetchedGenres: LiveData<List<Genre>> = MutableLiveData<List<Genre>>()
+    val fetchedGenres: LiveData<List<Genre>>
         get() {
             return fetchGenreListUseCase.genreListLiveData
+        }
+
+    val fetchError: LiveData<Exception>
+        get() {
+            return fetchGenreListUseCase.fetchError
         }
 
     var disposable = CompositeDisposable()

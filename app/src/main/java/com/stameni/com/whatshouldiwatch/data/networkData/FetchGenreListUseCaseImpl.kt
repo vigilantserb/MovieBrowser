@@ -1,6 +1,5 @@
-package com.stameni.com.whatshouldiwatch.data.networkdata
+package com.stameni.com.whatshouldiwatch.data.networkData
 
-import android.annotation.SuppressLint
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.stameni.com.whatshouldiwatch.data.MovieApi
@@ -16,35 +15,41 @@ class FetchGenreListUseCaseImpl @Inject constructor(
     private val movieApi: MovieApi
 ) : FetchGenreListUseCase {
 
+    override val fetchError = MutableLiveData<Exception>()
+
     private val _genreListLiveData: MutableLiveData<List<Genre>> = MutableLiveData()
 
     override val genreListLiveData: LiveData<List<Genre>>
         get() = _genreListLiveData
 
-    @SuppressLint("CheckResult")
+
     override fun getGenreList(): Disposable {
         return movieApi
             .getDbGenres()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
-                { result ->
-                    onGenreListFetch(result)
-                }, { onGenreListFetchFail(it) }
+                { onGenreListFetch(it) }, { onGenreListFetchFail(it as Exception) }
             )
     }
 
     private fun onGenreListFetch(result: Response<GenreListSchema>) {
         val genreList = ArrayList<Genre>()
         if (result.body() != null) {
-            result.body()!!.genres.forEach {
-                genreList.add(Genre(it.name, it.id))
+            if (result.code() == 200) {
+                result.body()!!.genres.forEach {
+                    genreList.add(Genre(it.name, it.id))
+                }
+                _genreListLiveData.value = genreList
+            } else {
+                fetchError.value = RuntimeException("Fetch failed, server code response: ${result.code()}")
             }
+        } else {
+            fetchError.value = RuntimeException("Fetch failed, no data fetched")
         }
-        _genreListLiveData.value = genreList
     }
 
-    private fun onGenreListFetchFail(it: Throwable) {
-        throw it
+    private fun onGenreListFetchFail(exception: Exception) {
+        fetchError.value = exception
     }
 }
