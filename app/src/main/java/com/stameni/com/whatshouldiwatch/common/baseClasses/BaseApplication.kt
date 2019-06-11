@@ -1,4 +1,4 @@
-package com.stameni.com.whatshouldiwatch.common
+package com.stameni.com.whatshouldiwatch.common.baseClasses
 
 import android.app.Application
 import com.stameni.com.whatshouldiwatch.di.components.ApplicationComponent

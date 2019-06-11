@@ -1,4 +1,4 @@
-package com.stameni.com.quizforall.common
+package com.stameni.com.whatshouldiwatch.common.interceptors
 
 import android.content.Context
 import android.net.ConnectivityManager
@@ -6,7 +6,8 @@ import okhttp3.Interceptor
 import okhttp3.Response
 import java.lang.Exception
 
-class ConnectivityInterceptorImpl(private val context: Context) : ConnectivityInterceptor {
+class ConnectivityInterceptorImpl(private val context: Context) :
+    ConnectivityInterceptor {
 
     private val appContext = context.applicationContext
 

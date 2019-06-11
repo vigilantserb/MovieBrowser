@@ -1,4 +1,4 @@
-package com.stameni.com.quizforall.common
+package com.stameni.com.whatshouldiwatch.common.interceptors
 
 import okhttp3.Interceptor
 

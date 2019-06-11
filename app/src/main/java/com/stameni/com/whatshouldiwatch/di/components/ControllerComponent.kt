@@ -7,7 +7,6 @@ import com.stameni.com.whatshouldiwatch.screens.discover.genre.GenreMovies
 import dagger.Subcomponent
 import javax.inject.Singleton
 
-@Singleton
 @Subcomponent(modules = [ControllerModule::class, ViewModelModule::class, NetworkModule::class])
 interface ControllerComponent {
     fun inject(genreMovies: GenreMovies)

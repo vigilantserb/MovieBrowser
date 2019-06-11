@@ -1,4 +1,4 @@
-package com.stameni.com.whatshouldiwatch.common
+package com.stameni.com.whatshouldiwatch.common.baseClasses
 
 import androidx.annotation.UiThread
 import androidx.fragment.app.Fragment

@@ -1,8 +1,7 @@
 package com.stameni.com.whatshouldiwatch.data
 
-import com.stameni.com.quizforall.common.ConnectivityInterceptor
+import com.stameni.com.whatshouldiwatch.common.interceptors.ConnectivityInterceptor
 import com.stameni.com.whatshouldiwatch.data.schemas.GenreListSchema
-import com.stameni.com.whatshouldiwatch.data.schemas.GenreSchema
 import io.reactivex.Observable
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient

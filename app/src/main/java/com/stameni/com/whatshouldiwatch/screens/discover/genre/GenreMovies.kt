@@ -9,9 +9,8 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.stameni.com.whatshouldiwatch.R
-import com.stameni.com.whatshouldiwatch.common.BaseFragment
+import com.stameni.com.whatshouldiwatch.common.baseClasses.BaseFragment
 import com.stameni.com.whatshouldiwatch.common.ViewModelFactory
-import com.stameni.com.whatshouldiwatch.screens.discover.topLists.MovieListAdapter
 import kotlinx.android.synthetic.main.genre_movies_fragment.*
 import javax.inject.Inject
 
@@ -31,13 +30,12 @@ class GenreMovies : BaseFragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         controllerComponent.inject(this)
-
-        recycler_view.setHasFixedSize(true)
-        recycler_view.layoutManager = LinearLayoutManager(context)
-
         viewModel = ViewModelProviders.of(this, viewModelFactory).get(GenreMoviesViewModel::class.java)
 
         viewModel.getGenreList()
+
+        recycler_view.setHasFixedSize(true)
+        recycler_view.layoutManager = LinearLayoutManager(context)
 
         viewModel.fetchedGenres.observe(this, Observer {
             recycler_view.adapter = GenreListAdapter(it)

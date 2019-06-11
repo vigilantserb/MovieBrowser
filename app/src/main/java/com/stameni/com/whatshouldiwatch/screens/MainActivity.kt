@@ -1,14 +1,12 @@
 package com.stameni.com.whatshouldiwatch.screens
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.navigation.ui.NavigationUI
 import com.stameni.com.whatshouldiwatch.R
-import com.stameni.com.whatshouldiwatch.common.BaseActivity
+import com.stameni.com.whatshouldiwatch.common.baseClasses.BaseActivity
 import kotlinx.android.synthetic.main.main_activity.*
-import javax.inject.Inject
 
 class MainActivity : BaseActivity() {
 
