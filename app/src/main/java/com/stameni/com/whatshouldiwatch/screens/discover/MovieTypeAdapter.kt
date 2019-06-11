@@ -25,7 +25,7 @@ class MovieTypeAdapter(childFragmentManager: FragmentManager) : FragmentPagerAda
     override fun getPageTitle(position: Int): CharSequence {
         return when (position) {
             0 -> "Top lists"
-            1 -> "GenreSchema"
+            1 -> "Genres"
             2 -> "Now playing"
             else -> "Upcoming"
         }

@@ -27,15 +27,21 @@ class GenreListAdapter(
         holder.movieListTitle.text = listItem.genreName
         val url = listItem.url
 
-        Glide.with(holder.context)
-            .load("https://image.tmdb.org/t/p/w500/$url")
-            .centerCrop()
-            .into(holder.movieListPoster)
+        holder.addImageFromUrl(url)
     }
 
     class ViewHolder(itemView: View, parent: ViewGroup) : RecyclerView.ViewHolder(itemView) {
         var movieListTitle = itemView.list_title
         var movieListPoster = itemView.list_poster
         var context = parent.context
+
+        fun addImageFromUrl(url: String) {
+            movieListPoster.visibility = View.VISIBLE
+            Glide.with(itemView.context)
+                .load("https://image.tmdb.org/t/p/w500/$url")
+                .centerCrop()
+                .into(movieListPoster)
+        }
+
     }
 }

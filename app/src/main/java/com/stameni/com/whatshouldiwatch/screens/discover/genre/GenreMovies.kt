@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.SimpleItemAnimator
 import com.stameni.com.whatshouldiwatch.R
 import com.stameni.com.whatshouldiwatch.common.baseClasses.BaseFragment
 import com.stameni.com.whatshouldiwatch.common.ViewModelFactory
@@ -36,12 +37,17 @@ class GenreMovies : BaseFragment() {
 
         recycler_view.setHasFixedSize(true)
         recycler_view.layoutManager = LinearLayoutManager(context)
+        (recycler_view.itemAnimator as SimpleItemAnimator).supportsChangeAnimations = false
 
         viewModel.fetchedGenres.observe(this, Observer {
+            recycler_view.visibility = View.VISIBLE
+            gif_progress_bar.visibility = View.GONE
             recycler_view.adapter = GenreListAdapter(it)
         })
 
         viewModel.fetchError.observe(this, Observer {
+            recycler_view.visibility = View.VISIBLE
+            gif_progress_bar.visibility = View.GONE
             Log.e("test", Log.getStackTraceString(it))
         })
 

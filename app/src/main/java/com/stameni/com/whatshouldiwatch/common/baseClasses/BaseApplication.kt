@@ -7,7 +7,6 @@ import com.stameni.com.whatshouldiwatch.di.modules.ApplicationModule
 
 class BaseApplication: Application() {
 
-
     private var mApplicationComponent: ApplicationComponent? = null
 
     override fun onCreate() {
@@ -20,5 +19,4 @@ class BaseApplication: Application() {
     fun getApplicationComponent(): ApplicationComponent? {
         return mApplicationComponent
     }
-
 }
