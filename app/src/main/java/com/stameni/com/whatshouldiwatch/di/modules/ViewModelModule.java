@@ -3,7 +3,9 @@ package com.stameni.com.whatshouldiwatch.di.modules;
 import androidx.lifecycle.ViewModel;
 import com.stameni.com.whatshouldiwatch.common.ViewModelFactory;
 import com.stameni.com.whatshouldiwatch.data.networkData.FetchGenreListUseCase;
+import com.stameni.com.whatshouldiwatch.data.networkData.FetchListMoviesUseCase;
 import com.stameni.com.whatshouldiwatch.screens.discover.genre.GenreMoviesViewModel;
+import com.stameni.com.whatshouldiwatch.screens.movielist.MovieListViewModel;
 import dagger.MapKey;
 import dagger.Module;
 import dagger.Provides;
@@ -34,7 +36,14 @@ public class ViewModelModule {
     @Provides
     @IntoMap
     @ViewModelKey(GenreMoviesViewModel.class)
-    ViewModel questionDetailsViewModel(FetchGenreListUseCase fetchGenreListUseCase) {
+    ViewModel genreMoviesViewModel(FetchGenreListUseCase fetchGenreListUseCase) {
         return new GenreMoviesViewModel(fetchGenreListUseCase);
+    }
+
+    @Provides
+    @IntoMap
+    @ViewModelKey(MovieListViewModel.class)
+    ViewModel movieListViewModel(FetchListMoviesUseCase fetchGenreListUseCase) {
+        return new MovieListViewModel(fetchGenreListUseCase);
     }
 }

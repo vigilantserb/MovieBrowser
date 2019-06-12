@@ -8,6 +8,8 @@ import com.stameni.com.whatshouldiwatch.data.BASE_URL
 import com.stameni.com.whatshouldiwatch.data.MovieApi
 import com.stameni.com.whatshouldiwatch.data.networkData.FetchGenreListUseCase
 import com.stameni.com.whatshouldiwatch.data.networkData.FetchGenreListUseCaseImpl
+import com.stameni.com.whatshouldiwatch.data.networkData.FetchListMoviesUseCase
+import com.stameni.com.whatshouldiwatch.data.networkData.FetchListMoviesUseCaseImpl
 import dagger.Module
 import dagger.Provides
 import okhttp3.Interceptor
@@ -60,5 +62,10 @@ class NetworkModule {
     @Provides
     fun getFetchGenresUseCase(movieApi: MovieApi): FetchGenreListUseCase {
         return FetchGenreListUseCaseImpl(movieApi)
+    }
+
+    @Provides
+    fun getFetchListMoviesUseCase(movieApi: MovieApi): FetchListMoviesUseCase {
+        return FetchListMoviesUseCaseImpl(movieApi)
     }
 }

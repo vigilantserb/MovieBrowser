@@ -11,7 +11,7 @@ import io.reactivex.schedulers.Schedulers
 import retrofit2.Response
 import javax.inject.Inject
 
-class FetchGenreListUseCaseImpl @Inject constructor(
+class FetchGenreListUseCaseImpl constructor(
     private val movieApi: MovieApi
 ) : FetchGenreListUseCase {
 

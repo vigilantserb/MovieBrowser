@@ -1,12 +1,15 @@
 package com.stameni.com.whatshouldiwatch.screens.discover.topLists
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.stameni.com.whatshouldiwatch.R
+import com.stameni.com.whatshouldiwatch.common.listen
 import com.stameni.com.whatshouldiwatch.data.models.ListItem
+import com.stameni.com.whatshouldiwatch.screens.movielist.MovieListActivity
 import kotlinx.android.synthetic.main.list_item.view.*
 
 class MovieListAdapter(
@@ -15,7 +18,14 @@ class MovieListAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val v = LayoutInflater.from(parent.context).inflate(R.layout.list_item, parent, false)
-        return ViewHolder(v, parent)
+        return ViewHolder(v, parent).listen { position, type ->
+            val item = items[position]
+            val intent = Intent(parent.context, MovieListActivity::class.java)
+            intent.putExtra("url", item.url)
+            intent.putExtra("title", item.title)
+            intent.putExtra("id", item.id)
+            parent.context.startActivity(intent)
+        }
     }
 
     override fun getItemCount(): Int {
