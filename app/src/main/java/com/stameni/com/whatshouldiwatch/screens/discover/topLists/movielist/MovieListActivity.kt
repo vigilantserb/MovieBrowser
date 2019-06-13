@@ -26,10 +26,13 @@ class MovieListActivity : BaseActivity() {
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        recycler_view.setHasFixedSize(true)
-        recycler_view.layoutManager = LinearLayoutManager(this)
+        var layoutManager = LinearLayoutManager(this)
+        var adapter = ListMoviesAdapter(ArrayList())
 
-        if(intent.extras != null){
+        recycler_view.adapter = adapter
+        recycler_view.layoutManager = layoutManager
+
+            if(intent.extras != null){
             val title = intent.extras!!.getString("title", "")
             val url = intent.extras!!.getString("url", "")
             val id = intent.extras!!.getString("id", "0")
@@ -39,7 +42,7 @@ class MovieListActivity : BaseActivity() {
             viewModel.getListMovies(id.toString())
             viewModel.fetchedGenres.observe(this, Observer {
                 if(it != null){
-                    recycler_view.adapter = ListMoviesAdapter(it)
+                    adapter.addAll(it)
                 }
             })
 

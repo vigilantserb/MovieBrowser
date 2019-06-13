@@ -14,7 +14,11 @@
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
         <activity
-                android:name="com.stameni.com.whatshouldiwatch.screens.discover.topLists.movielist.MovieListActivity"
+                android:name=".screens.discover.genre.moviegridlist.MovieGridActivity"
+                android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+        <activity
+                android:name=".screens.discover.topLists.movielist.MovieListActivity"
                 android:label="@string/title_activity_movie_list"
                 android:parentActivityName=".screens.MainActivity"
                 android:theme="@style/AppTheme.NoActionBar">

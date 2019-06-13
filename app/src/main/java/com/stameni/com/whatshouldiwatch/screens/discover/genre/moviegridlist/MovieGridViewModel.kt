@@ -1,31 +1,30 @@
-package com.stameni.com.whatshouldiwatch.screens.discover.topLists.movielist
+package com.stameni.com.whatshouldiwatch.screens.discover.genre.moviegridlist
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import com.stameni.com.whatshouldiwatch.data.models.Movie
-import com.stameni.com.whatshouldiwatch.data.networkData.FetchListMoviesUseCase
+import com.stameni.com.whatshouldiwatch.data.networkData.FetchMoviesByGenreUseCase
 import io.reactivex.disposables.CompositeDisposable
 import java.lang.Exception
 
-class MovieListViewModel(
-    private val fetchListMoviesUseCase: FetchListMoviesUseCase
+class MovieGridViewModel(
+    private val fetchMoviesByGenre: FetchMoviesByGenreUseCase
 ): ViewModel() {
 
-
-    val fetchedGenres: LiveData<ArrayList<Movie>>
+    val fetchedMovies: LiveData<ArrayList<Movie>>
         get() {
-            return fetchListMoviesUseCase.fetchedMovies
+            return fetchMoviesByGenre.fetchedMovies
         }
 
     val fetchError: LiveData<Exception>
         get() {
-            return fetchListMoviesUseCase.fetchError
+            return fetchMoviesByGenre.fetchError
         }
 
     var disposable = CompositeDisposable()
 
-    fun getListMovies(listId: String) {
-        disposable.add(fetchListMoviesUseCase.getListMovies(listId))
+    fun getListMovies(genreId: Int, page: Int) {
+        disposable.add(fetchMoviesByGenre.getMoviesWithGenre(genreId, page))
     }
 
     override fun onCleared() {

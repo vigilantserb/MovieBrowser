@@ -13,16 +13,18 @@ import io.reactivex.functions.BiFunction
 import io.reactivex.schedulers.Schedulers
 import retrofit2.Response
 import java.util.*
+import java.util.concurrent.TimeUnit
+import kotlin.collections.ArrayList
 
 
 class FetchListMoviesUseCaseImpl(
     private var movieApi: MovieApi
 ) : FetchListMoviesUseCase {
 
-    private var _fetchedMovies = MutableLiveData<List<Movie>>()
+    private var _fetchedMovies = MutableLiveData<ArrayList<Movie>>()
     private var _fetchError = MutableLiveData<Exception>()
 
-    override val fetchedMovies: LiveData<List<Movie>>
+    override val fetchedMovies: LiveData<ArrayList<Movie>>
         get() = _fetchedMovies
 
     override val fetchError: LiveData<Exception>
@@ -43,9 +45,13 @@ class FetchListMoviesUseCaseImpl(
                 formatListMovies(t1, t2)
             })
             .map { orderByRating(it) }
+            .flatMapIterable {
+                it -> it
+            }
+            .buffer(10)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe({ onListMovieFetch(it) }, { onListMovieFetchFail(it as Exception) })
+            .subscribe({ onListMovieFetch(ArrayList(it)) }, { onListMovieFetchFail(it as Exception) })
     }
 
     private fun orderByRating(movies: ArrayList<Movie>): ArrayList<Movie> {

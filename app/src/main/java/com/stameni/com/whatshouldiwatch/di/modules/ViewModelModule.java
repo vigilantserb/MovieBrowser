@@ -4,7 +4,10 @@ import androidx.lifecycle.ViewModel;
 import com.stameni.com.whatshouldiwatch.common.ViewModelFactory;
 import com.stameni.com.whatshouldiwatch.data.networkData.FetchGenreListUseCase;
 import com.stameni.com.whatshouldiwatch.data.networkData.FetchListMoviesUseCase;
+import com.stameni.com.whatshouldiwatch.data.networkData.FetchMoviesByGenreImpl;
+import com.stameni.com.whatshouldiwatch.data.networkData.FetchMoviesByGenreUseCase;
 import com.stameni.com.whatshouldiwatch.screens.discover.genre.GenreMoviesViewModel;
+import com.stameni.com.whatshouldiwatch.screens.discover.genre.moviegridlist.MovieGridViewModel;
 import com.stameni.com.whatshouldiwatch.screens.discover.topLists.movielist.MovieListViewModel;
 import dagger.MapKey;
 import dagger.Module;
@@ -45,5 +48,12 @@ public class ViewModelModule {
     @ViewModelKey(MovieListViewModel.class)
     ViewModel movieListViewModel(FetchListMoviesUseCase fetchGenreListUseCase) {
         return new MovieListViewModel(fetchGenreListUseCase);
+    }
+
+    @Provides
+    @IntoMap
+    @ViewModelKey(MovieGridViewModel.class)
+    ViewModel movieGridViewModel(FetchMoviesByGenreUseCase fetchMoviesByGenreUseCase) {
+        return new MovieGridViewModel(fetchMoviesByGenreUseCase);
     }
 }

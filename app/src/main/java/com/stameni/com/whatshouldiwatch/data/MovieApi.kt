@@ -3,6 +3,7 @@ package com.stameni.com.whatshouldiwatch.data
 import com.stameni.com.whatshouldiwatch.common.interceptors.ConnectivityInterceptor
 import com.stameni.com.whatshouldiwatch.data.schemas.GenreListSchema
 import com.stameni.com.whatshouldiwatch.data.schemas.MovieListSchema
+import com.stameni.com.whatshouldiwatch.data.schemas.SearchSchema
 import io.reactivex.Observable
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
@@ -13,6 +14,7 @@ import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
 import retrofit2.http.Path
+import retrofit2.http.Query
 
 const val API_KEY = "5e35bda1500b7f696342a3ab91d79e52"
 const val BASE_URL = "https://api.themoviedb.org/"
@@ -27,6 +29,12 @@ interface MovieApi {
     fun getListMovies(
         @Path("list_id") listId: String
     ): Observable<Response<MovieListSchema>>
+
+    @GET("/3/discover/movie")
+    fun getGenreMovies(
+        @Query("with_genres") genreId: Int,
+        @Query("page") page: Int = 1
+    ): Observable<Response<SearchSchema>>
 
     companion object {
         operator fun invoke(connectivityInterceptor: ConnectivityInterceptor): MovieApi {

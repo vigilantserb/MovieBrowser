@@ -6,10 +6,7 @@ import com.stameni.com.whatshouldiwatch.common.interceptors.ConnectivityIntercep
 import com.stameni.com.whatshouldiwatch.data.API_KEY
 import com.stameni.com.whatshouldiwatch.data.BASE_URL
 import com.stameni.com.whatshouldiwatch.data.MovieApi
-import com.stameni.com.whatshouldiwatch.data.networkData.FetchGenreListUseCase
-import com.stameni.com.whatshouldiwatch.data.networkData.FetchGenreListUseCaseImpl
-import com.stameni.com.whatshouldiwatch.data.networkData.FetchListMoviesUseCase
-import com.stameni.com.whatshouldiwatch.data.networkData.FetchListMoviesUseCaseImpl
+import com.stameni.com.whatshouldiwatch.data.networkData.*
 import dagger.Module
 import dagger.Provides
 import okhttp3.Interceptor
@@ -67,5 +64,10 @@ class NetworkModule {
     @Provides
     fun getFetchListMoviesUseCase(movieApi: MovieApi): FetchListMoviesUseCase {
         return FetchListMoviesUseCaseImpl(movieApi)
+    }
+
+    @Provides
+    fun getFetchMoviesByGenreUseCase(movieApi: MovieApi): FetchMoviesByGenreUseCase {
+        return FetchMoviesByGenreImpl(movieApi)
     }
 }

@@ -1,4 +1,4 @@
-package com.stameni.com.whatshouldiwatch.screens.discover.topLists.movielist
+package com.stameni.com.whatshouldiwatch.screens.discover.genre.moviegridlist
 
 import android.view.LayoutInflater
 import android.view.View
@@ -7,15 +7,16 @@ import android.view.animation.AlphaAnimation
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.stameni.com.whatshouldiwatch.R
+import com.stameni.com.whatshouldiwatch.common.listen
 import com.stameni.com.whatshouldiwatch.data.models.Movie
-import kotlinx.android.synthetic.main.list_movie_item.view.*
+import kotlinx.android.synthetic.main.movie_grid_item.view.*
 
-class ListMoviesAdapter(
+class MovieGridAdapter(
     private val items: ArrayList<Movie>
-) : RecyclerView.Adapter<ListMoviesAdapter.ViewHolder>() {
+) : RecyclerView.Adapter<MovieGridAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val v = LayoutInflater.from(parent.context).inflate(R.layout.list_movie_item, parent, false)
+        val v = LayoutInflater.from(parent.context).inflate(R.layout.movie_grid_item, parent, false)
         return ViewHolder(v, parent)
     }
 
@@ -35,11 +36,7 @@ class ListMoviesAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        var listItem = items[position]
-        holder.movieTitle.text = listItem.movieTitle
-        holder.movieGenres.text = listItem.movieGenres
-        holder.movieYear.text = listItem.movieYear
-        holder.movieTitle.text = listItem.movieTitle
+        val listItem = items[position]
         val url = listItem.moviePosterUrl
 
         holder.addImageFromUrl(url)
@@ -47,14 +44,10 @@ class ListMoviesAdapter(
     }
 
     class ViewHolder(itemView: View, parent: ViewGroup) : RecyclerView.ViewHolder(itemView) {
-        var movieTitle = itemView.movie_title
-        var moviePoster = itemView.movie_poster
-        var movieYear = itemView.year_text_view
-        var movieGenres = itemView.genres_text_view
-        var context = parent.context
+        var moviePoster = itemView.myImageView
 
         fun addImageFromUrl(url: String) {
-            Glide.with(context)
+            Glide.with(itemView.context)
                 .load("https://image.tmdb.org/t/p/w500/$url")
                 .centerCrop()
                 .into(moviePoster)
@@ -67,3 +60,4 @@ class ListMoviesAdapter(
         }
     }
 }
+

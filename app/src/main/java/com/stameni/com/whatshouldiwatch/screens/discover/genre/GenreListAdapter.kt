@@ -1,12 +1,15 @@
 package com.stameni.com.whatshouldiwatch.screens.discover.genre
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.stameni.com.whatshouldiwatch.R
+import com.stameni.com.whatshouldiwatch.common.listen
 import com.stameni.com.whatshouldiwatch.data.models.Genre
+import com.stameni.com.whatshouldiwatch.screens.discover.genre.moviegridlist.MovieGridActivity
 import kotlinx.android.synthetic.main.list_item.view.*
 
 class GenreListAdapter(
@@ -15,7 +18,12 @@ class GenreListAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val v = LayoutInflater.from(parent.context).inflate(R.layout.list_item, parent, false)
-        return ViewHolder(v, parent)
+        return ViewHolder(v, parent).listen { position, type ->
+            val item = items[position]
+            val intent = Intent(parent.context, MovieGridActivity::class.java)
+            intent.putExtra("genreId", item.genreId)
+            parent.context.startActivity(intent)
+        }
     }
 
     override fun getItemCount(): Int {
