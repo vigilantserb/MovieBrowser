@@ -14,7 +14,7 @@
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
         <activity
-                android:name=".screens.movielist.MovieListActivity"
+                android:name="com.stameni.com.whatshouldiwatch.screens.discover.topLists.movielist.MovieListActivity"
                 android:label="@string/title_activity_movie_list"
                 android:parentActivityName=".screens.MainActivity"
                 android:theme="@style/AppTheme.NoActionBar">

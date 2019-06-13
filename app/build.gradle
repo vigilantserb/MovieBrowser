@@ -91,4 +91,7 @@ dependencies {
 
     //GifImageView
     implementation 'pl.droidsonroids.gif:android-gif-drawable:1.2.17'
+
+    //CollapsingToolbarFlick
+    implementation 'com.github.VyacheslavShmakin:gp-collapsing-toolbar:1.0.1'
 }

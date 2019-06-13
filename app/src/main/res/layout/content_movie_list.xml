@@ -7,7 +7,7 @@
         tools:showIn="@layout/activity_movie_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".screens.movielist.MovieListActivity"
+        tools:context=".screens.discover.topLists.movielist.MovieListActivity"
 android:background="@color/color_background">
 
     <androidx.recyclerview.widget.RecyclerView

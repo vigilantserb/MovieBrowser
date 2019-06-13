@@ -1,4 +1,4 @@
-package com.stameni.com.whatshouldiwatch.screens.movielist
+package com.stameni.com.whatshouldiwatch.screens.discover.topLists.movielist
 
 import android.view.LayoutInflater
 import android.view.View

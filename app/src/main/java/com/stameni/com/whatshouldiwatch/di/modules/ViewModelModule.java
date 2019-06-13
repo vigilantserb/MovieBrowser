@@ -5,7 +5,7 @@ import com.stameni.com.whatshouldiwatch.common.ViewModelFactory;
 import com.stameni.com.whatshouldiwatch.data.networkData.FetchGenreListUseCase;
 import com.stameni.com.whatshouldiwatch.data.networkData.FetchListMoviesUseCase;
 import com.stameni.com.whatshouldiwatch.screens.discover.genre.GenreMoviesViewModel;
-import com.stameni.com.whatshouldiwatch.screens.movielist.MovieListViewModel;
+import com.stameni.com.whatshouldiwatch.screens.discover.topLists.movielist.MovieListViewModel;
 import dagger.MapKey;
 import dagger.Module;
 import dagger.Provides;

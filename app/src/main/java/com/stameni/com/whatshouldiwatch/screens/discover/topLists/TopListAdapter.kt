@@ -9,12 +9,12 @@ import com.bumptech.glide.Glide
 import com.stameni.com.whatshouldiwatch.R
 import com.stameni.com.whatshouldiwatch.common.listen
 import com.stameni.com.whatshouldiwatch.data.models.ListItem
-import com.stameni.com.whatshouldiwatch.screens.movielist.MovieListActivity
+import com.stameni.com.whatshouldiwatch.screens.discover.topLists.movielist.MovieListActivity
 import kotlinx.android.synthetic.main.list_item.view.*
 
-class MovieListAdapter(
+class TopListAdapter(
     private val items: List<ListItem>
-) : RecyclerView.Adapter<MovieListAdapter.ViewHolder>() {
+) : RecyclerView.Adapter<TopListAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val v = LayoutInflater.from(parent.context).inflate(R.layout.list_item, parent, false)

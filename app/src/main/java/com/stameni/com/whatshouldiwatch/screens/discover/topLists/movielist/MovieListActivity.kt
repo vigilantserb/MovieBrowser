@@ -1,12 +1,10 @@
-package com.stameni.com.whatshouldiwatch.screens.movielist
+package com.stameni.com.whatshouldiwatch.screens.discover.topLists.movielist
 
 import android.os.Bundle
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
-import com.google.android.material.snackbar.Snackbar
 import com.stameni.com.whatshouldiwatch.R
 import com.stameni.com.whatshouldiwatch.common.ViewModelFactory
 import com.stameni.com.whatshouldiwatch.common.baseClasses.BaseActivity
@@ -37,7 +35,6 @@ class MovieListActivity : BaseActivity() {
             val id = intent.extras!!.getString("id", "0")
 
             supportActionBar?.title = title
-
             viewModel = ViewModelProviders.of(this, viewModelFactory).get(MovieListViewModel::class.java)
             viewModel.getListMovies(id.toString())
             viewModel.fetchedGenres.observe(this, Observer {

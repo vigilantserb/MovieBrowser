@@ -32,7 +32,7 @@ class TopListMovies : Fragment() {
         recycler_view.setHasFixedSize(true)
         recycler_view.layoutManager = LinearLayoutManager(context)
         var listItems = getLists()
-        recycler_view.adapter = MovieListAdapter(listItems)
+        recycler_view.adapter = TopListAdapter(listItems)
     }
 
     private fun getLists(): List<ListItem> {
