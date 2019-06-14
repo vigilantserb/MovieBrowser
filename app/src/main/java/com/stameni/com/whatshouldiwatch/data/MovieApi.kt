@@ -36,6 +36,11 @@ interface MovieApi {
         @Query("page") page: Int = 1
     ): Observable<Response<SearchSchema>>
 
+    @GET("/3/movie/upcoming")
+    fun getUpcomingMovies(
+        @Query("page") page: Int = 1
+    ): Observable<Response<SearchSchema>>
+
     companion object {
         operator fun invoke(connectivityInterceptor: ConnectivityInterceptor): MovieApi {
             val requestInterceptor = Interceptor { chain ->
