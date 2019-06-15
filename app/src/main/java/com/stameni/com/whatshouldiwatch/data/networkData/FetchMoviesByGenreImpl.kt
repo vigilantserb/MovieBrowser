@@ -14,6 +14,11 @@ class FetchMoviesByGenreImpl(
     private val movieApi: MovieApi
 ) : FetchMoviesByGenreUseCase {
 
+    private val _totalPages = MutableLiveData<Int>()
+
+    override val totalPages: LiveData<Int>
+        get() = _totalPages
+
     private val _fetchError = MutableLiveData<Exception>()
 
     override val fetchError: LiveData<Exception>
@@ -28,15 +33,24 @@ class FetchMoviesByGenreImpl(
         return movieApi.getGenreMovies(genreId, page)
             .subscribeOn(Schedulers.io())
             .map {
+                emitTotalPages(it)
+            }
+            .map {
                 formatResponseData(it)
             }
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({ onGenreMoviesFetch(it) }, { onGenreMovieFetchFail(it) })
     }
 
+    private fun emitTotalPages(response: Response<SearchSchema>): Response<SearchSchema> {
+        if (response.body() != null)
+            _totalPages.postValue(response.body()!!.totalPages)
+        return response
+    }
+
     private fun formatResponseData(response: Response<SearchSchema>): ArrayList<Movie> {
         val movieData = ArrayList<Movie>()
-        if(response.body() != null) {
+        if (response.body() != null) {
             response.body()!!.results.forEach {
                 movieData.add(Movie(it.title, "", "", it.posterPath, 0.0))
             }

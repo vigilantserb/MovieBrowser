@@ -16,6 +16,11 @@ class MovieGridViewModel(
             return fetchMoviesByGenre.fetchedMovies
         }
 
+    val totalPages: LiveData<Int>
+        get() {
+            return fetchMoviesByGenre.totalPages
+        }
+
     val fetchError: LiveData<Exception>
         get() {
             return fetchMoviesByGenre.fetchError

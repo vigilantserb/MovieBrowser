@@ -61,7 +61,6 @@ class FetchUpcomingMoviesImpl(
         val movieData = ArrayList<Movie>()
 
         if (response.body() != null) {
-            val totalPages = response.body()!!.totalPages
             response.body()!!.results.forEach {
                 movieData.add(
                     Movie(it.title, "", "", it.posterPath, 0.0)

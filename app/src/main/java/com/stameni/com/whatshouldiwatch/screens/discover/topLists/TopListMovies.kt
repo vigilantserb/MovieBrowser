@@ -14,10 +14,6 @@ import kotlinx.android.synthetic.main.top_list_movies_fragment.*
 
 class TopListMovies : Fragment() {
 
-    companion object {
-        fun newInstance() = TopListMovies()
-    }
-    //list ids - 3, 28, 1131, 1309,
     private lateinit var viewModel: TopListMoviesViewModel
 
     override fun onCreateView(

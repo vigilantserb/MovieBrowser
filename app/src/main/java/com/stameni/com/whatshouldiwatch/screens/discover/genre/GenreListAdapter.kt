@@ -22,6 +22,7 @@ class GenreListAdapter(
             val item = items[position]
             val intent = Intent(parent.context, MovieGridActivity::class.java)
             intent.putExtra("genreId", item.genreId)
+            intent.putExtra("genreName", item.genreName)
             parent.context.startActivity(intent)
         }
     }
@@ -50,6 +51,5 @@ class GenreListAdapter(
                 .centerCrop()
                 .into(movieListPoster)
         }
-
     }
 }

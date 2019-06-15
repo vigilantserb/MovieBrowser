@@ -9,7 +9,6 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 import retrofit2.Response
-import javax.inject.Inject
 
 class FetchGenreListUseCaseImpl constructor(
     private val movieApi: MovieApi
@@ -27,28 +26,31 @@ class FetchGenreListUseCaseImpl constructor(
         return movieApi
             .getDbGenres()
             .subscribeOn(Schedulers.io())
+            .map {
+                formatGenreList(it)
+            }
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
                 { onGenreListFetch(it) }, { onGenreListFetchFail(it as Exception) }
             )
     }
 
-    private fun onGenreListFetch(result: Response<GenreListSchema>) {
+    private fun formatGenreList(response: Response<GenreListSchema>): ArrayList<Genre> {
         val genreList = ArrayList<Genre>()
         val imageList = getGenreImages()
 
-        if (result.body() != null) {
-            if (result.code() == 200) {
-                result.body()!!.genres.forEachIndexed { index, it ->
+        if (response.body() != null) {
+            if (response.code() == 200) {
+                response.body()!!.genres.forEachIndexed { index, it ->
                     genreList.add(Genre(it.name, it.id, imageList[index]))
                 }
-                _genreListLiveData.value = genreList
-            } else {
-                fetchError.value = RuntimeException("Fetch failed, server code response: ${result.code()}")
             }
-        } else {
-            fetchError.value = RuntimeException("Fetch failed, no data fetched")
         }
+        return genreList
+    }
+
+    private fun onGenreListFetch(result: ArrayList<Genre>) {
+        _genreListLiveData.value = result
     }
 
     private fun getGenreImages(): ArrayList<String> {
