@@ -45,7 +45,7 @@ class MovieGridActivity : BaseActivity() {
                 override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                     if (gridLayoutManager.findLastVisibleItemPosition() == gridLayoutManager.itemCount - 1) {
                         currentPage++
-                        viewModel.getListMovies(28, currentPage)
+                        viewModel.getListMovies(genreId, currentPage)
                     }
                     super.onScrolled(recyclerView, dx, dy)
                 }

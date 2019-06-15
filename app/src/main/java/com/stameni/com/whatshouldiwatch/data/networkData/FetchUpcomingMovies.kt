@@ -8,6 +8,8 @@ interface FetchUpcomingMovies {
 
     val fetchedMovies: LiveData<ArrayList<Movie>>
 
+    val totalPages: LiveData<Int>
+
     val fetchError: LiveData<Exception>
 
     fun getUpcomingMovies(page: Int): Disposable

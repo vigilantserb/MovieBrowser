@@ -1,5 +1,6 @@
 package com.stameni.com.whatshouldiwatch.screens.discover.genre
 
+import android.graphics.drawable.Animatable
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater

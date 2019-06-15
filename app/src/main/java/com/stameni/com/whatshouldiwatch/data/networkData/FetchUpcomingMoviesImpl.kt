@@ -19,6 +19,11 @@ class FetchUpcomingMoviesImpl(
     override val fetchedMovies: LiveData<ArrayList<Movie>>
         get() = _fetchedMovies
 
+    private val _totalPages = MutableLiveData<Int>()
+
+    override val totalPages: LiveData<Int>
+        get() = _totalPages
+
     private val _fetchError = MutableLiveData<java.lang.Exception>()
 
     override val fetchError: LiveData<Exception>
@@ -28,11 +33,20 @@ class FetchUpcomingMoviesImpl(
         return movieApi.getUpcomingMovies(page)
             .subscribeOn(Schedulers.io())
             .map {
+                getTotalpages(it)
+            }
+            .map {
                 formatResponseData(it)
             }
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({ onGenreMoviesFetch(it) }, { onGenreMovieFetchFail(it) })
 
+    }
+
+    private fun getTotalpages(response: Response<SearchSchema>): Response<SearchSchema> {
+        if (response.body() != null)
+            _totalPages.postValue(response.body()!!.totalPages)
+        return response
     }
 
     private fun onGenreMovieFetchFail(exception: Throwable) {
@@ -46,11 +60,13 @@ class FetchUpcomingMoviesImpl(
     private fun formatResponseData(response: Response<SearchSchema>): ArrayList<Movie> {
         val movieData = ArrayList<Movie>()
 
-        if(response.body() != null)
-        response.body()!!.results.forEach {
-            movieData.add(
-                Movie(it.title, "", "", it.posterPath, 0.0)
-            )
+        if (response.body() != null) {
+            val totalPages = response.body()!!.totalPages
+            response.body()!!.results.forEach {
+                movieData.add(
+                    Movie(it.title, "", "", it.posterPath, 0.0)
+                )
+            }
         }
 
         return movieData

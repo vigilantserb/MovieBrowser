@@ -11,7 +11,14 @@ android:background="@color/color_background">
             android:layout_height="169dp">
 
         <ImageView
+                android:id="@+id/loading_iv"
+                android:src="@drawable/ic_loading"
+                android:layout_height="match_parent"
+                android:layout_width="match_parent"/>
+
+        <ImageView
                 android:id="@+id/myImageView"
+                android:visibility="gone"
                 android:layout_height="match_parent"
                 android:layout_width="match_parent"/>
     </androidx.constraintlayout.widget.ConstraintLayout>

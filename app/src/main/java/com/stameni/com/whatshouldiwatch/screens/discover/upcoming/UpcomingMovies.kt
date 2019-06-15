@@ -10,6 +10,7 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.stameni.com.whatshouldiwatch.R
+import com.stameni.com.whatshouldiwatch.common.CustomSnackbar
 import com.stameni.com.whatshouldiwatch.common.ViewModelFactory
 import com.stameni.com.whatshouldiwatch.common.baseClasses.BaseFragment
 import com.stameni.com.whatshouldiwatch.screens.discover.genre.moviegridlist.MovieGridAdapter
@@ -25,6 +26,8 @@ class UpcomingMovies : BaseFragment() {
 
     private var currentPage = 1
 
+    private var totalPages = 0
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -35,10 +38,11 @@ class UpcomingMovies : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         controllerComponent.inject(this)
+        currentPage = 1
 
         viewModel = ViewModelProviders.of(this, viewModelFactory).get(UpcomingMoviesViewModel::class.java)
 
-        val gridLayoutManager = GridLayoutManager(view!!.context, 3, RecyclerView.VERTICAL, false)
+        val gridLayoutManager = GridLayoutManager(view.context, 3, RecyclerView.VERTICAL, false)
         val adapter = MovieGridAdapter(ArrayList())
 
         recycler_view.layoutManager = gridLayoutManager
@@ -48,14 +52,27 @@ class UpcomingMovies : BaseFragment() {
 
         viewModel.getUpcomingMovies(1)
 
+        var snackbar = CustomSnackbar.make(view)
+        snackbar.duration = 1000
+
         recycler_view.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 if (gridLayoutManager.findLastVisibleItemPosition() == gridLayoutManager.itemCount - 1) {
-                    currentPage++
-                    viewModel.getUpcomingMovies(currentPage)
+                    if(currentPage <= totalPages){
+                        currentPage++
+                        viewModel.getUpcomingMovies(currentPage)
+                        if (!snackbar.isShown) {
+                            snackbar.show()
+                        }
+                    }
                 }
                 super.onScrolled(recyclerView, dx, dy)
             }
+        })
+
+        viewModel.totalPages.observe(this, Observer {
+            if (it != null)
+                totalPages = it
         })
 
         viewModel.fetchedMovies.observe(this, Observer {

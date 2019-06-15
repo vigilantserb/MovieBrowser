@@ -13,6 +13,11 @@ class UpcomingMoviesViewModel(private val fetchUpcomingMovies: FetchUpcomingMovi
             return fetchUpcomingMovies.fetchedMovies
         }
 
+    val totalPages: LiveData<Int>
+        get() {
+            return fetchUpcomingMovies.totalPages
+        }
+
     val fetchError: LiveData<Exception>
         get() {
             return fetchUpcomingMovies.fetchError

@@ -47,6 +47,7 @@ class MovieGridAdapter(
         var moviePoster = itemView.myImageView
 
         fun addImageFromUrl(url: String) {
+            moviePoster.visibility = View.VISIBLE
             Glide.with(itemView.context)
                 .load("https://image.tmdb.org/t/p/w500/$url")
                 .centerCrop()

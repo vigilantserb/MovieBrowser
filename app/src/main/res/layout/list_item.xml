@@ -19,7 +19,7 @@
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 android:layout_gravity="center"
-                android:src="@drawable/loading3"/>
+                android:src="@drawable/ic_loading"/>
 
         <ImageView
                 android:id="@+id/list_poster"
