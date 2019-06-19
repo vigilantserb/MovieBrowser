@@ -15,10 +15,14 @@
             android:theme="@style/AppTheme">
         <activity
                 android:name=".screens.discover.genre.moviegridlist.MovieGridActivity"
+                android:configChanges="orientation"
+                android:screenOrientation="portrait"
                 android:theme="@style/AppTheme.NoActionBar">
         </activity>
         <activity
                 android:name=".screens.discover.topLists.movielist.MovieListActivity"
+                android:configChanges="orientation"
+                android:screenOrientation="portrait"
                 android:label="@string/title_activity_movie_list"
                 android:parentActivityName=".screens.MainActivity"
                 android:theme="@style/AppTheme.NoActionBar">
@@ -28,6 +32,8 @@
         </activity>
         <activity
                 android:name=".screens.MainActivity"
+                android:configChanges="orientation"
+                android:screenOrientation="portrait"
                 android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>

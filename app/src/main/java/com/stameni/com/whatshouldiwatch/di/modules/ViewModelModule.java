@@ -5,6 +5,7 @@ import com.stameni.com.whatshouldiwatch.common.ViewModelFactory;
 import com.stameni.com.whatshouldiwatch.data.networkData.*;
 import com.stameni.com.whatshouldiwatch.screens.discover.genre.GenreMoviesViewModel;
 import com.stameni.com.whatshouldiwatch.screens.discover.genre.moviegridlist.MovieGridViewModel;
+import com.stameni.com.whatshouldiwatch.screens.discover.nowPlaying.NowPlayingMoviesViewModel;
 import com.stameni.com.whatshouldiwatch.screens.discover.topLists.movielist.MovieListViewModel;
 import com.stameni.com.whatshouldiwatch.screens.discover.upcoming.UpcomingMoviesViewModel;
 import dagger.MapKey;
@@ -60,5 +61,12 @@ public class ViewModelModule {
     @ViewModelKey(UpcomingMoviesViewModel.class)
     ViewModel upcomingMoviesViewModel(FetchUpcomingMovies fetchUpcomingMovies) {
         return new UpcomingMoviesViewModel(fetchUpcomingMovies);
+    }
+
+    @Provides
+    @IntoMap
+    @ViewModelKey(NowPlayingMoviesViewModel.class)
+    ViewModel nowPlayingViewModel(FetchNowPlayingMovies fetchNowPlayingMovies) {
+        return new NowPlayingMoviesViewModel(fetchNowPlayingMovies);
     }
 }

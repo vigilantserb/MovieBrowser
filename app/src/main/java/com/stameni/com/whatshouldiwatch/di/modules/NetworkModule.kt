@@ -72,4 +72,7 @@ class NetworkModule {
 
     @Provides
     fun getFetchUpcomingMoviesUseCase(movieApi: MovieApi): FetchUpcomingMovies = FetchUpcomingMoviesImpl(movieApi)
+
+    @Provides
+    fun getFetchNowPlayingMoviesUseCase(movieApi: MovieApi): FetchNowPlayingMovies = FetchNowPlayingMoviesImpl(movieApi)
 }
