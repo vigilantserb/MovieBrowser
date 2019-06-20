@@ -1,4 +1,4 @@
-package com.stameni.com.whatshouldiwatch.data.networkData
+package com.stameni.com.whatshouldiwatch.data.networkData.lists
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

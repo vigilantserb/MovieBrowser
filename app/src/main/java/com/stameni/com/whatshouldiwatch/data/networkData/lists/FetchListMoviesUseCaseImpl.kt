@@ -1,4 +1,4 @@
-package com.stameni.com.whatshouldiwatch.data.networkData
+package com.stameni.com.whatshouldiwatch.data.networkData.lists
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -12,8 +12,6 @@ import io.reactivex.disposables.Disposable
 import io.reactivex.functions.BiFunction
 import io.reactivex.schedulers.Schedulers
 import retrofit2.Response
-import java.util.*
-import java.util.concurrent.TimeUnit
 import kotlin.collections.ArrayList
 
 

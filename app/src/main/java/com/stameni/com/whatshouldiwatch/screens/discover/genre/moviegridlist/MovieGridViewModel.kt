@@ -3,7 +3,7 @@ package com.stameni.com.whatshouldiwatch.screens.discover.genre.moviegridlist
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import com.stameni.com.whatshouldiwatch.data.models.Movie
-import com.stameni.com.whatshouldiwatch.data.networkData.FetchMoviesByGenreUseCase
+import com.stameni.com.whatshouldiwatch.data.networkData.movies.FetchMoviesByGenreUseCase
 import io.reactivex.disposables.CompositeDisposable
 import java.lang.Exception
 

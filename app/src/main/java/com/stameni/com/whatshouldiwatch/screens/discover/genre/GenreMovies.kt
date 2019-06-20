@@ -1,6 +1,5 @@
 package com.stameni.com.whatshouldiwatch.screens.discover.genre
 
-import android.graphics.drawable.Animatable
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -36,18 +35,18 @@ class GenreMovies : BaseFragment() {
 
         viewModel.getGenreList()
 
-        recycler_view.setHasFixedSize(true)
-        recycler_view.layoutManager = LinearLayoutManager(context)
-        (recycler_view.itemAnimator as SimpleItemAnimator).supportsChangeAnimations = false
+        movie_recycler_view.setHasFixedSize(true)
+        movie_recycler_view.layoutManager = LinearLayoutManager(context)
+        (movie_recycler_view.itemAnimator as SimpleItemAnimator).supportsChangeAnimations = false
 
         viewModel.fetchedGenres.observe(this, Observer {
-            recycler_view.visibility = View.VISIBLE
+            movie_recycler_view.visibility = View.VISIBLE
             gif_progress_bar.visibility = View.GONE
-            recycler_view.adapter = GenreListAdapter(it)
+            movie_recycler_view.adapter = GenreListAdapter(it)
         })
 
         viewModel.fetchError.observe(this, Observer {
-            recycler_view.visibility = View.VISIBLE
+            movie_recycler_view.visibility = View.VISIBLE
             gif_progress_bar.visibility = View.GONE
             Log.e("test", Log.getStackTraceString(it))
         })

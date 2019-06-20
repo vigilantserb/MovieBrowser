@@ -45,8 +45,8 @@ class UpcomingMovies : BaseFragment() {
         val gridLayoutManager = GridLayoutManager(view.context, 3, RecyclerView.VERTICAL, false)
         val adapter = MovieGridAdapter(ArrayList())
 
-        recycler_view.layoutManager = gridLayoutManager
-        recycler_view.adapter = adapter
+        movie_recycler_view.layoutManager = gridLayoutManager
+        movie_recycler_view.adapter = adapter
 
         viewModel = ViewModelProviders.of(this, viewModelFactory).get(UpcomingMoviesViewModel::class.java)
 
@@ -55,7 +55,7 @@ class UpcomingMovies : BaseFragment() {
         var snackbar = CustomSnackbar.make(view)
         snackbar.duration = 1000
 
-        recycler_view.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+        movie_recycler_view.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 if (gridLayoutManager.findLastVisibleItemPosition() == gridLayoutManager.itemCount - 1) {
                     if(currentPage <= totalPages){

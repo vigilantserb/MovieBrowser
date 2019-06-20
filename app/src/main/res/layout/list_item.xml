@@ -14,12 +14,15 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-        <pl.droidsonroids.gif.GifImageView
+        <com.pollux.widget.DualProgressView
                 android:id="@+id/gif_progress_bar"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 android:layout_gravity="center"
-                android:src="@drawable/ic_loading"/>
+                app:dpv_inner_color="@color/color_red"
+                app:dpv_inner_padding="8dp"
+                app:dpv_outer_color="@color/color_text"
+                app:dpv_thickness="2dp"/>
 
         <ImageView
                 android:id="@+id/list_poster"

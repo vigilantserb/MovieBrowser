@@ -29,8 +29,8 @@ class MovieListActivity : BaseActivity() {
         var layoutManager = LinearLayoutManager(this)
         var adapter = ListMoviesAdapter(ArrayList())
 
-        recycler_view.adapter = adapter
-        recycler_view.layoutManager = layoutManager
+        movie_recycler_view.adapter = adapter
+        movie_recycler_view.layoutManager = layoutManager
 
             if(intent.extras != null){
             val title = intent.extras!!.getString("title", "")

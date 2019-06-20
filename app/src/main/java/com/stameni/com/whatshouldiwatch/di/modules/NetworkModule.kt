@@ -6,7 +6,13 @@ import com.stameni.com.whatshouldiwatch.common.interceptors.ConnectivityIntercep
 import com.stameni.com.whatshouldiwatch.data.API_KEY
 import com.stameni.com.whatshouldiwatch.data.BASE_URL
 import com.stameni.com.whatshouldiwatch.data.MovieApi
-import com.stameni.com.whatshouldiwatch.data.networkData.*
+import com.stameni.com.whatshouldiwatch.data.networkData.lists.FetchGenreListUseCase
+import com.stameni.com.whatshouldiwatch.data.networkData.lists.FetchGenreListUseCaseImpl
+import com.stameni.com.whatshouldiwatch.data.networkData.lists.FetchListMoviesUseCase
+import com.stameni.com.whatshouldiwatch.data.networkData.lists.FetchListMoviesUseCaseImpl
+import com.stameni.com.whatshouldiwatch.data.networkData.movies.*
+import com.stameni.com.whatshouldiwatch.data.networkData.search.SearchByTermUseCase
+import com.stameni.com.whatshouldiwatch.data.networkData.search.SearchByTermUseCaseImpl
 import dagger.Module
 import dagger.Provides
 import okhttp3.Interceptor
@@ -71,8 +77,13 @@ class NetworkModule {
     }
 
     @Provides
-    fun getFetchUpcomingMoviesUseCase(movieApi: MovieApi): FetchUpcomingMovies = FetchUpcomingMoviesImpl(movieApi)
+    fun getFetchUpcomingMoviesUseCase(movieApi: MovieApi): FetchUpcomingMovies =
+        FetchUpcomingMoviesImpl(movieApi)
 
     @Provides
-    fun getFetchNowPlayingMoviesUseCase(movieApi: MovieApi): FetchNowPlayingMovies = FetchNowPlayingMoviesImpl(movieApi)
+    fun getFetchNowPlayingMoviesUseCase(movieApi: MovieApi): FetchNowPlayingMovies =
+        FetchNowPlayingMoviesImpl(movieApi)
+
+    @Provides
+    fun getSearchByTermUseCase(movieApi: MovieApi): SearchByTermUseCase = SearchByTermUseCaseImpl(movieApi)
 }

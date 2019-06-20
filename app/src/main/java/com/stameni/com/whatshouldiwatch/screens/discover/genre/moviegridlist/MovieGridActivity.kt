@@ -2,7 +2,6 @@ package com.stameni.com.whatshouldiwatch.screens.discover.genre.moviegridlist
 
 import android.os.Bundle
 import android.util.Log
-import android.view.MenuItem
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.GridLayoutManager
@@ -36,8 +35,8 @@ class MovieGridActivity : BaseActivity() {
         val gridLayoutManager = GridLayoutManager(this, 3, RecyclerView.VERTICAL, false)
         val adapter = MovieGridAdapter(ArrayList())
 
-        recycler_view.layoutManager = gridLayoutManager
-        recycler_view.adapter = adapter
+        movie_recycler_view.layoutManager = gridLayoutManager
+        movie_recycler_view.adapter = adapter
 
         viewModel = ViewModelProviders.of(this, viewModelFactory).get(MovieGridViewModel::class.java)
 
@@ -53,7 +52,7 @@ class MovieGridActivity : BaseActivity() {
 
             viewModel.getListMovies(genreId, FIRST_PAGE)
 
-            recycler_view.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            movie_recycler_view.addOnScrollListener(object : RecyclerView.OnScrollListener() {
                 override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                     if (gridLayoutManager.findLastVisibleItemPosition() == gridLayoutManager.itemCount - 1) {
                         if(currentPage <= totalPages){

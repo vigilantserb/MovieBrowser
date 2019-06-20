@@ -1,4 +1,4 @@
-package com.stameni.com.whatshouldiwatch.data.networkData
+package com.stameni.com.whatshouldiwatch.data.networkData.movies
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -10,9 +10,9 @@ import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 import retrofit2.Response
 
-class FetchNowPlayingMoviesImpl(
+class FetchUpcomingMoviesImpl(
     private val movieApi: MovieApi
-) : FetchNowPlayingMovies {
+) : FetchUpcomingMovies {
 
     private val _fetchedMovies = MutableLiveData<ArrayList<Movie>>()
 
@@ -24,13 +24,13 @@ class FetchNowPlayingMoviesImpl(
     override val totalPages: LiveData<Int>
         get() = _totalPages
 
-    private val _fetchError = MutableLiveData<Exception>()
+    private val _fetchError = MutableLiveData<java.lang.Exception>()
 
     override val fetchError: LiveData<Exception>
         get() = _fetchError
 
-    override fun getNowPlayingMovies(page: Int): Disposable {
-        return movieApi.getNowPlayingMovies(page)
+    override fun getUpcomingMovies(page: Int): Disposable {
+        return movieApi.getUpcomingMovies(page)
             .subscribeOn(Schedulers.io())
             .map {
                 getTotalpages(it)
@@ -39,7 +39,8 @@ class FetchNowPlayingMoviesImpl(
                 formatResponseData(it)
             }
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe({ onNowPlayingMoviesFetch(it) }, { onNowPlayingMoviesFetchFail(it) })
+            .subscribe({ onGenreMoviesFetch(it) }, { onGenreMovieFetchFail(it) })
+
     }
 
     private fun getTotalpages(response: Response<SearchSchema>): Response<SearchSchema> {
@@ -48,11 +49,11 @@ class FetchNowPlayingMoviesImpl(
         return response
     }
 
-    private fun onNowPlayingMoviesFetchFail(exception: Throwable) {
+    private fun onGenreMovieFetchFail(exception: Throwable) {
         _fetchError.value = exception as java.lang.Exception
     }
 
-    private fun onNowPlayingMoviesFetch(movies: ArrayList<Movie>) {
+    private fun onGenreMoviesFetch(movies: ArrayList<Movie>) {
         _fetchedMovies.value = movies
     }
 

@@ -1,9 +1,7 @@
 package com.stameni.com.whatshouldiwatch.data
 
 import com.stameni.com.whatshouldiwatch.common.interceptors.ConnectivityInterceptor
-import com.stameni.com.whatshouldiwatch.data.schemas.GenreListSchema
-import com.stameni.com.whatshouldiwatch.data.schemas.MovieListSchema
-import com.stameni.com.whatshouldiwatch.data.schemas.SearchSchema
+import com.stameni.com.whatshouldiwatch.data.schemas.*
 import io.reactivex.Observable
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
@@ -45,6 +43,21 @@ interface MovieApi {
     fun getNowPlayingMovies(
         @Query("page") page: Int = 1
     ): Observable<Response<SearchSchema>>
+
+    @GET("/3/search/movie")
+    fun searchMovies(
+        @Query("query") query: String
+    ): Observable<Response<SearchSchema>>
+
+    @GET("/3/search/tv")
+    fun searchTvShows(
+        @Query("query") query: String
+    ): Observable<Response<TvShowSearchSchema>>
+
+    @GET("/3/search/person")
+    fun searchPeople(
+        @Query("query") query: String
+    ): Observable<Response<PeopleSearchSchema>>
 
     companion object {
         operator fun invoke(connectivityInterceptor: ConnectivityInterceptor): MovieApi {

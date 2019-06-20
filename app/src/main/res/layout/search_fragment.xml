@@ -1,14 +1,104 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context=".screens.search.SearchFragment">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior"
+                tools:context=".screens.MainActivity"
+                android:background="@color/color_background">
 
-    <TextView
+    <EditText
+            android:id="@+id/input_search"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:hint="Search for movies, tv shows and actors"
+            android:textColor="@color/color_text"
+            android:textColorHint="@color/light_gray"
+            android:textCursorDrawable="@color/color_red"
+            android:backgroundTint="@color/color_red"
+            android:drawableLeft="@drawable/ic_search_black_24dp"
+            android:singleLine="true"
+            android:paddingBottom="20dp"/>
+
+    <androidx.core.widget.NestedScrollView
+            android:id="@+id/nested"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="Hello"/>
+            android:layout_below="@id/input_search">
 
-</FrameLayout>
+        <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="102dp"
+                android:orientation="vertical">
+
+            <LinearLayout
+                    android:id="@+id/progress_layout"
+                    android:orientation="horizontal"
+                    android:gravity="center"
+                    android:visibility="gone"
+                    android:layout_marginTop="20dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                <com.pollux.widget.DualProgressView
+                        android:id="@+id/gif_progress_bar"
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        app:dpv_inner_color="@color/color_red"
+                        app:dpv_inner_padding="8dp"
+                        app:dpv_outer_color="@color/color_text"
+                        app:dpv_thickness="2dp"/>
+
+            </LinearLayout>
+
+            <RelativeLayout
+                    android:id="@+id/movies"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_below="@id/input_search"
+                    android:background="@color/color_background">
+
+                <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/movie_recycler_view"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        tools:listitem="@layout/list_movie_item"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                    android:id="@+id/people"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_below="@id/movies"
+                    android:background="@color/color_background">
+
+                <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/people_recycler_view"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        tools:listitem="@layout/list_movie_item"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                    android:id="@+id/tv_shows"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_below="@id/people"
+                    android:background="@color/color_background">
+
+                <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/tv_show_recycler_view"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        tools:listitem="@layout/list_movie_item"/>
+
+            </RelativeLayout>
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+</RelativeLayout>

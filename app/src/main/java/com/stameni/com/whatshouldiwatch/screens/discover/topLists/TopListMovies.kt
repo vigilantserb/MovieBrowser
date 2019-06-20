@@ -25,10 +25,10 @@ class TopListMovies : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        recycler_view.setHasFixedSize(true)
-        recycler_view.layoutManager = LinearLayoutManager(context)
+        movie_recycler_view.setHasFixedSize(true)
+        movie_recycler_view.layoutManager = LinearLayoutManager(context)
         var listItems = getLists()
-        recycler_view.adapter = TopListAdapter(listItems)
+        movie_recycler_view.adapter = TopListAdapter(listItems)
     }
 
     private fun getLists(): List<ListItem> {

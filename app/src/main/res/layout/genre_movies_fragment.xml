@@ -20,11 +20,11 @@
             android:layout_marginTop="8dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintBottom_toBottomOf="@+id/recycler_view"
-            app:layout_constraintTop_toTopOf="@+id/recycler_view"/>
+            app:layout_constraintBottom_toBottomOf="@+id/movie_recycler_view"
+            app:layout_constraintTop_toTopOf="@+id/movie_recycler_view"/>
 
     <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recycler_view"
+            android:id="@+id/movie_recycler_view"
             android:visibility="gone"
             android:layout_width="0dp"
             android:layout_height="0dp"

@@ -1,4 +1,4 @@
-package com.stameni.com.whatshouldiwatch.data.networkData
+package com.stameni.com.whatshouldiwatch.data.networkData.movies
 
 import androidx.lifecycle.LiveData
 import com.stameni.com.whatshouldiwatch.data.models.Movie
