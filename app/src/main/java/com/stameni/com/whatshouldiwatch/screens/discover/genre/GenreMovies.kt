@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.SimpleItemAnimator
 import com.stameni.com.whatshouldiwatch.R
 import com.stameni.com.whatshouldiwatch.common.baseClasses.BaseFragment
 import com.stameni.com.whatshouldiwatch.common.ViewModelFactory
+import com.stameni.com.whatshouldiwatch.data.models.Genre
 import kotlinx.android.synthetic.main.genre_movies_fragment.*
 import javax.inject.Inject
 
@@ -28,21 +29,22 @@ class GenreMovies : BaseFragment() {
         return inflater.inflate(R.layout.genre_movies_fragment, container, false)
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         controllerComponent.inject(this)
         viewModel = ViewModelProviders.of(this, viewModelFactory).get(GenreMoviesViewModel::class.java)
+        val adapter = GenreListAdapter(ArrayList())
+        movie_recycler_view.adapter = adapter
 
         viewModel.getGenreList()
 
         movie_recycler_view.setHasFixedSize(true)
         movie_recycler_view.layoutManager = LinearLayoutManager(context)
-        (movie_recycler_view.itemAnimator as SimpleItemAnimator).supportsChangeAnimations = false
 
         viewModel.fetchedGenres.observe(this, Observer {
             movie_recycler_view.visibility = View.VISIBLE
             gif_progress_bar.visibility = View.GONE
-            movie_recycler_view.adapter = GenreListAdapter(it)
+            adapter.addAll(it)
         })
 
         viewModel.fetchError.observe(this, Observer {
@@ -50,7 +52,5 @@ class GenreMovies : BaseFragment() {
             gif_progress_bar.visibility = View.GONE
             Log.e("test", Log.getStackTraceString(it))
         })
-
     }
-
 }

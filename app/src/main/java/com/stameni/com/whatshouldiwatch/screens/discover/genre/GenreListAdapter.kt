@@ -13,7 +13,7 @@ import com.stameni.com.whatshouldiwatch.screens.discover.genre.moviegridlist.Mov
 import kotlinx.android.synthetic.main.list_item.view.*
 
 class GenreListAdapter(
-    private val items: List<Genre>
+    private val items: ArrayList<Genre>
 ) : RecyclerView.Adapter<GenreListAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -29,6 +29,17 @@ class GenreListAdapter(
 
     override fun getItemCount(): Int {
         return items.size
+    }
+
+    fun add(response: Genre) {
+        items.add(response)
+        notifyItemInserted(items.size - 1)
+    }
+
+    fun addAll(postItems: List<Genre>) {
+        for (response in postItems) {
+            add(response)
+        }
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {

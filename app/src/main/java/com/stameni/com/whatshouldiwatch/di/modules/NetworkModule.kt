@@ -3,9 +3,7 @@ package com.stameni.com.whatshouldiwatch.di.modules
 import android.content.Context
 import com.stameni.com.whatshouldiwatch.common.interceptors.ConnectivityInterceptor
 import com.stameni.com.whatshouldiwatch.common.interceptors.ConnectivityInterceptorImpl
-import com.stameni.com.whatshouldiwatch.data.API_KEY
-import com.stameni.com.whatshouldiwatch.data.BASE_URL
-import com.stameni.com.whatshouldiwatch.data.MovieApi
+import com.stameni.com.whatshouldiwatch.data.*
 import com.stameni.com.whatshouldiwatch.data.networkData.lists.FetchGenreListUseCase
 import com.stameni.com.whatshouldiwatch.data.networkData.lists.FetchGenreListUseCaseImpl
 import com.stameni.com.whatshouldiwatch.data.networkData.lists.FetchListMoviesUseCase
@@ -60,6 +58,40 @@ class NetworkModule {
             .build()
             .create(MovieApi::class.java)
     }
+
+    @Provides
+    internal fun getNewsApi(retrofit: Retrofit, connectivityInterceptor: ConnectivityInterceptor): NewsApi {
+        val requestInterceptor = Interceptor { chain ->
+            val url = chain.request()
+                .url()
+                .newBuilder()
+                .addQueryParameter("apiKey", NEWS_API_KEY)
+                .build()
+            val request = chain.request()
+                .newBuilder()
+                .url(url)
+                .build()
+            return@Interceptor chain.proceed(request)
+        }
+
+        val logging = HttpLoggingInterceptor()
+        logging.level = HttpLoggingInterceptor.Level.BODY
+
+        val okHttpClient = OkHttpClient.Builder()
+            .addInterceptor(logging)
+            .addInterceptor(requestInterceptor)
+            .addInterceptor(connectivityInterceptor)
+            .build()
+
+        return Retrofit.Builder()
+            .client(okHttpClient)
+            .baseUrl(NEWS_BASE_URL)
+            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+            .create(NewsApi::class.java)
+    }
+
 
     @Provides
     fun getFetchGenresUseCase(movieApi: MovieApi): FetchGenreListUseCase {
