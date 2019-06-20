@@ -71,19 +71,19 @@ class SearchByTermUseCaseImpl(
 
         if(tvShowData.body() != null){
             tvShowData.body()!!.results.forEach {
-                searchData.add(SearchItem(it.name, it.posterPath, "TV Show"))
+                searchData.add(SearchItem(it.name, it.posterPath, "TV Show", it.firstAirDate))
             }
         }
 
         if(movieData?.body() != null){
             movieData.body()!!.results.forEach {
-                searchData.add(SearchItem(it.title, it.posterPath, "Movie"))
+                searchData.add(SearchItem(it.title, it.posterPath, "Movie", it.releaseDate))
             }
         }
 
         if(peopleData.body() != null){
             peopleData.body()!!.results.forEach {
-                searchData.add(SearchItem(it.name, it.profilePath, "People"))
+                searchData.add(SearchItem(it.name, it.profilePath, "Person", ""))
             }
         }
 
