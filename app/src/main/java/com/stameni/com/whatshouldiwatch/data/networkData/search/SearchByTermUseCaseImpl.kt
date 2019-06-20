@@ -48,11 +48,6 @@ class SearchByTermUseCaseImpl(
             Function3<Response<SearchSchema>, Response<PeopleSearchSchema>, Response<TvShowSearchSchema>, ArrayList<SearchItem>> { t1, t2, t3 ->
                 formatSearchData(t1, t2, t3)
             })
-//            .map { orderByRating(it) }
-            .flatMapIterable {
-                    it -> it
-            }
-            .buffer(10)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({ onSearchDataFetch(it) }, { onSearchDataFetchFail(it as Exception) })

@@ -92,6 +92,8 @@ class SearchFragment : BaseFragment() {
     private fun searchQuery(it: String) {
         progress_layout.visibility = View.VISIBLE
         movieSearchAdapter.removeAll()
+        peopleSearchAdapter.removeAll()
+        tvShowSearchAdapter.removeAll()
         viewModel.searchByTerm(it)
     }
 
