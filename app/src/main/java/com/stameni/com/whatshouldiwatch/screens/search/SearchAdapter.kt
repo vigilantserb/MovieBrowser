@@ -38,7 +38,10 @@ class SearchAdapter(
         var listItem = items[position]
         holder.movieTitle.text = listItem.title
         holder.movieGenres.text = listItem.type
+        holder.year.text = listItem.year
         val url = listItem.url
+
+        if(holder.year.text.isEmpty()) holder.year.visibility = View.GONE
 
         if (url != null) holder.addImageFromUrl(url)
 
@@ -54,6 +57,7 @@ class SearchAdapter(
         var movieTitle = itemView.movie_title
         var moviePoster = itemView.movie_poster
         var movieGenres = itemView.genres_text_view
+        var year = itemView.year_text_view
         var context = parent.context
 
         fun addImageFromUrl(url: String) {
