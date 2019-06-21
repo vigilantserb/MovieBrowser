@@ -4,9 +4,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.stameni.com.whatshouldiwatch.data.MovieApi
 import com.stameni.com.whatshouldiwatch.data.models.SearchItem
-import com.stameni.com.whatshouldiwatch.data.schemas.PeopleSearchSchema
-import com.stameni.com.whatshouldiwatch.data.schemas.SearchSchema
-import com.stameni.com.whatshouldiwatch.data.schemas.TvShowSearchSchema
+import com.stameni.com.whatshouldiwatch.data.schemas.actor.PeopleSearchSchema
+import com.stameni.com.whatshouldiwatch.data.schemas.movie.SearchSchema
+import com.stameni.com.whatshouldiwatch.data.schemas.tvShow.TvShowSearchSchema
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable

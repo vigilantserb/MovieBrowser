@@ -1,7 +1,8 @@
 package com.stameni.com.whatshouldiwatch.data
 
 import com.stameni.com.whatshouldiwatch.common.interceptors.ConnectivityInterceptor
-import com.stameni.com.whatshouldiwatch.data.schemas.GenreListSchema
+import com.stameni.com.whatshouldiwatch.data.schemas.genre.GenreListSchema
+import com.stameni.com.whatshouldiwatch.data.schemas.news.NewsSearchSchema
 import io.reactivex.Observable
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
@@ -11,15 +12,18 @@ import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
+import retrofit2.http.Query
 
 const val NEWS_BASE_URL = "https://newsapi.org/v2/"
 const val NEWS_API_KEY = "825392855b5d4944afdc20a5782d174b"
 
 interface NewsApi {
 
-    @GET("/3/genre/movie/list")
+    @GET("/everything")
     fun getEntertainmentNews(
-    ): Observable<Response<GenreListSchema>>
+        @Query("q") terms: String = "premiere AND movie",
+        @Query("language") language: String = "en"
+    ): Observable<Response<NewsSearchSchema>>
 
     companion object {
         operator fun invoke(connectivityInterceptor: ConnectivityInterceptor): NewsApi {

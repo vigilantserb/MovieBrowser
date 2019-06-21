@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.stameni.com.whatshouldiwatch.data.MovieApi
 import com.stameni.com.whatshouldiwatch.data.models.Genre
-import com.stameni.com.whatshouldiwatch.data.schemas.GenreListSchema
+import com.stameni.com.whatshouldiwatch.data.schemas.genre.GenreListSchema
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers

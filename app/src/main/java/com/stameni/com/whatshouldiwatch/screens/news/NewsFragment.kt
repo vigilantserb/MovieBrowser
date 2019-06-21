@@ -10,11 +10,6 @@ import android.view.ViewGroup
 import com.stameni.com.whatshouldiwatch.R
 
 class NewsFragment : Fragment() {
-
-    companion object {
-        fun newInstance() = NewsFragment()
-    }
-
     private lateinit var viewModel: NewsViewModel
 
     override fun onCreateView(

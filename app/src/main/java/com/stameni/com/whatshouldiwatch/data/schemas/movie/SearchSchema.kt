@@ -1,7 +1,8 @@
-package com.stameni.com.whatshouldiwatch.data.schemas
+package com.stameni.com.whatshouldiwatch.data.schemas.movie
 
 
 import com.google.gson.annotations.SerializedName
+import com.stameni.com.whatshouldiwatch.data.schemas.movie.MovieSearchSchema
 
 data class SearchSchema(
     @SerializedName("page")

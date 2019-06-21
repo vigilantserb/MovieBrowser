@@ -1,7 +1,11 @@
 package com.stameni.com.whatshouldiwatch.data
 
 import com.stameni.com.whatshouldiwatch.common.interceptors.ConnectivityInterceptor
-import com.stameni.com.whatshouldiwatch.data.schemas.*
+import com.stameni.com.whatshouldiwatch.data.schemas.actor.PeopleSearchSchema
+import com.stameni.com.whatshouldiwatch.data.schemas.genre.GenreListSchema
+import com.stameni.com.whatshouldiwatch.data.schemas.movie.MovieListSchema
+import com.stameni.com.whatshouldiwatch.data.schemas.movie.SearchSchema
+import com.stameni.com.whatshouldiwatch.data.schemas.tvShow.TvShowSearchSchema
 import io.reactivex.Observable
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
