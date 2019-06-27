@@ -21,6 +21,7 @@
             android:backgroundTint="@color/color_red"
             android:drawableLeft="@drawable/ic_search_black_24dp"
             android:singleLine="true"
+            android:imeOptions="actionDone"
             android:paddingBottom="20dp"/>
 
     <androidx.core.widget.NestedScrollView
