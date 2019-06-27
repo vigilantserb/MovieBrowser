@@ -60,7 +60,7 @@ class FetchEntertainmentNewsUseCaseImpl(
 
         if(response.body() != null){
             response.body()!!.articles.forEach {
-                newsData.add(NewsItem(it.title, it.description, it.publishedAt, it.source.name, it.urlToImage))
+                newsData.add(NewsItem(it.title, it.description, it.publishedAt, it.source.name, it.urlToImage, it.url))
             }
         }
 

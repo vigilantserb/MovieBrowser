@@ -14,6 +14,12 @@
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
         <activity
+                android:name=".screens.news.NewsWebViewActivity"
+                android:configChanges="orientation"
+                android:screenOrientation="portrait"
+                android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+        <activity
                 android:name=".screens.discover.genre.moviegridlist.MovieGridActivity"
                 android:configChanges="orientation"
                 android:screenOrientation="portrait"
@@ -22,9 +28,9 @@
         <activity
                 android:name=".screens.discover.topLists.movielist.MovieListActivity"
                 android:configChanges="orientation"
-                android:screenOrientation="portrait"
                 android:label="@string/title_activity_movie_list"
                 android:parentActivityName=".screens.MainActivity"
+                android:screenOrientation="portrait"
                 android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                     android:name="android.support.PARENT_ACTIVITY"

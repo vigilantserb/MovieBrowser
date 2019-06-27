@@ -1,5 +1,6 @@
 package com.stameni.com.whatshouldiwatch.screens.news
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -20,12 +21,10 @@ class NewsAdapter(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val v = LayoutInflater.from(parent.context).inflate(R.layout.news_item, parent, false)
         return ViewHolder(v, parent).listen { position, type ->
-            //            val item = items[position]
-//            val intent = Intent(parent.context, MovieListActivity::class.java)
-//            intent.putExtra("url", item.url)
-//            intent.putExtra("title", item.title)
-//            intent.putExtra("id", item.id)
-//            parent.context.startActivity(intent)
+            val item = items[position]
+            val intent = Intent(parent.context, NewsWebViewActivity::class.java)
+            intent.putExtra("source", item.source)
+            parent.context.startActivity(intent)
         }
     }
 
