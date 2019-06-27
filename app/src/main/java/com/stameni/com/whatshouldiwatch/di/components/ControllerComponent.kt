@@ -8,6 +8,7 @@ import com.stameni.com.whatshouldiwatch.screens.discover.genre.moviegridlist.Mov
 import com.stameni.com.whatshouldiwatch.screens.discover.nowPlaying.NowPlayingMovies
 import com.stameni.com.whatshouldiwatch.screens.discover.topLists.movielist.MovieListActivity
 import com.stameni.com.whatshouldiwatch.screens.discover.upcoming.UpcomingMovies
+import com.stameni.com.whatshouldiwatch.screens.news.NewsFragment
 import com.stameni.com.whatshouldiwatch.screens.search.SearchFragment
 import dagger.Subcomponent
 
@@ -19,4 +20,5 @@ interface ControllerComponent {
     fun inject(upcomingMovies: UpcomingMovies)
     fun inject(nowPlayingMovies: NowPlayingMovies)
     fun inject(searchFragment: SearchFragment)
+    fun inject(newsFragment: NewsFragment)
 }

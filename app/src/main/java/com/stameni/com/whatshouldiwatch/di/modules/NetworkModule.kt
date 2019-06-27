@@ -9,6 +9,8 @@ import com.stameni.com.whatshouldiwatch.data.networkData.lists.FetchGenreListUse
 import com.stameni.com.whatshouldiwatch.data.networkData.lists.FetchListMoviesUseCase
 import com.stameni.com.whatshouldiwatch.data.networkData.lists.FetchListMoviesUseCaseImpl
 import com.stameni.com.whatshouldiwatch.data.networkData.movies.*
+import com.stameni.com.whatshouldiwatch.data.networkData.news.FetchEntertainmentNewsUseCase
+import com.stameni.com.whatshouldiwatch.data.networkData.news.FetchEntertainmentNewsUseCaseImpl
 import com.stameni.com.whatshouldiwatch.data.networkData.search.SearchByTermUseCase
 import com.stameni.com.whatshouldiwatch.data.networkData.search.SearchByTermUseCaseImpl
 import dagger.Module
@@ -118,4 +120,7 @@ class NetworkModule {
 
     @Provides
     fun getSearchByTermUseCase(movieApi: MovieApi): SearchByTermUseCase = SearchByTermUseCaseImpl(movieApi)
+
+    @Provides
+    fun getEntertainmentNewsUseCase(newsApi: NewsApi): FetchEntertainmentNewsUseCase = FetchEntertainmentNewsUseCaseImpl(newsApi)
 }

@@ -14,22 +14,37 @@ class FetchEntertainmentNewsUseCaseImpl(
     private val newsApi: NewsApi
 ) : FetchEntertainmentNewsUseCase {
 
-    private val _fetchedNews = MutableLiveData<ArrayList<NewsItem>>()
+    private val resultsPerPage = 20
 
-    private val _fetchError = MutableLiveData<java.lang.Exception>()
+    private val _fetchedNews = MutableLiveData<ArrayList<NewsItem>>()
 
     override val fetchedNews: LiveData<ArrayList<NewsItem>>
         get() = _fetchedNews
 
+    private val _fetchError = MutableLiveData<java.lang.Exception>()
+
     override val fetchError: LiveData<Exception>
         get() = _fetchError
 
-    override fun fetchEntertainmentNews(): Disposable {
-        return newsApi.getEntertainmentNews()
+    private val _totalPages = MutableLiveData<Int>()
+
+    override val totalPages: LiveData<Int>
+        get() = _totalPages
+
+    override fun fetchEntertainmentNews(currentPage: Int): Disposable {
+        return newsApi.getEntertainmentNews(currentPage)
             .subscribeOn(Schedulers.io())
+            .map { getTotalPages(it)}
             .map { formatResponseData(it) }
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({ onNewsFetch(it) }, { onNewsFetchFail(it as java.lang.Exception) })
+    }
+
+    private fun getTotalPages(response: Response<NewsSearchSchema>): Response<NewsSearchSchema> {
+        if(response.body() != null){
+            _totalPages.postValue((response.body()!!.totalResults / resultsPerPage))
+        }
+        return response
     }
 
     private fun onNewsFetchFail(exception: java.lang.Exception) {

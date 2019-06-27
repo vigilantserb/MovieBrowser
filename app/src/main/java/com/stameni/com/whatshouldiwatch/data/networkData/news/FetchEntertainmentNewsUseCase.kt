@@ -8,7 +8,9 @@ interface FetchEntertainmentNewsUseCase {
 
     val fetchedNews: LiveData<ArrayList<NewsItem>>
 
+    val totalPages: LiveData<Int>
+
     val fetchError: LiveData<Exception>
 
-    fun fetchEntertainmentNews(): Disposable
+    fun fetchEntertainmentNews(currentPage: Int): Disposable
 }

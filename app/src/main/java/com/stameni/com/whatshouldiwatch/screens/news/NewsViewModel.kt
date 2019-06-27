@@ -1,7 +1,24 @@
 package com.stameni.com.whatshouldiwatch.screens.news
 
-import androidx.lifecycle.ViewModel;
+import androidx.lifecycle.ViewModel
+import com.stameni.com.whatshouldiwatch.data.networkData.news.FetchEntertainmentNewsUseCase
+import io.reactivex.disposables.CompositeDisposable
 
-class NewsViewModel : ViewModel() {
-    // TODO: Implement the ViewModel
+class NewsViewModel(
+    private val fetchEntertainmentNewsUseCase: FetchEntertainmentNewsUseCase
+) : ViewModel() {
+
+    val disposables = CompositeDisposable()
+
+    val fetchedNews
+        get() = fetchEntertainmentNewsUseCase.fetchedNews
+
+    val totalPages
+        get() = fetchEntertainmentNewsUseCase.totalPages
+
+    fun fetchEntertainmentNews(currentPage: Int) {
+        disposables.add(
+            fetchEntertainmentNewsUseCase.fetchEntertainmentNews(currentPage)
+        )
+    }
 }

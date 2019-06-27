@@ -19,10 +19,12 @@ const val NEWS_API_KEY = "825392855b5d4944afdc20a5782d174b"
 
 interface NewsApi {
 
-    @GET("/everything")
+    @GET("/v2/everything")
     fun getEntertainmentNews(
+        @Query("page") page: Int = 1,
         @Query("q") terms: String = "premiere AND movie",
-        @Query("language") language: String = "en"
+        @Query("language") language: String = "en",
+        @Query("sortBy") sortBy: String = "publishedAt"
     ): Observable<Response<NewsSearchSchema>>
 
     companion object {

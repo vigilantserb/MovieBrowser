@@ -7,12 +7,14 @@ import com.stameni.com.whatshouldiwatch.data.networkData.lists.FetchListMoviesUs
 import com.stameni.com.whatshouldiwatch.data.networkData.movies.FetchMoviesByGenreUseCase;
 import com.stameni.com.whatshouldiwatch.data.networkData.movies.FetchNowPlayingMovies;
 import com.stameni.com.whatshouldiwatch.data.networkData.movies.FetchUpcomingMovies;
+import com.stameni.com.whatshouldiwatch.data.networkData.news.FetchEntertainmentNewsUseCase;
 import com.stameni.com.whatshouldiwatch.data.networkData.search.SearchByTermUseCase;
 import com.stameni.com.whatshouldiwatch.screens.discover.genre.GenreMoviesViewModel;
 import com.stameni.com.whatshouldiwatch.screens.discover.genre.moviegridlist.MovieGridViewModel;
 import com.stameni.com.whatshouldiwatch.screens.discover.nowPlaying.NowPlayingMoviesViewModel;
 import com.stameni.com.whatshouldiwatch.screens.discover.topLists.movielist.MovieListViewModel;
 import com.stameni.com.whatshouldiwatch.screens.discover.upcoming.UpcomingMoviesViewModel;
+import com.stameni.com.whatshouldiwatch.screens.news.NewsViewModel;
 import com.stameni.com.whatshouldiwatch.screens.search.SearchViewModel;
 import dagger.MapKey;
 import dagger.Module;
@@ -81,5 +83,12 @@ public class ViewModelModule {
     @ViewModelKey(SearchViewModel.class)
     ViewModel searchViewModel(SearchByTermUseCase searchByTermUseCase) {
         return new SearchViewModel(searchByTermUseCase);
+    }
+
+    @Provides
+    @IntoMap
+    @ViewModelKey(NewsViewModel.class)
+    ViewModel newsViewModel(FetchEntertainmentNewsUseCase fetchEntertainmentNewsUseCase) {
+        return new NewsViewModel(fetchEntertainmentNewsUseCase);
     }
 }
