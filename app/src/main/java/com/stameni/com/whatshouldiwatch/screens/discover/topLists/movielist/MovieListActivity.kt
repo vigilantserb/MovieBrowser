@@ -1,11 +1,13 @@
 package com.stameni.com.whatshouldiwatch.screens.discover.topLists.movielist
 
 import android.os.Bundle
+import android.view.View
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.stameni.com.whatshouldiwatch.R
+import com.stameni.com.whatshouldiwatch.common.ImageLoader
 import com.stameni.com.whatshouldiwatch.common.ViewModelFactory
 import com.stameni.com.whatshouldiwatch.common.baseClasses.BaseActivity
 import kotlinx.android.synthetic.main.activity_movie_list.*
@@ -19,6 +21,9 @@ class MovieListActivity : BaseActivity() {
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
 
+    @Inject
+    lateinit var imageLoader: ImageLoader
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         getControllerComponent().inject(this)
@@ -27,7 +32,8 @@ class MovieListActivity : BaseActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         var layoutManager = LinearLayoutManager(this)
-        var adapter = ListMoviesAdapter(ArrayList())
+        var adapter = ListMoviesAdapter(ArrayList(), imageLoader)
+        layoutManager.apply { isAutoMeasureEnabled = false }
 
         movie_recycler_view.adapter = adapter
         movie_recycler_view.layoutManager = layoutManager

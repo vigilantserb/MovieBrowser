@@ -2,9 +2,12 @@ package com.stameni.com.whatshouldiwatch.di.modules
 
 import android.app.Activity
 import android.content.Context
+import android.content.SharedPreferences
+import android.preference.PreferenceManager
 import android.view.LayoutInflater
 import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentManager
+import com.stameni.com.whatshouldiwatch.common.ImageLoader
 import dagger.Module
 import dagger.Provides
 
@@ -30,4 +33,10 @@ class ControllerModule(private val mActivity: FragmentActivity) {
     internal fun context(activity: Activity): Context {
         return activity
     }
+
+    @Provides
+    internal fun getSharedPreferences(context: Context) = PreferenceManager.getDefaultSharedPreferences(context)
+
+    @Provides
+    internal fun getImageLoader(preferences: SharedPreferences) = ImageLoader(preferences, mActivity)
 }

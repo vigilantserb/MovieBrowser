@@ -16,6 +16,7 @@
 
         <com.pollux.widget.DualProgressView
                 android:id="@+id/gif_progress_bar"
+                android:visibility="gone"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 android:layout_gravity="center"

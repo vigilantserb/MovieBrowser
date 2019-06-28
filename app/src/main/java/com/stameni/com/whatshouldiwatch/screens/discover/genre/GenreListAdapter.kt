@@ -7,13 +7,15 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.stameni.com.whatshouldiwatch.R
+import com.stameni.com.whatshouldiwatch.common.ImageLoader
 import com.stameni.com.whatshouldiwatch.common.listen
 import com.stameni.com.whatshouldiwatch.data.models.Genre
 import com.stameni.com.whatshouldiwatch.screens.discover.genre.moviegridlist.MovieGridActivity
 import kotlinx.android.synthetic.main.list_item.view.*
 
 class GenreListAdapter(
-    private val items: ArrayList<Genre>
+    private val items: ArrayList<Genre>,
+    private val imageLoader: ImageLoader
 ) : RecyclerView.Adapter<GenreListAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -47,20 +49,12 @@ class GenreListAdapter(
         holder.movieListTitle.text = listItem.genreName
         val url = listItem.url
 
-        holder.addImageFromUrl(url)
+        imageLoader.loadImageFromTmdb(url, holder.movieListPoster, null, "w500")
     }
 
     class ViewHolder(itemView: View, parent: ViewGroup) : RecyclerView.ViewHolder(itemView) {
         var movieListTitle = itemView.list_title
         var movieListPoster = itemView.list_poster
         var context = parent.context
-
-        fun addImageFromUrl(url: String) {
-            movieListPoster.visibility = View.VISIBLE
-            Glide.with(itemView.context)
-                .load("https://image.tmdb.org/t/p/w500/$url")
-                .centerCrop()
-                .into(movieListPoster)
-        }
     }
 }

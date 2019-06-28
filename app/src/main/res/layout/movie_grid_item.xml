@@ -2,15 +2,33 @@
 <LinearLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:layout_height="wrap_content"
+        xmlns:tools="http://schemas.android.com/tools" android:layout_height="wrap_content"
         android:layout_width="match_parent"
-        android:padding="2dp"
-        android:background="@color/color_background">
+        android:background="@color/color_background"
+        android:layout_margin="2dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/movie_item_cl"
             android:layout_width="match_parent"
+            android:background="@drawable/border"
             android:layout_height="169dp">
+
+        <TextView
+                android:id="@+id/movie_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Shawshank's Redemption"
+                android:textColor="@color/color_text"
+                android:textAlignment="center"
+                android:maxLines="2"
+                android:rotation="-45"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginBottom="8dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"/>
 
         <com.pollux.widget.DualProgressView
                 android:id="@+id/gif_progress_bar"

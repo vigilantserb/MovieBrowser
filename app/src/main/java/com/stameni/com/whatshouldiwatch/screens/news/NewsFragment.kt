@@ -66,6 +66,7 @@ class NewsFragment : BaseFragment() {
 
         viewModel.fetchedNews.observe(this, Observer {
             if (it != null) {
+                if(gif_progress_bar.visibility == View.VISIBLE) gif_progress_bar.visibility = View.GONE
                 adapter.addAll(it)
             }
         })

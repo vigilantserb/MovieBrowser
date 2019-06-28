@@ -10,6 +10,7 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.SimpleItemAnimator
 import com.stameni.com.whatshouldiwatch.R
+import com.stameni.com.whatshouldiwatch.common.ImageLoader
 import com.stameni.com.whatshouldiwatch.common.baseClasses.BaseFragment
 import com.stameni.com.whatshouldiwatch.common.ViewModelFactory
 import com.stameni.com.whatshouldiwatch.data.models.Genre
@@ -19,8 +20,12 @@ import javax.inject.Inject
 class GenreMovies : BaseFragment() {
 
     private lateinit var viewModel: GenreMoviesViewModel
+
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
+
+    @Inject
+    lateinit var imageLoader: ImageLoader
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -33,7 +38,7 @@ class GenreMovies : BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
         controllerComponent.inject(this)
         viewModel = ViewModelProviders.of(this, viewModelFactory).get(GenreMoviesViewModel::class.java)
-        val adapter = GenreListAdapter(ArrayList())
+        val adapter = GenreListAdapter(ArrayList(), imageLoader)
         movie_recycler_view.adapter = adapter
 
         viewModel.getGenreList()

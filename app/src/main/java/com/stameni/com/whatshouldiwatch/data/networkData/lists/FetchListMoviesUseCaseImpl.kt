@@ -12,7 +12,7 @@ import io.reactivex.disposables.Disposable
 import io.reactivex.functions.BiFunction
 import io.reactivex.schedulers.Schedulers
 import retrofit2.Response
-import kotlin.collections.ArrayList
+import java.util.concurrent.TimeUnit
 
 
 class FetchListMoviesUseCaseImpl(
@@ -43,8 +43,8 @@ class FetchListMoviesUseCaseImpl(
                 formatListMovies(t1, t2)
             })
             .map { orderByRating(it) }
-            .flatMapIterable {
-                it -> it
+            .flatMapIterable { it ->
+                it
             }
             .buffer(10)
             .subscribeOn(Schedulers.io())
@@ -82,6 +82,7 @@ class FetchListMoviesUseCaseImpl(
     }
 
     private fun onListMovieFetch(response: ArrayList<Movie>) {
+        println("Movies fetched")
         _fetchedMovies.value = response
     }
 }

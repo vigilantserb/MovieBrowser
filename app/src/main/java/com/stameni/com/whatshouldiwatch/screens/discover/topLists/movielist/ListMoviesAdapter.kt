@@ -7,11 +7,13 @@ import android.view.animation.AlphaAnimation
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.stameni.com.whatshouldiwatch.R
+import com.stameni.com.whatshouldiwatch.common.ImageLoader
 import com.stameni.com.whatshouldiwatch.data.models.Movie
 import kotlinx.android.synthetic.main.list_movie_item.view.*
 
 class ListMoviesAdapter(
-    private val items: ArrayList<Movie>
+    private val items: ArrayList<Movie>,
+    private val imageLoader: ImageLoader
 ) : RecyclerView.Adapter<ListMoviesAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -42,7 +44,7 @@ class ListMoviesAdapter(
         holder.movieTitle.text = listItem.movieTitle
         val url = listItem.moviePosterUrl
 
-        holder.addImageFromUrl(url)
+        imageLoader.loadImageFromTmdb(url, holder.moviePoster, null, "w92")
         holder.setFadeAnimation(holder.itemView)
     }
 
@@ -51,14 +53,6 @@ class ListMoviesAdapter(
         var moviePoster = itemView.movie_poster
         var movieYear = itemView.year_text_view
         var movieGenres = itemView.genres_text_view
-        var context = parent.context
-
-        fun addImageFromUrl(url: String) {
-            Glide.with(context)
-                .load("https://image.tmdb.org/t/p/w500/$url")
-                .centerCrop()
-                .into(moviePoster)
-        }
 
         fun setFadeAnimation(view: View) {
             val anim = AlphaAnimation(0.0f, 1.0f)

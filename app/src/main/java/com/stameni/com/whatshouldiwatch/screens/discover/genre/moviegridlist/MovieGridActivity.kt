@@ -2,12 +2,14 @@ package com.stameni.com.whatshouldiwatch.screens.discover.genre.moviegridlist
 
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.stameni.com.whatshouldiwatch.R
 import com.stameni.com.whatshouldiwatch.common.CustomSnackbar
+import com.stameni.com.whatshouldiwatch.common.ImageLoader
 import com.stameni.com.whatshouldiwatch.common.ViewModelFactory
 import com.stameni.com.whatshouldiwatch.common.baseClasses.BaseActivity
 import kotlinx.android.synthetic.main.activity_movie_grid.*
@@ -21,6 +23,9 @@ class MovieGridActivity : BaseActivity() {
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
 
+    @Inject
+    lateinit var imageLoader: ImageLoader
+
     private lateinit var viewModel: MovieGridViewModel
 
     private var totalPages = 0
@@ -33,7 +38,7 @@ class MovieGridActivity : BaseActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         val gridLayoutManager = GridLayoutManager(this, 3, RecyclerView.VERTICAL, false)
-        val adapter = MovieGridAdapter(ArrayList())
+        val adapter = MovieGridAdapter(ArrayList(), imageLoader)
 
         movie_recycler_view.layoutManager = gridLayoutManager
         movie_recycler_view.adapter = adapter
@@ -47,7 +52,7 @@ class MovieGridActivity : BaseActivity() {
 
             supportActionBar!!.title = genreName
 
-            var snackbar = CustomSnackbar.make(root_view)
+            val snackbar = CustomSnackbar.make(root_view)
             snackbar.duration = 1000
 
             viewModel.getListMovies(genreId, FIRST_PAGE)
@@ -75,6 +80,7 @@ class MovieGridActivity : BaseActivity() {
 
             viewModel.fetchedMovies.observe(this, Observer {
                 if (it != null) {
+                    if(gif_progress_bar.visibility == View.VISIBLE) gif_progress_bar.visibility = View.GONE
                     adapter.addAll(it)
                 }
             })

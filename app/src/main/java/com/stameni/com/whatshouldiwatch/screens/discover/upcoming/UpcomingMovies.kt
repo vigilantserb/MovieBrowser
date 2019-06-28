@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.stameni.com.whatshouldiwatch.R
 import com.stameni.com.whatshouldiwatch.common.CustomSnackbar
+import com.stameni.com.whatshouldiwatch.common.ImageLoader
 import com.stameni.com.whatshouldiwatch.common.ViewModelFactory
 import com.stameni.com.whatshouldiwatch.common.baseClasses.BaseFragment
 import com.stameni.com.whatshouldiwatch.screens.discover.genre.moviegridlist.MovieGridAdapter
@@ -21,6 +22,9 @@ class UpcomingMovies : BaseFragment() {
 
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
+
+    @Inject
+    lateinit var imageLoader: ImageLoader
 
     private lateinit var viewModel: UpcomingMoviesViewModel
 
@@ -43,7 +47,7 @@ class UpcomingMovies : BaseFragment() {
         viewModel = ViewModelProviders.of(this, viewModelFactory).get(UpcomingMoviesViewModel::class.java)
 
         val gridLayoutManager = GridLayoutManager(view.context, 3, RecyclerView.VERTICAL, false)
-        val adapter = MovieGridAdapter(ArrayList())
+        val adapter = MovieGridAdapter(ArrayList(), imageLoader)
 
         movie_recycler_view.layoutManager = gridLayoutManager
         movie_recycler_view.adapter = adapter
@@ -77,6 +81,7 @@ class UpcomingMovies : BaseFragment() {
 
         viewModel.fetchedMovies.observe(this, Observer {
             if (it != null) {
+                if(gif_progress_bar.visibility == View.VISIBLE) gif_progress_bar.visibility = View.GONE
                 adapter.addAll(it)
             }
         })
