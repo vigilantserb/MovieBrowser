@@ -1,10 +1,10 @@
 package com.stameni.com.whatshouldiwatch.screens.discover.topLists.movielist
 
 import android.os.Bundle
-import android.view.View
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.stameni.com.whatshouldiwatch.R
 import com.stameni.com.whatshouldiwatch.common.ImageLoader
@@ -31,14 +31,13 @@ class MovieListActivity : BaseActivity() {
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        var layoutManager = LinearLayoutManager(this)
+        var layoutManager = GridLayoutManager(this, 1, RecyclerView.VERTICAL, false)
         var adapter = ListMoviesAdapter(ArrayList(), imageLoader)
-        layoutManager.apply { isAutoMeasureEnabled = false }
 
         movie_recycler_view.adapter = adapter
         movie_recycler_view.layoutManager = layoutManager
 
-            if(intent.extras != null){
+        if (intent.extras != null) {
             val title = intent.extras!!.getString("title", "")
             val url = intent.extras!!.getString("url", "")
             val id = intent.extras!!.getString("id", "0")
@@ -47,7 +46,7 @@ class MovieListActivity : BaseActivity() {
             viewModel = ViewModelProviders.of(this, viewModelFactory).get(MovieListViewModel::class.java)
             viewModel.getListMovies(id.toString())
             viewModel.fetchedGenres.observe(this, Observer {
-                if(it != null){
+                if (it != null) {
                     adapter.addAll(it)
                 }
             })

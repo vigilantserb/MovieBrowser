@@ -43,10 +43,6 @@ class FetchListMoviesUseCaseImpl(
                 formatListMovies(t1, t2)
             })
             .map { orderByRating(it) }
-            .flatMapIterable { it ->
-                it
-            }
-            .buffer(10)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({ onListMovieFetch(ArrayList(it)) }, { onListMovieFetchFail(it as Exception) })
@@ -72,7 +68,7 @@ class FetchListMoviesUseCaseImpl(
                     }
                 }
             }
-            formattedMovies.add(Movie(movie.title, movie.releaseDate, genres, movie.posterPath, movie.voteAverage))
+            formattedMovies.add(Movie(movie.id, movie.title, movie.releaseDate, genres, movie.posterPath, movie.voteAverage))
         }
         return formattedMovies
     }

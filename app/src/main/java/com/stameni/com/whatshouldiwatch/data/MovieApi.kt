@@ -5,6 +5,9 @@ import com.stameni.com.whatshouldiwatch.data.schemas.actor.PeopleSearchSchema
 import com.stameni.com.whatshouldiwatch.data.schemas.genre.GenreListSchema
 import com.stameni.com.whatshouldiwatch.data.schemas.movie.MovieListSchema
 import com.stameni.com.whatshouldiwatch.data.schemas.movie.SearchSchema
+import com.stameni.com.whatshouldiwatch.data.schemas.movie.cast.SingleMovieCastSchema
+import com.stameni.com.whatshouldiwatch.data.schemas.movie.details.SingleMovieDetailsSchema
+import com.stameni.com.whatshouldiwatch.data.schemas.movie.images.SingleMovieImagesSchema
 import com.stameni.com.whatshouldiwatch.data.schemas.tvShow.TvShowSearchSchema
 import io.reactivex.Observable
 import okhttp3.Interceptor
@@ -62,6 +65,27 @@ interface MovieApi {
     fun searchPeople(
         @Query("query") query: String
     ): Observable<Response<PeopleSearchSchema>>
+
+    @GET("/3/movie/{movie_id}/images")
+    fun getSingleMovieImages(
+        @Path("movie_id") movieId: Int
+    ): Observable<Response<SingleMovieImagesSchema>>
+
+    @GET("/3/movie/{movie_id}/credits")
+    fun getSingleMovieActors(
+        @Path("movie_id") movieId: Int
+    ): Observable<Response<SingleMovieCastSchema>>
+
+    @GET("/3/movie/{movie_id}/recommendations")
+    fun getSingleMovieRecommendations(
+        @Path("movie_id") movieId: Int
+    ): Observable<Response<SearchSchema>>
+
+    @GET("/3/movie/{movie_id}")
+    fun getSingleMovieDetails(
+        @Path("movie_id") movieId: Int,
+        @Query("append_to_response") append: String = "credits"
+    ): Observable<Response<SingleMovieDetailsSchema>>
 
     companion object {
         operator fun invoke(connectivityInterceptor: ConnectivityInterceptor): MovieApi {

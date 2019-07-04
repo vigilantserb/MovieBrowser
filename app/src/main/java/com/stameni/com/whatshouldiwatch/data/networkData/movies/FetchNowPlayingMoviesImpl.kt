@@ -62,7 +62,7 @@ class FetchNowPlayingMoviesImpl(
         if (response.body() != null) {
             response.body()!!.results.forEach {
                 movieData.add(
-                    Movie(it.title, "", "", it.posterPath, 0.0)
+                    Movie(it.id, it.title, "", "", it.posterPath, 0.0)
                 )
             }
         }

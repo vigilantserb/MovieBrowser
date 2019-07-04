@@ -9,6 +9,14 @@ import com.stameni.com.whatshouldiwatch.data.networkData.lists.FetchGenreListUse
 import com.stameni.com.whatshouldiwatch.data.networkData.lists.FetchListMoviesUseCase
 import com.stameni.com.whatshouldiwatch.data.networkData.lists.FetchListMoviesUseCaseImpl
 import com.stameni.com.whatshouldiwatch.data.networkData.movies.*
+import com.stameni.com.whatshouldiwatch.data.networkData.movies.singleMovie.cast.FetchSingleMovieActors
+import com.stameni.com.whatshouldiwatch.data.networkData.movies.singleMovie.cast.FetchSingleMovieActorsImpl
+import com.stameni.com.whatshouldiwatch.data.networkData.movies.singleMovie.details.FetchSingleMovieDetails
+import com.stameni.com.whatshouldiwatch.data.networkData.movies.singleMovie.details.FetchSingleMovieDetailsImpl
+import com.stameni.com.whatshouldiwatch.data.networkData.movies.singleMovie.images.FetchSingleMovieImages
+import com.stameni.com.whatshouldiwatch.data.networkData.movies.singleMovie.images.FetchSingleMovieImagesImpl
+import com.stameni.com.whatshouldiwatch.data.networkData.movies.singleMovie.recommendations.FetchSingleMovieRecommendations
+import com.stameni.com.whatshouldiwatch.data.networkData.movies.singleMovie.recommendations.FetchSingleMovieRecommendationsImpl
 import com.stameni.com.whatshouldiwatch.data.networkData.news.FetchEntertainmentNewsUseCase
 import com.stameni.com.whatshouldiwatch.data.networkData.news.FetchEntertainmentNewsUseCaseImpl
 import com.stameni.com.whatshouldiwatch.data.networkData.search.SearchByTermUseCase
@@ -123,4 +131,16 @@ class NetworkModule {
 
     @Provides
     fun getEntertainmentNewsUseCase(newsApi: NewsApi): FetchEntertainmentNewsUseCase = FetchEntertainmentNewsUseCaseImpl(newsApi)
+
+    @Provides
+    fun getSingleMovieImages(movieApi: MovieApi): FetchSingleMovieImages = FetchSingleMovieImagesImpl(movieApi)
+
+    @Provides
+    fun getSingleMovieActors(movieApi: MovieApi): FetchSingleMovieActors = FetchSingleMovieActorsImpl(movieApi)
+
+    @Provides
+    fun getSingleMovieRecommendations(movieApi: MovieApi): FetchSingleMovieRecommendations = FetchSingleMovieRecommendationsImpl(movieApi)
+
+    @Provides
+    fun getSingleMoviesDetails(movieApi: MovieApi): FetchSingleMovieDetails = FetchSingleMovieDetailsImpl(movieApi)
 }

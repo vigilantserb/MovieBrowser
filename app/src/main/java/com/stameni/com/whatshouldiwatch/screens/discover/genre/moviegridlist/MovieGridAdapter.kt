@@ -1,5 +1,6 @@
 package com.stameni.com.whatshouldiwatch.screens.discover.genre.moviegridlist
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,6 +11,7 @@ import com.stameni.com.whatshouldiwatch.R
 import com.stameni.com.whatshouldiwatch.common.ImageLoader
 import com.stameni.com.whatshouldiwatch.common.listen
 import com.stameni.com.whatshouldiwatch.data.models.Movie
+import com.stameni.com.whatshouldiwatch.screens.singleMovie.SingleMovieActivity
 import kotlinx.android.synthetic.main.movie_grid_item.view.*
 
 class MovieGridAdapter(
@@ -19,7 +21,14 @@ class MovieGridAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val v = LayoutInflater.from(parent.context).inflate(R.layout.movie_grid_item, parent, false)
-        return ViewHolder(v, parent)
+        return ViewHolder(v, parent).listen { position, type ->
+            val item = items[position]
+            val intent = Intent(parent.context, SingleMovieActivity::class.java)
+            intent.putExtra("posterUrl", item.moviePosterUrl)
+            intent.putExtra("movieId", item.movieId)
+            intent.putExtra("movieName", item.movieTitle)
+            parent.context.startActivity(intent)
+        }
     }
 
     override fun getItemCount(): Int {

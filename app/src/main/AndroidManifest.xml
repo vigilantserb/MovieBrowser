@@ -14,6 +14,12 @@
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
         <activity
+                android:name=".screens.singleMovie.SingleMovieActivity"
+                android:configChanges="orientation"
+                android:screenOrientation="portrait"
+                android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+        <activity
                 android:name=".screens.news.NewsWebViewActivity"
                 android:configChanges="orientation"
                 android:screenOrientation="portrait"

@@ -52,7 +52,7 @@ class FetchMoviesByGenreImpl(
         val movieData = ArrayList<Movie>()
         if (response.body() != null) {
             response.body()!!.results.forEach {
-                movieData.add(Movie(it.title, "", "", it.posterPath, 0.0))
+                movieData.add(Movie(it.id, it.title, "", "", it.posterPath, 0.0))
             }
         }
         return movieData

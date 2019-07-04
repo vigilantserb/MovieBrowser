@@ -7,6 +7,10 @@ import com.stameni.com.whatshouldiwatch.data.networkData.lists.FetchListMoviesUs
 import com.stameni.com.whatshouldiwatch.data.networkData.movies.FetchMoviesByGenreUseCase;
 import com.stameni.com.whatshouldiwatch.data.networkData.movies.FetchNowPlayingMovies;
 import com.stameni.com.whatshouldiwatch.data.networkData.movies.FetchUpcomingMovies;
+import com.stameni.com.whatshouldiwatch.data.networkData.movies.singleMovie.cast.FetchSingleMovieActors;
+import com.stameni.com.whatshouldiwatch.data.networkData.movies.singleMovie.details.FetchSingleMovieDetails;
+import com.stameni.com.whatshouldiwatch.data.networkData.movies.singleMovie.images.FetchSingleMovieImages;
+import com.stameni.com.whatshouldiwatch.data.networkData.movies.singleMovie.recommendations.FetchSingleMovieRecommendations;
 import com.stameni.com.whatshouldiwatch.data.networkData.news.FetchEntertainmentNewsUseCase;
 import com.stameni.com.whatshouldiwatch.data.networkData.search.SearchByTermUseCase;
 import com.stameni.com.whatshouldiwatch.screens.discover.genre.GenreMoviesViewModel;
@@ -16,6 +20,7 @@ import com.stameni.com.whatshouldiwatch.screens.discover.topLists.movielist.Movi
 import com.stameni.com.whatshouldiwatch.screens.discover.upcoming.UpcomingMoviesViewModel;
 import com.stameni.com.whatshouldiwatch.screens.news.NewsViewModel;
 import com.stameni.com.whatshouldiwatch.screens.search.SearchViewModel;
+import com.stameni.com.whatshouldiwatch.screens.singleMovie.SingleMovieViewModel;
 import dagger.MapKey;
 import dagger.Module;
 import dagger.Provides;
@@ -90,5 +95,16 @@ public class ViewModelModule {
     @ViewModelKey(NewsViewModel.class)
     ViewModel newsViewModel(FetchEntertainmentNewsUseCase fetchEntertainmentNewsUseCase) {
         return new NewsViewModel(fetchEntertainmentNewsUseCase);
+    }
+
+    @Provides
+    @IntoMap
+    @ViewModelKey(SingleMovieViewModel.class)
+    ViewModel singleMovieViewModel(
+            FetchSingleMovieImages fetchSingleMovieImages,
+            FetchSingleMovieActors fetchSingleMovieActors,
+            FetchSingleMovieRecommendations singleMovieRecommendations,
+            FetchSingleMovieDetails fetchSingleMovieDetails) {
+        return new SingleMovieViewModel(fetchSingleMovieImages, fetchSingleMovieActors, singleMovieRecommendations, fetchSingleMovieDetails);
     }
 }

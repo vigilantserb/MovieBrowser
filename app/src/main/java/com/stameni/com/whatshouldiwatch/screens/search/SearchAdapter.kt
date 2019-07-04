@@ -1,5 +1,6 @@
 package com.stameni.com.whatshouldiwatch.screens.search
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -7,7 +8,9 @@ import android.view.animation.AlphaAnimation
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.stameni.com.whatshouldiwatch.R
+import com.stameni.com.whatshouldiwatch.common.listen
 import com.stameni.com.whatshouldiwatch.data.models.SearchItem
+import com.stameni.com.whatshouldiwatch.screens.singleMovie.SingleMovieActivity
 import kotlinx.android.synthetic.main.list_movie_item.view.*
 
 class SearchAdapter(
@@ -16,7 +19,15 @@ class SearchAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val v = LayoutInflater.from(parent.context).inflate(R.layout.list_movie_item, parent, false)
-        return ViewHolder(v, parent)
+        return ViewHolder(v, parent).listen { position, type ->
+            val item = items[position]
+            val intent = Intent(parent.context, SingleMovieActivity::class.java)
+            intent.putExtra("posterUrl", item.url)
+            intent.putExtra("movieId", item.id)
+            intent.putExtra("movieName", item.title)
+            if (item.type == "Movie")
+                parent.context.startActivity(intent)
+        }
     }
 
     override fun getItemCount(): Int {
@@ -41,7 +52,7 @@ class SearchAdapter(
         holder.year.text = listItem.year
         val url = listItem.url
 
-        if(holder.year.text.isEmpty()) holder.year.visibility = View.GONE
+        if (holder.year.text.isEmpty()) holder.year.visibility = View.GONE
 
         if (url != null) holder.addImageFromUrl(url)
 

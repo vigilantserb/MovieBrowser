@@ -10,6 +10,7 @@ import com.stameni.com.whatshouldiwatch.screens.discover.topLists.movielist.Movi
 import com.stameni.com.whatshouldiwatch.screens.discover.upcoming.UpcomingMovies
 import com.stameni.com.whatshouldiwatch.screens.news.NewsFragment
 import com.stameni.com.whatshouldiwatch.screens.search.SearchFragment
+import com.stameni.com.whatshouldiwatch.screens.singleMovie.SingleMovieActivity
 import dagger.Subcomponent
 
 @Subcomponent(modules = [ControllerModule::class, ViewModelModule::class, NetworkModule::class])
@@ -21,4 +22,5 @@ interface ControllerComponent {
     fun inject(nowPlayingMovies: NowPlayingMovies)
     fun inject(searchFragment: SearchFragment)
     fun inject(newsFragment: NewsFragment)
+    fun inject(singleMovieActivity: SingleMovieActivity)
 }

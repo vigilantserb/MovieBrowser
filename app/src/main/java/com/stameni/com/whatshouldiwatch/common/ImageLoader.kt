@@ -14,12 +14,26 @@ class ImageLoader(
 
     fun loadImageFromTmdb(url: String, view: ImageView, progressBar: DualProgressView?, size: String) {
         val loadImage = preferences.getBoolean("loadImage", true)
+        val url = "https://image.tmdb.org/t/p/$size/$url"
+
+        if (loadImage) {
+            if (view.visibility == View.GONE)
+                view.visibility = View.VISIBLE
+            Glide.with(context)
+                .load(url)
+                .centerCrop()
+                .into(view)
+        } else {
+            if (progressBar != null) progressBar.visibility = View.GONE
+        }
+    }
+    fun loadImageFromTmdbNoFormat(url: String, view: ImageView, progressBar: DualProgressView?, size: String) {
+        val loadImage = preferences.getBoolean("loadImage", true)
 
         if (loadImage) {
             if (view.visibility == View.GONE) view.visibility = View.VISIBLE
             Glide.with(context)
                 .load("https://image.tmdb.org/t/p/$size/$url")
-                .centerCrop()
                 .into(view)
         } else {
             if (progressBar != null) progressBar.visibility = View.GONE

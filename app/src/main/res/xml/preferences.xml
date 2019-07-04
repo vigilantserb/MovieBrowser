@@ -1,0 +1,48 @@
+<PreferenceScreen
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <PreferenceCategory
+            app:key="notifications_category"
+            app:title="General">
+
+        <SwitchPreference
+                app:key="loadImage"
+                app:title="Allow images to be displayed"
+                app:defaultValue="true"/>
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+            app:key="storage_category"
+            app:title="Storage">
+
+        <Preference
+                app:key="imageCache"
+                app:title="Image Cache"
+                app:summary="Clean your memory from cached images"/>
+
+        <Preference
+                app:key="saveYourList"
+                app:title="Save your lists"/>
+
+        <Preference
+                app:key="googleDrive"
+                app:title="Import backup from google drive"/>
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+            app:key="about_us">
+
+        <Preference
+                app:key="about"
+                app:title="About"/>
+
+        <Preference
+                app:key="contactUs"
+                app:title="Contact us"/>
+
+    </PreferenceCategory>
+
+</PreferenceScreen>
