@@ -38,6 +38,7 @@ class SingleMovieActivity : BaseActivity() {
 
         val imagesManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
         val actorsManager = GridLayoutManager(this, 1, RecyclerView.HORIZONTAL, false)
+        val movieRecommendations = GridLayoutManager(this, 1, RecyclerView.HORIZONTAL, false)
 
         movie_images_rv.adapter = imagesAdapter
         movie_images_rv.layoutManager = imagesManager
@@ -46,7 +47,7 @@ class SingleMovieActivity : BaseActivity() {
         movie_actors_rv.adapter = actorsAdapter
         movie_actors_rv.addItemDecoration(DividerItemDecoration(this, RecyclerView.HORIZONTAL))
 
-        movie_recommendations_rv.layoutManager = GridLayoutManager(this, 1, RecyclerView.HORIZONTAL, false)
+        movie_recommendations_rv.layoutManager = movieRecommendations
         movie_recommendations_rv.adapter = recommendationsAdapter
 
         if (intent.extras != null) {
@@ -58,6 +59,7 @@ class SingleMovieActivity : BaseActivity() {
 
             supportActionBar!!.title = name
 
+            //TODO Use ImageLoader class here as well
             Glide.with(this)
                 .load("https://image.tmdb.org/t/p/w500/$url")
                 .error(R.drawable.ic_placeholder)
@@ -104,8 +106,6 @@ class SingleMovieActivity : BaseActivity() {
                     runtime.text = "${it.runtime.toString()} min"
                     rating.text = "Not found" //TODO placeholder
                     genres.text = it.genres
-                } else {
-                    println("fuu")
                 }
             })
         }
