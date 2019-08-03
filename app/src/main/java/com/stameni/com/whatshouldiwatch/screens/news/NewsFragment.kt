@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.stameni.com.whatshouldiwatch.R
 import com.stameni.com.whatshouldiwatch.common.CustomSnackbar
+import com.stameni.com.whatshouldiwatch.common.ImageLoader
 import com.stameni.com.whatshouldiwatch.common.ViewModelFactory
 import com.stameni.com.whatshouldiwatch.common.baseClasses.BaseFragment
 import kotlinx.android.synthetic.main.news_fragment.*
@@ -20,6 +21,9 @@ class NewsFragment : BaseFragment() {
 
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
+
+    @Inject
+    lateinit var imageLoader: ImageLoader
 
     private var currentPage = 1
     private var totalPages = 0
@@ -35,7 +39,7 @@ class NewsFragment : BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
         controllerComponent.inject(this)
 
-        val adapter = NewsAdapter(ArrayList())
+        val adapter = NewsAdapter(ArrayList(), imageLoader)
 
         news_recycler_view.adapter = adapter
         news_recycler_view.layoutManager = LinearLayoutManager(view.context)

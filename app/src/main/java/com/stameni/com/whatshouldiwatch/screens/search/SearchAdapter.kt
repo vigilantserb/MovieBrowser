@@ -8,6 +8,7 @@ import android.view.animation.AlphaAnimation
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.stameni.com.whatshouldiwatch.R
+import com.stameni.com.whatshouldiwatch.common.ImageLoader
 import com.stameni.com.whatshouldiwatch.common.listen
 import com.stameni.com.whatshouldiwatch.data.models.SearchItem
 import com.stameni.com.whatshouldiwatch.screens.singleActor.SingleActorActivity
@@ -15,7 +16,8 @@ import com.stameni.com.whatshouldiwatch.screens.singleMovie.SingleMovieActivity
 import kotlinx.android.synthetic.main.list_movie_item.view.*
 
 class SearchAdapter(
-    private val items: ArrayList<SearchItem>
+    private val items: ArrayList<SearchItem>,
+    private val imageLoader: ImageLoader
 ) : RecyclerView.Adapter<SearchAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -59,7 +61,7 @@ class SearchAdapter(
 
         if (holder.year.text.isEmpty()) holder.year.visibility = View.GONE
 
-        if (url != null) holder.addImageFromUrl(url)
+        if (url != null) imageLoader.loadPosterImageCenterCrop(url, holder.moviePoster, "w500")
 
         holder.setFadeAnimation(holder.itemView)
     }
@@ -76,14 +78,6 @@ class SearchAdapter(
         var movieGenres = itemView.genres_text_view
         var year = itemView.year_text_view
         var context = parent.context
-
-        fun addImageFromUrl(url: String) {
-            Glide.with(context)
-                .load("https://image.tmdb.org/t/p/w500/$url")
-                .centerCrop()
-                .placeholder(R.drawable.ic_placeholder)
-                .into(moviePoster)
-        }
 
         fun setFadeAnimation(view: View) {
             val anim = AlphaAnimation(0.0f, 1.0f)

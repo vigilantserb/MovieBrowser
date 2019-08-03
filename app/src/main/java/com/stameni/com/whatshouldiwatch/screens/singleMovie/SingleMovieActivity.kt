@@ -59,12 +59,7 @@ class SingleMovieActivity : BaseActivity() {
 
             supportActionBar!!.title = name
 
-            //TODO Use ImageLoader class here as well
-            Glide.with(this)
-                .load("https://image.tmdb.org/t/p/w500/$url")
-                .error(R.drawable.ic_placeholder)
-                .fitCenter()
-                .into(poster_image)
+            imageLoader.loadPosterImageFitCenter(url, poster_image, "w500")
 
             viewModel.fetchSingleMovieImages(id)
             viewModel.fetchSingleMovieActors(id)

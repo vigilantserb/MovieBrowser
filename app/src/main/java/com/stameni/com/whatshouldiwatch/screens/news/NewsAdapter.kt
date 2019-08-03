@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.stameni.com.whatshouldiwatch.R
+import com.stameni.com.whatshouldiwatch.common.ImageLoader
 import com.stameni.com.whatshouldiwatch.common.listen
 import com.stameni.com.whatshouldiwatch.data.models.NewsItem
 import kotlinx.android.synthetic.main.news_item.view.*
@@ -15,7 +16,8 @@ import org.threeten.bp.ZoneId
 import java.util.*
 
 class NewsAdapter(
-    private val items: ArrayList<NewsItem>
+    private val items: ArrayList<NewsItem>,
+    private val imageLoader: ImageLoader
 ) : RecyclerView.Adapter<NewsAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -53,7 +55,7 @@ class NewsAdapter(
         holder.newsDate.text = date.toString()
         val url = listItem.urlToImage
 
-        if(url != null) holder.addImageFromUrl(url)
+        if(url != null) imageLoader.loadNewsImageCenterCrop(url, holder.newsImage)
     }
 
     class ViewHolder(itemView: View, parent: ViewGroup) : RecyclerView.ViewHolder(itemView) {
@@ -62,12 +64,5 @@ class NewsAdapter(
         var newsSource = itemView.newsSource
         var newsDate = itemView.publishedAt
         var newsImage = itemView.imageView
-
-        fun addImageFromUrl(url: String) {
-            Glide.with(itemView.context)
-                .load(url)
-                .centerCrop()
-                .into(newsImage)
-        }
     }
 }

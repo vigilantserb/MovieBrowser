@@ -54,7 +54,7 @@ class ListMoviesAdapter(
         holder.movieTitle.text = listItem.movieTitle
         val url = listItem.moviePosterUrl
 
-        imageLoader.loadImageFromTmdb(url, holder.moviePoster, null, "w92")
+        imageLoader.loadPosterImageCenterCrop(url, holder.moviePoster, "w92")
         holder.setFadeAnimation(holder.itemView)
     }
 

@@ -46,7 +46,7 @@ class SingleMovieActorsAdapter(
         holder.actorName.text = listItem.actorName
         holder.castName.text = listItem.characterName
 
-        if(url != null) imageLoader.loadImageFromTmdbNoFormat(url, holder.actorImageView, null, "w500")
+        if(url != null) imageLoader.loadListImageCenterCrop(url, holder.actorImageView,  "w500")
     }
 
     class ViewHolder(itemView: View, parent: ViewGroup) : RecyclerView.ViewHolder(itemView) {

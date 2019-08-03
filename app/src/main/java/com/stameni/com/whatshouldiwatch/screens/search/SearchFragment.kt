@@ -10,6 +10,7 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.jakewharton.rxbinding3.widget.textChangeEvents
 import com.stameni.com.whatshouldiwatch.R
+import com.stameni.com.whatshouldiwatch.common.ImageLoader
 import com.stameni.com.whatshouldiwatch.common.ViewModelFactory
 import com.stameni.com.whatshouldiwatch.common.baseClasses.BaseFragment
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -28,6 +29,9 @@ class SearchFragment : BaseFragment() {
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
 
+    @Inject
+    lateinit var imageLoader: ImageLoader
+
     private lateinit var movieSearchAdapter: SearchAdapter
     private lateinit var tvShowSearchAdapter: SearchAdapter
     private lateinit var peopleSearchAdapter: SearchAdapter
@@ -44,9 +48,9 @@ class SearchFragment : BaseFragment() {
         controllerComponent.inject(this)
         viewModel = ViewModelProviders.of(this, viewModelFactory).get(SearchViewModel::class.java)
 
-        movieSearchAdapter = SearchAdapter(ArrayList())
-        tvShowSearchAdapter = SearchAdapter(ArrayList())
-        peopleSearchAdapter = SearchAdapter(ArrayList())
+        movieSearchAdapter = SearchAdapter(ArrayList(), imageLoader)
+        tvShowSearchAdapter = SearchAdapter(ArrayList(), imageLoader)
+        peopleSearchAdapter = SearchAdapter(ArrayList(), imageLoader)
 
         movie_recycler_view.adapter = movieSearchAdapter
         movie_recycler_view.layoutManager = LinearLayoutManager(view.context)

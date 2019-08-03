@@ -44,7 +44,7 @@ class SingleMovieImagesAdapter(
         var listItem = items[position]
         val url = listItem.imageUrl
 
-        if(url != null) imageLoader.loadImageFromTmdbNoFormat(url, holder.movieImageView, null, "w500")
+        if(url != null) imageLoader.loadImageNoFormat(url, holder.movieImageView, "w500")
     }
 
     class ViewHolder(itemView: View, parent: ViewGroup) : RecyclerView.ViewHolder(itemView) {

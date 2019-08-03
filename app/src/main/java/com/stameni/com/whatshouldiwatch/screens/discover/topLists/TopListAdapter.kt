@@ -5,15 +5,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
 import com.stameni.com.whatshouldiwatch.R
+import com.stameni.com.whatshouldiwatch.common.ImageLoader
 import com.stameni.com.whatshouldiwatch.common.listen
 import com.stameni.com.whatshouldiwatch.data.models.ListItem
 import com.stameni.com.whatshouldiwatch.screens.discover.topLists.movielist.MovieListActivity
 import kotlinx.android.synthetic.main.list_item.view.*
 
 class TopListAdapter(
-    private val items: List<ListItem>
+    private val items: List<ListItem>,
+    private val imageLoader: ImageLoader
 ) : RecyclerView.Adapter<TopListAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -33,24 +34,16 @@ class TopListAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        var listItem = items[position]
+        val listItem = items[position]
         holder.movieListTitle.text = listItem.title
         val url = listItem.url
 
-        holder.addImageFromUrl(url)
+        imageLoader.loadListImageCenterCrop(url, holder.movieListPoster, "w500")
     }
 
     class ViewHolder(itemView: View, parent: ViewGroup) : RecyclerView.ViewHolder(itemView) {
         var movieListTitle = itemView.list_title
         var movieListPoster = itemView.list_poster
         var context = itemView.context
-
-        fun addImageFromUrl(url: String) {
-            movieListPoster.visibility = View.VISIBLE
-            Glide.with(itemView.context)
-                .load("https://image.tmdb.org/t/p/w500/$url")
-                .centerCrop()
-                .into(movieListPoster)
-        }
     }
 }

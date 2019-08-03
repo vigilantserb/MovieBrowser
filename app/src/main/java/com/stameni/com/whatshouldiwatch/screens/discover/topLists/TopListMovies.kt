@@ -9,12 +9,18 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 
 import com.stameni.com.whatshouldiwatch.R
+import com.stameni.com.whatshouldiwatch.common.ImageLoader
+import com.stameni.com.whatshouldiwatch.common.baseClasses.BaseFragment
 import com.stameni.com.whatshouldiwatch.data.models.ListItem
 import kotlinx.android.synthetic.main.top_list_movies_fragment.*
+import javax.inject.Inject
 
-class TopListMovies : Fragment() {
+class TopListMovies : BaseFragment() {
 
     private lateinit var viewModel: TopListMoviesViewModel
+
+    @Inject
+    lateinit var imageLoader: ImageLoader
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -25,10 +31,12 @@ class TopListMovies : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        controllerComponent.inject(this)
+
         movie_recycler_view.setHasFixedSize(true)
         movie_recycler_view.layoutManager = LinearLayoutManager(context)
         var listItems = getLists()
-        movie_recycler_view.adapter = TopListAdapter(listItems)
+        movie_recycler_view.adapter = TopListAdapter(listItems, imageLoader)
     }
 
     private fun getLists(): List<ListItem> {

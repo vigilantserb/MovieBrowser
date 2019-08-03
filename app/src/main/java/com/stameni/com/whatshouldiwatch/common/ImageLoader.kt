@@ -6,6 +6,7 @@ import android.view.View
 import android.widget.ImageView
 import com.bumptech.glide.Glide
 import com.pollux.widget.DualProgressView
+import com.stameni.com.whatshouldiwatch.R
 
 class ImageLoader(
     private val preferences: SharedPreferences,
@@ -37,6 +38,90 @@ class ImageLoader(
                 .into(view)
         } else {
             if (progressBar != null) progressBar.visibility = View.GONE
+        }
+    }
+
+    fun loadListImageCenterCrop(url: String, view: ImageView, size: String) {
+        val loadImage = preferences.getBoolean("loadImage", true)
+        val url = "https://image.tmdb.org/t/p/$size/$url"
+
+        if (loadImage) {
+            Glide.with(context)
+                .load(url)
+                .centerCrop()
+                .into(view)
+        }else{
+            Glide.with(context)
+                .load(R.drawable.list_placeholder)
+                .centerCrop()
+                .into(view)
+        }
+    }
+
+    fun loadNewsImageCenterCrop(url: String, view: ImageView) {
+        val loadImage = preferences.getBoolean("loadImage", true)
+
+        if (loadImage) {
+            Glide.with(context)
+                .load(url)
+                .placeholder(R.drawable.ic_placeholder)
+                .centerCrop()
+                .into(view)
+        }else{
+            Glide.with(context)
+                .load(R.drawable.list_placeholder)
+                .placeholder(R.drawable.ic_placeholder)
+                .centerCrop()
+                .into(view)
+        }
+    }
+
+    fun loadPosterImageCenterCrop(url: String, view: ImageView, size: String) {
+        val loadImage = preferences.getBoolean("loadImage", true)
+        val url = "https://image.tmdb.org/t/p/$size/$url"
+
+        if (loadImage) {
+            Glide.with(context)
+                .load(url)
+                .centerCrop()
+                .into(view)
+        }else{
+            Glide.with(context)
+                .load(R.drawable.poster_placeholder)
+                .centerCrop()
+                .into(view)
+        }
+    }
+
+    fun loadPosterImageFitCenter(url: String, view: ImageView, size: String) {
+        val loadImage = preferences.getBoolean("loadImage", true)
+        val url = "https://image.tmdb.org/t/p/$size/$url"
+
+        if (loadImage) {
+            Glide.with(context)
+                .load(url)
+                .fitCenter()
+                .into(view)
+        }else{
+            Glide.with(context)
+                .load(R.drawable.poster_placeholder)
+                .fitCenter()
+                .into(view)
+        }
+    }
+
+    fun loadImageNoFormat(url: String, view: ImageView, size: String) {
+        val loadImage = preferences.getBoolean("loadImage", true)
+        val url = "https://image.tmdb.org/t/p/$size/$url"
+
+        if (loadImage) {
+            Glide.with(context)
+                .load(url)
+                .into(view)
+        }else{
+            Glide.with(context)
+                .load(R.drawable.list_placeholder)
+                .into(view)
         }
     }
 }

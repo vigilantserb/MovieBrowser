@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
 import com.stameni.com.whatshouldiwatch.R
 import com.stameni.com.whatshouldiwatch.common.ImageLoader
 import com.stameni.com.whatshouldiwatch.common.listen
@@ -49,7 +48,7 @@ class GenreListAdapter(
         holder.movieListTitle.text = listItem.genreName
         val url = listItem.url
 
-        imageLoader.loadImageFromTmdb(url, holder.movieListPoster, null, "w500")
+        imageLoader.loadListImageCenterCrop(url, holder.movieListPoster, "w500")
     }
 
     class ViewHolder(itemView: View, parent: ViewGroup) : RecyclerView.ViewHolder(itemView) {

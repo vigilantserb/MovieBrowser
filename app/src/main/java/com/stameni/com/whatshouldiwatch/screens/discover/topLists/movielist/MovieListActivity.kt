@@ -51,9 +51,7 @@ class MovieListActivity : BaseActivity() {
                 }
             })
 
-            Glide.with(this).load("https://image.tmdb.org/t/p/original/$url")
-                .centerCrop()
-                .into(header_image_view)
+            imageLoader.loadPosterImageCenterCrop(url, header_image_view, "w500")
         }
     }
 }
