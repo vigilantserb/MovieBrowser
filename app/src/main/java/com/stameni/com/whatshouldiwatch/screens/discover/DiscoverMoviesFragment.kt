@@ -12,10 +12,6 @@ import kotlinx.android.synthetic.main.discover_movies_fragment.*
 
 class DiscoverMoviesFragment : Fragment() {
 
-    companion object {
-        fun newInstance() = DiscoverMoviesFragment()
-    }
-
     private lateinit var viewModel: DiscoverMoviesViewModel
 
     override fun onCreateView(

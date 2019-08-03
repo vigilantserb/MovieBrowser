@@ -10,6 +10,7 @@ import com.bumptech.glide.Glide
 import com.stameni.com.whatshouldiwatch.R
 import com.stameni.com.whatshouldiwatch.common.listen
 import com.stameni.com.whatshouldiwatch.data.models.SearchItem
+import com.stameni.com.whatshouldiwatch.screens.singleActor.SingleActorActivity
 import com.stameni.com.whatshouldiwatch.screens.singleMovie.SingleMovieActivity
 import kotlinx.android.synthetic.main.list_movie_item.view.*
 
@@ -21,12 +22,16 @@ class SearchAdapter(
         val v = LayoutInflater.from(parent.context).inflate(R.layout.list_movie_item, parent, false)
         return ViewHolder(v, parent).listen { position, type ->
             val item = items[position]
-            val intent = Intent(parent.context, SingleMovieActivity::class.java)
-            intent.putExtra("posterUrl", item.url)
-            intent.putExtra("movieId", item.id)
-            intent.putExtra("movieName", item.title)
-            if (item.type == "Movie")
+            if (item.type == "Movie"){
+                val intent = Intent(parent.context, SingleMovieActivity::class.java)
+                intent.putExtra("posterUrl", item.url)
+                intent.putExtra("movieId", item.id)
+                intent.putExtra("movieName", item.title)
                 parent.context.startActivity(intent)
+            } else if (item.type == "Person"){
+                val intent = Intent(parent.context, SingleActorActivity::class.java)
+                parent.context.startActivity(intent)
+            }
         }
     }
 

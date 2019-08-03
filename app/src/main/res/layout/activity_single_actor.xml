@@ -1,20 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.coordinatorlayout.widget.CoordinatorLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fitsSystemWindows="true"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        tools:context=".screens.discover.topLists.movielist.MovieListActivity">
+        tools:context=".screens.singleActor.SingleActorActivity">
 
     <com.google.android.material.appbar.AppBarLayout
             android:id="@+id/app_bar"
-            android:fitsSystemWindows="true"
-            android:layout_height="400dp"
+            android:layout_height="wrap_content"
             android:layout_width="match_parent"
-            android:theme="@style/AppTheme.AppBarOverlay">
+            android:fitsSystemWindows="true"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
         <com.google.android.material.appbar.CollapsingToolbarLayout
                 android:id="@+id/toolbar_layout"
@@ -27,7 +26,7 @@
                 app:titleEnabled="false">
 
             <ImageView
-                    android:id="@+id/header_image_view"
+                    android:id="@+id/person_image"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     app:layout_collapseParallaxMultiplier="0.75"
@@ -39,15 +38,29 @@
                     android:id="@+id/toolbar"
                     android:layout_width="match_parent"
                     android:layout_height="?attr/actionBarSize"
+                    android:layout_marginBottom="48dp"
                     android:layout_gravity="top"
                     app:layout_collapseMode="pin"
                     app:titleTextColor="@color/color_text"
                     android:theme="@style/myToolbarTheme"
                     android:background="@drawable/toolbar_gradient"/>
 
+            <com.google.android.material.tabs.TabLayout
+                    android:id="@+id/tabs"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom"
+                    app:tabTextAppearance="@style/TabTextAppearance"
+                    android:background="@color/color_background"
+                    app:tabIndicatorColor="@color/color_red"/>
+
         </com.google.android.material.appbar.CollapsingToolbarLayout>
     </com.google.android.material.appbar.AppBarLayout>
 
-    <include layout="@layout/content_movie_list"/>
+    <androidx.viewpager.widget.ViewPager
+            android:id="@+id/viewpager_main"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
