@@ -2,6 +2,7 @@ package com.stameni.com.whatshouldiwatch.di.modules;
 
 import androidx.lifecycle.ViewModel;
 import com.stameni.com.whatshouldiwatch.common.ViewModelFactory;
+import com.stameni.com.whatshouldiwatch.data.networkData.actor.FetchSingleActorMoviesUseCase;
 import com.stameni.com.whatshouldiwatch.data.networkData.actor.actorDetail.FetchSingleActorDetailsUseCase;
 import com.stameni.com.whatshouldiwatch.data.networkData.lists.FetchGenreListUseCase;
 import com.stameni.com.whatshouldiwatch.data.networkData.lists.FetchListMoviesUseCase;
@@ -22,6 +23,7 @@ import com.stameni.com.whatshouldiwatch.screens.discover.upcoming.UpcomingMovies
 import com.stameni.com.whatshouldiwatch.screens.news.NewsViewModel;
 import com.stameni.com.whatshouldiwatch.screens.search.SearchViewModel;
 import com.stameni.com.whatshouldiwatch.screens.singleActor.SingleActorActivityViewModel;
+import com.stameni.com.whatshouldiwatch.screens.singleActor.appearances.SingleActorAppearancesViewModel;
 import com.stameni.com.whatshouldiwatch.screens.singleActor.biography.SingleActorBiographyViewModel;
 import com.stameni.com.whatshouldiwatch.screens.singleMovie.SingleMovieViewModel;
 import dagger.MapKey;
@@ -125,5 +127,13 @@ public class ViewModelModule {
     ViewModel singleActorActivityViewModel(
             FetchSingleActorDetailsUseCase fetchSingleActorDetailsUseCase) {
         return new SingleActorActivityViewModel(fetchSingleActorDetailsUseCase);
+    }
+
+    @Provides
+    @IntoMap
+    @ViewModelKey(SingleActorAppearancesViewModel.class)
+    ViewModel singleActorAppearancesViewModel(
+            FetchSingleActorMoviesUseCase fetchSingleActorMoviesUseCase) {
+        return new SingleActorAppearancesViewModel(fetchSingleActorMoviesUseCase);
     }
 }

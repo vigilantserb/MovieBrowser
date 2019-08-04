@@ -16,7 +16,6 @@
                 android:id="@+id/actor_biography"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/lorem"
                 android:textColor="@color/light_gray"
                 android:lineSpacingMultiplier="1.25"
                 android:lineSpacingExtra="2dp"
