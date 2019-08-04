@@ -4,6 +4,8 @@ import android.content.Context
 import com.stameni.com.whatshouldiwatch.common.interceptors.ConnectivityInterceptor
 import com.stameni.com.whatshouldiwatch.common.interceptors.ConnectivityInterceptorImpl
 import com.stameni.com.whatshouldiwatch.data.*
+import com.stameni.com.whatshouldiwatch.data.networkData.actor.actorDetail.FetchSingleActorDetailsUseCase
+import com.stameni.com.whatshouldiwatch.data.networkData.actor.actorDetail.FetchSingleActorDetailsUseCaseImpl
 import com.stameni.com.whatshouldiwatch.data.networkData.lists.FetchGenreListUseCase
 import com.stameni.com.whatshouldiwatch.data.networkData.lists.FetchGenreListUseCaseImpl
 import com.stameni.com.whatshouldiwatch.data.networkData.lists.FetchListMoviesUseCase
@@ -143,4 +145,7 @@ class NetworkModule {
 
     @Provides
     fun getSingleMoviesDetails(movieApi: MovieApi): FetchSingleMovieDetails = FetchSingleMovieDetailsImpl(movieApi)
+
+    @Provides
+    fun getActorDetails(movieApi: MovieApi): FetchSingleActorDetailsUseCase = FetchSingleActorDetailsUseCaseImpl(movieApi)
 }

@@ -1,4 +1,4 @@
-package com.stameni.com.whatshouldiwatch.data.schemas.actor
+package com.stameni.com.whatshouldiwatch.data.schemas.person
 
 
 import com.google.gson.annotations.SerializedName

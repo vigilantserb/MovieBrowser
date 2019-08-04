@@ -9,13 +9,20 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="48dp">
 
         <TextView
                 android:id="@+id/actor_biography"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:textColor="@color/color_text"
+                android:layout_height="wrap_content"
+                android:text="@string/lorem"
+                android:textColor="@color/light_gray"
+                android:lineSpacingMultiplier="1.25"
+                android:lineSpacingExtra="2dp"
+                android:layout_marginStart="36dp"
+                android:layout_marginEnd="36dp"
+                android:layout_marginTop="36dp"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"/>

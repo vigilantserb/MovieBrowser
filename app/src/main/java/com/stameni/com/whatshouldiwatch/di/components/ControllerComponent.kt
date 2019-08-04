@@ -12,6 +12,7 @@ import com.stameni.com.whatshouldiwatch.screens.discover.upcoming.UpcomingMovies
 import com.stameni.com.whatshouldiwatch.screens.news.NewsFragment
 import com.stameni.com.whatshouldiwatch.screens.search.SearchFragment
 import com.stameni.com.whatshouldiwatch.screens.singleActor.SingleActorActivity
+import com.stameni.com.whatshouldiwatch.screens.singleActor.biography.SingleActorBiographyFragment
 import com.stameni.com.whatshouldiwatch.screens.singleMovie.SingleMovieActivity
 import dagger.Subcomponent
 
@@ -27,4 +28,5 @@ interface ControllerComponent {
     fun inject(singleMovieActivity: SingleMovieActivity)
     fun inject(topListMovies: TopListMovies)
     fun inject(singleActorActivity: SingleActorActivity)
+    fun inject(singleActorBiographyFragment: SingleActorBiographyFragment)
 }

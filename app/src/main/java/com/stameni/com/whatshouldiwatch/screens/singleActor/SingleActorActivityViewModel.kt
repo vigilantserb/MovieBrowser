@@ -1,10 +1,10 @@
-package com.stameni.com.whatshouldiwatch.screens.singleActor.biography
+package com.stameni.com.whatshouldiwatch.screens.singleActor
 
 import androidx.lifecycle.ViewModel
 import com.stameni.com.whatshouldiwatch.data.networkData.actor.actorDetail.FetchSingleActorDetailsUseCase
 import io.reactivex.disposables.CompositeDisposable
 
-class SingleActorBiographyViewModel(
+class SingleActorActivityViewModel (
     private val fetchSingleActorDetailsUseCase: FetchSingleActorDetailsUseCase
 ) : ViewModel() {
 

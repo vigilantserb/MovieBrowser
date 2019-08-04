@@ -1,7 +1,8 @@
 package com.stameni.com.whatshouldiwatch.data
 
 import com.stameni.com.whatshouldiwatch.common.interceptors.ConnectivityInterceptor
-import com.stameni.com.whatshouldiwatch.data.schemas.actor.PeopleSearchSchema
+import com.stameni.com.whatshouldiwatch.data.schemas.person.PeopleSearchSchema
+import com.stameni.com.whatshouldiwatch.data.schemas.person.singlePerson.SinglePersonSchema
 import com.stameni.com.whatshouldiwatch.data.schemas.genre.GenreListSchema
 import com.stameni.com.whatshouldiwatch.data.schemas.movie.MovieListSchema
 import com.stameni.com.whatshouldiwatch.data.schemas.movie.SearchSchema
@@ -86,6 +87,17 @@ interface MovieApi {
         @Path("movie_id") movieId: Int,
         @Query("append_to_response") append: String = "credits"
     ): Observable<Response<SingleMovieDetailsSchema>>
+
+    @GET("/3/person/{person_id}")
+    fun getSingleActorDetails(
+        @Path("person_id") personId: Int
+    ): Observable<Response<SinglePersonSchema>>
+
+    @GET("/3/discover/movie")
+    fun getSingleActorMovies(
+        @Query("with_cast") castId: Int,
+        @Query("page") page: Int = 1
+    ): Observable<Response<SearchSchema>>
 
     companion object {
         operator fun invoke(connectivityInterceptor: ConnectivityInterceptor): MovieApi {

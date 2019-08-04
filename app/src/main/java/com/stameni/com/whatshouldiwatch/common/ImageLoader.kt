@@ -132,12 +132,12 @@ class ImageLoader(
         if (loadImage) {
             Glide.with(context)
                 .load(url)
-                .apply(bitmapTransform(BlurTransformation(25, 3)))
+                .apply(bitmapTransform(BlurTransformation(50)))
                 .into(view)
         }else{
             Glide.with(context)
                 .load(R.drawable.list_placeholder)
-                .apply(bitmapTransform(BlurTransformation(25, 3)))
+                .apply(bitmapTransform(BlurTransformation(50)))
                 .into(view)
         }
     }
