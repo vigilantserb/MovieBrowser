@@ -91,6 +91,7 @@ dependencies {
     //Glide
     implementation 'com.github.bumptech.glide:glide:4.9.0'
     kapt 'com.github.bumptech.glide:compiler:4.9.0'
+    implementation 'jp.wasabeef:glide-transformations:4.0.0'
 
     //ProgressBarCustom
     implementation 'com.pollux:dualprogressview:0.0.1'

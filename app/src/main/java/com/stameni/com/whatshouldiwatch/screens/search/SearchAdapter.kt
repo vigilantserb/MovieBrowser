@@ -32,6 +32,9 @@ class SearchAdapter(
                 parent.context.startActivity(intent)
             } else if (item.type == "Person"){
                 val intent = Intent(parent.context, SingleActorActivity::class.java)
+                intent.putExtra("actorName", item.title)
+                intent.putExtra("actorId", item.id)
+                intent.putExtra("actorUrl", item.url)
                 parent.context.startActivity(intent)
             }
         }

@@ -47,7 +47,7 @@ class FetchSingleMovieActorsImpl(
         if (response.isSuccessful) {
             if (response.body() != null) {
                 response.body()!!.cast.forEach {
-                    formattedData.add(Actor(it.name, it.character, it.profilePath))
+                    formattedData.add(Actor(it.id, it.name, it.character, it.profilePath))
                 }
             }
         }

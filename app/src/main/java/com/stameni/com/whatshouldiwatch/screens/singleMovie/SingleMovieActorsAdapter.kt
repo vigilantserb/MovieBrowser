@@ -1,5 +1,6 @@
 package com.stameni.com.whatshouldiwatch.screens.singleMovie
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,6 +9,7 @@ import com.stameni.com.whatshouldiwatch.R
 import com.stameni.com.whatshouldiwatch.common.ImageLoader
 import com.stameni.com.whatshouldiwatch.common.listen
 import com.stameni.com.whatshouldiwatch.data.models.Actor
+import com.stameni.com.whatshouldiwatch.screens.singleActor.SingleActorActivity
 import kotlinx.android.synthetic.main.single_movie_actor_item.view.*
 
 class SingleMovieActorsAdapter(
@@ -18,10 +20,12 @@ class SingleMovieActorsAdapter(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val v = LayoutInflater.from(parent.context).inflate(R.layout.single_movie_actor_item, parent, false)
         return ViewHolder(v, parent).listen { position, type ->
-            //            val item = items[position]
-//            val intent = Intent(parent.context, NewsWebViewActivity::class.java)
-//            intent.putExtra("source", item.source)
-//            parent.context.startActivity(intent)
+            val item = items[position]
+            val intent = Intent(parent.context, SingleActorActivity::class.java)
+            intent.putExtra("actorName", item.actorName)
+            intent.putExtra("actorId", item.actorId)
+            intent.putExtra("actorUrl", item.profileImageUrl)
+            parent.context.startActivity(intent)
         }
     }
 
@@ -46,7 +50,7 @@ class SingleMovieActorsAdapter(
         holder.actorName.text = listItem.actorName
         holder.castName.text = listItem.characterName
 
-        if(url != null) imageLoader.loadListImageCenterCrop(url, holder.actorImageView,  "w500")
+        if (url != null) imageLoader.loadListImageCenterCrop(url, holder.actorImageView, "w500")
     }
 
     class ViewHolder(itemView: View, parent: ViewGroup) : RecyclerView.ViewHolder(itemView) {

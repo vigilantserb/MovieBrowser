@@ -5,8 +5,10 @@ import android.content.SharedPreferences
 import android.view.View
 import android.widget.ImageView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions.bitmapTransform
 import com.pollux.widget.DualProgressView
 import com.stameni.com.whatshouldiwatch.R
+import jp.wasabeef.glide.transformations.BlurTransformation
 
 class ImageLoader(
     private val preferences: SharedPreferences,
@@ -119,6 +121,23 @@ class ImageLoader(
         }else{
             Glide.with(context)
                 .load(R.drawable.list_placeholder)
+                .into(view)
+        }
+    }
+
+    fun loadImageBlurCenterCrop(url: String, view: ImageView, size: String) {
+        val loadImage = preferences.getBoolean("loadImage", true)
+        val url = "https://image.tmdb.org/t/p/$size/$url"
+
+        if (loadImage) {
+            Glide.with(context)
+                .load(url)
+                .apply(bitmapTransform(BlurTransformation(25, 3)))
+                .into(view)
+        }else{
+            Glide.with(context)
+                .load(R.drawable.list_placeholder)
+                .apply(bitmapTransform(BlurTransformation(25, 3)))
                 .into(view)
         }
     }
