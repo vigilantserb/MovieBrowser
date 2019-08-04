@@ -42,8 +42,7 @@
                     android:layout_gravity="top"
                     app:layout_collapseMode="pin"
                     app:titleTextColor="@color/color_text"
-                    android:theme="@style/myToolbarTheme"
-                    android:background="@drawable/toolbar_gradient"/>
+                    android:theme="@style/myToolbarTheme"/>
 
             <com.google.android.material.tabs.TabLayout
                     android:id="@+id/tabs"

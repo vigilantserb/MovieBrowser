@@ -40,6 +40,8 @@
                 android:id="@+id/poster_image"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+
+                app:layout_constraintBottom_toTopOf="@id/buttons_group"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"/>
@@ -109,7 +111,7 @@
                 android:textColor="@color/light_gray"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@id/button"
+                app:layout_constraintTop_toBottomOf="@id/buttons_group"
                 app:layout_constraintStart_toStartOf="@id/guideline2"/>
 
         <TextView
@@ -129,7 +131,7 @@
                 android:textColor="@color/light_gray"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@id/button"
+                app:layout_constraintTop_toBottomOf="@id/buttons_group"
                 app:layout_constraintEnd_toStartOf="@+id/guideline3"/>
 
         <TextView

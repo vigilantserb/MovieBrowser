@@ -64,13 +64,11 @@ class ImageLoader(
         if (loadImage) {
             Glide.with(context)
                 .load(url)
-                .placeholder(R.drawable.ic_placeholder)
                 .centerCrop()
                 .into(view)
         }else{
             Glide.with(context)
                 .load(R.drawable.list_placeholder)
-                .placeholder(R.drawable.ic_placeholder)
                 .centerCrop()
                 .into(view)
         }
