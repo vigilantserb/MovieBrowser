@@ -15,6 +15,8 @@ import com.stameni.com.whatshouldiwatch.data.networkData.lists.FetchListMoviesUs
 import com.stameni.com.whatshouldiwatch.data.networkData.movies.*
 import com.stameni.com.whatshouldiwatch.data.networkData.movies.singleMovie.cast.FetchSingleMovieActors
 import com.stameni.com.whatshouldiwatch.data.networkData.movies.singleMovie.cast.FetchSingleMovieActorsImpl
+import com.stameni.com.whatshouldiwatch.data.networkData.movies.singleMovie.certification.FetchSingleMovieCertification
+import com.stameni.com.whatshouldiwatch.data.networkData.movies.singleMovie.certification.FetchSingleMovieCertificationImpl
 import com.stameni.com.whatshouldiwatch.data.networkData.movies.singleMovie.details.FetchSingleMovieDetails
 import com.stameni.com.whatshouldiwatch.data.networkData.movies.singleMovie.details.FetchSingleMovieDetailsImpl
 import com.stameni.com.whatshouldiwatch.data.networkData.movies.singleMovie.images.FetchSingleMovieImages
@@ -153,4 +155,7 @@ class NetworkModule {
 
     @Provides
     fun getActorMovies(movieApi: MovieApi): FetchSingleActorMoviesUseCase = FetchSingleActorMoviesUseCaseImpl(movieApi)
+
+    @Provides
+    fun getSingleMovieCerfitication(movieApi: MovieApi): FetchSingleMovieCertification = FetchSingleMovieCertificationImpl(movieApi)
 }

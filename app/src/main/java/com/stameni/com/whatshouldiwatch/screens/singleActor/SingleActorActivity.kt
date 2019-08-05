@@ -52,4 +52,9 @@ class SingleActorActivity : BaseActivity() {
             })
         }
     }
+
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressed()
+        return true
+    }
 }

@@ -57,6 +57,14 @@ class SingleMovieActivity : BaseActivity() {
             val id = intent.extras!!.getInt(Constants.MOVIE_ID, 0)
             val name = intent.extras!!.getString(Constants.MOVIE_NAME, "")
 
+            var imdbId = ""
+
+            imdb_rating.setOnClickListener {
+                if(imdbId.isNotEmpty()){
+
+                }
+            }
+
             supportActionBar!!.title = name
 
             imageLoader.loadPosterImageFitCenter(url, poster_image, Constants.LARGE_IMAGE_SIZE)
@@ -98,8 +106,8 @@ class SingleMovieActivity : BaseActivity() {
                             null,
                             Constants.LARGE_IMAGE_SIZE
                         )
+                    if(!it.imdbId.isNullOrEmpty()) imdbId = it.imdbId
                     director_name.text = it.directorName
-                    imdb_rating.text = "${it.imdbRating.toString()} / 10"
                     tmdb_rating.text = "${it.tmdbRating.toString()} / 10"
                     movie_description.text = it.movieDescription
                     release_date.text = it.releaseDate

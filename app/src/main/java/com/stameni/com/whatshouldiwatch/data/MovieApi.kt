@@ -1,14 +1,15 @@
 package com.stameni.com.whatshouldiwatch.data
 
 import com.stameni.com.whatshouldiwatch.common.interceptors.ConnectivityInterceptor
-import com.stameni.com.whatshouldiwatch.data.schemas.person.PeopleSearchSchema
-import com.stameni.com.whatshouldiwatch.data.schemas.person.singlePerson.SinglePersonSchema
 import com.stameni.com.whatshouldiwatch.data.schemas.genre.GenreListSchema
 import com.stameni.com.whatshouldiwatch.data.schemas.movie.MovieListSchema
 import com.stameni.com.whatshouldiwatch.data.schemas.movie.SearchSchema
 import com.stameni.com.whatshouldiwatch.data.schemas.movie.cast.SingleMovieCastSchema
+import com.stameni.com.whatshouldiwatch.data.schemas.movie.certification.CertificationResults
 import com.stameni.com.whatshouldiwatch.data.schemas.movie.details.SingleMovieDetailsSchema
 import com.stameni.com.whatshouldiwatch.data.schemas.movie.images.SingleMovieImagesSchema
+import com.stameni.com.whatshouldiwatch.data.schemas.person.PeopleSearchSchema
+import com.stameni.com.whatshouldiwatch.data.schemas.person.singlePerson.SinglePersonSchema
 import com.stameni.com.whatshouldiwatch.data.schemas.tvShow.TvShowSearchSchema
 import io.reactivex.Observable
 import okhttp3.Interceptor
@@ -76,6 +77,11 @@ interface MovieApi {
     fun getSingleMovieActors(
         @Path("movie_id") movieId: Int
     ): Observable<Response<SingleMovieCastSchema>>
+
+    @GET("/3/movie/{movie_id}/release_dates")
+    fun getSingleMovieCertification(
+        @Path("movie_id") movieId: Int
+    ): Observable<Response<CertificationResults>>
 
     @GET("/3/movie/{movie_id}/recommendations")
     fun getSingleMovieRecommendations(

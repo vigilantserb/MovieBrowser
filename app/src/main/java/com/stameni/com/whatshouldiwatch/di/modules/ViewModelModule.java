@@ -10,6 +10,7 @@ import com.stameni.com.whatshouldiwatch.data.networkData.movies.FetchMoviesByGen
 import com.stameni.com.whatshouldiwatch.data.networkData.movies.FetchNowPlayingMovies;
 import com.stameni.com.whatshouldiwatch.data.networkData.movies.FetchUpcomingMovies;
 import com.stameni.com.whatshouldiwatch.data.networkData.movies.singleMovie.cast.FetchSingleMovieActors;
+import com.stameni.com.whatshouldiwatch.data.networkData.movies.singleMovie.certification.FetchSingleMovieCertification;
 import com.stameni.com.whatshouldiwatch.data.networkData.movies.singleMovie.details.FetchSingleMovieDetails;
 import com.stameni.com.whatshouldiwatch.data.networkData.movies.singleMovie.images.FetchSingleMovieImages;
 import com.stameni.com.whatshouldiwatch.data.networkData.movies.singleMovie.recommendations.FetchSingleMovieRecommendations;
@@ -109,8 +110,9 @@ public class ViewModelModule {
             FetchSingleMovieImages fetchSingleMovieImages,
             FetchSingleMovieActors fetchSingleMovieActors,
             FetchSingleMovieRecommendations singleMovieRecommendations,
-            FetchSingleMovieDetails fetchSingleMovieDetails) {
-        return new SingleMovieViewModel(fetchSingleMovieImages, fetchSingleMovieActors, singleMovieRecommendations, fetchSingleMovieDetails);
+            FetchSingleMovieDetails fetchSingleMovieDetails,
+            FetchSingleMovieCertification fetchSingleMovieCertification) {
+        return new SingleMovieViewModel(fetchSingleMovieImages, fetchSingleMovieActors, singleMovieRecommendations, fetchSingleMovieDetails, fetchSingleMovieCertification);
     }
 
     @Provides

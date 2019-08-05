@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.stameni.com.whatshouldiwatch.R
+import com.stameni.com.whatshouldiwatch.common.Constants
 import com.stameni.com.whatshouldiwatch.common.ImageLoader
 import com.stameni.com.whatshouldiwatch.common.listen
 import com.stameni.com.whatshouldiwatch.data.models.Actor
@@ -22,9 +23,9 @@ class SingleMovieActorsAdapter(
         return ViewHolder(v, parent).listen { position, type ->
             val item = items[position]
             val intent = Intent(parent.context, SingleActorActivity::class.java)
-            intent.putExtra("actorName", item.actorName)
-            intent.putExtra("actorId", item.actorId)
-            intent.putExtra("actorUrl", item.profileImageUrl)
+            intent.putExtra(Constants.ACTOR_NAME, item.actorName)
+            intent.putExtra(Constants.ACTOR_ID, item.actorId)
+            intent.putExtra(Constants.ACTOR_IMAGE_URL, item.profileImageUrl)
             parent.context.startActivity(intent)
         }
     }

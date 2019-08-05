@@ -2,8 +2,8 @@ package com.stameni.com.whatshouldiwatch.screens.singleMovie
 
 import androidx.lifecycle.ViewModel
 import com.stameni.com.whatshouldiwatch.data.networkData.movies.singleMovie.cast.FetchSingleMovieActors
+import com.stameni.com.whatshouldiwatch.data.networkData.movies.singleMovie.certification.FetchSingleMovieCertification
 import com.stameni.com.whatshouldiwatch.data.networkData.movies.singleMovie.details.FetchSingleMovieDetails
-import com.stameni.com.whatshouldiwatch.data.networkData.movies.singleMovie.details.FetchSingleMovieDetailsImpl
 import com.stameni.com.whatshouldiwatch.data.networkData.movies.singleMovie.images.FetchSingleMovieImages
 import com.stameni.com.whatshouldiwatch.data.networkData.movies.singleMovie.recommendations.FetchSingleMovieRecommendations
 import io.reactivex.disposables.CompositeDisposable
@@ -12,7 +12,8 @@ class SingleMovieViewModel(
     private val fetchSingleMovieImages: FetchSingleMovieImages,
     private val fetchSingleMovieActors: FetchSingleMovieActors,
     private val fetchSingleMovieRecommendations: FetchSingleMovieRecommendations,
-    private val fetchSingleMovieDetails: FetchSingleMovieDetails
+    private val fetchSingleMovieDetails: FetchSingleMovieDetails,
+    private val fetchSingleMovieCertification: FetchSingleMovieCertification
 ) : ViewModel() {
 
     val disposables = CompositeDisposable()
@@ -28,6 +29,9 @@ class SingleMovieViewModel(
 
     val fetchedRecommendations
         get() = fetchSingleMovieRecommendations.fetchedData
+
+    val fetchedCertification
+        get() = fetchSingleMovieCertification.fetchedCertification
 
     fun fetchSingleMovieImages(movieId: Int) {
         disposables.add(
@@ -50,6 +54,12 @@ class SingleMovieViewModel(
     fun fetchSingleMovieDetails(movieId: Int) {
         disposables.add(
             fetchSingleMovieDetails.getSingleMovieDetails(movieId)
+        )
+    }
+
+    fun fetchSingleMovieCertification(movieId: Int) {
+        disposables.add(
+            fetchSingleMovieCertification.getSingleMovieCertification(movieId)
         )
     }
 }
