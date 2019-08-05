@@ -65,6 +65,7 @@ class SingleMovieActivity : BaseActivity() {
             viewModel.fetchSingleMovieActors(id)
             viewModel.fetchSingleMovieRecommendations(id)
             viewModel.fetchSingleMovieDetails(id)
+            viewModel.fetchSingleMovieCertification(id)
 
             viewModel.fetchedImages.observe(this, Observer {
                 if (it != null) {
@@ -84,6 +85,10 @@ class SingleMovieActivity : BaseActivity() {
                 }
             })
 
+            viewModel.fetchedCertification.observe(this, Observer {
+                rating.text = it
+            })
+
             viewModel.fetchedDetails.observe(this, Observer {
                 if (it != null) {
                     if (it.directorImageUrl != null)
@@ -99,7 +104,6 @@ class SingleMovieActivity : BaseActivity() {
                     movie_description.text = it.movieDescription
                     release_date.text = it.releaseDate
                     runtime.text = "${it.runtime.toString()} min"
-                    rating.text = "Not found" //TODO placeholder
                     genres.text = it.genres
                 }
             })
