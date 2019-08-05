@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.stameni.com.whatshouldiwatch.R
+import com.stameni.com.whatshouldiwatch.common.Constants
 import com.stameni.com.whatshouldiwatch.common.ImageLoader
 import com.stameni.com.whatshouldiwatch.common.ViewModelFactory
 import com.stameni.com.whatshouldiwatch.common.baseClasses.BaseActivity
@@ -32,14 +33,14 @@ class SingleActorActivity : BaseActivity() {
         if(intent.extras != null){
             viewModel = ViewModelProviders.of(this, viewModelFactory).get(SingleActorActivityViewModel::class.java)
 
-            val name = intent.extras!!.getString("actorName", "")
-            val id = intent.extras!!.getInt("actorId", 0)
-            val url = intent.extras!!.getString("actorUrl", "")
+            val name = intent.extras!!.getString(Constants.ACTOR_NAME, "")
+            val id = intent.extras!!.getInt(Constants.ACTOR_ID, 0)
+            val url = intent.extras!!.getString(Constants.ACTOR_IMAGE_URL, "")
 
             supportActionBar!!.title = name
 
-            imageLoader.loadImageBlurCenterCrop(url, person_profile_blurred, "w500")
-            imageLoader.loadImageNoFormat(url, person_profile, "w500")
+            imageLoader.loadImageBlurCenterCrop(url, person_profile_blurred, Constants.LARGE_IMAGE_SIZE)
+            imageLoader.loadImageNoFormat(url, person_profile, Constants.LARGE_IMAGE_SIZE)
 
             viewModel.fetchActorDetails(id)
 

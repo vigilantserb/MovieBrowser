@@ -7,8 +7,8 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
 import com.stameni.com.whatshouldiwatch.R
+import com.stameni.com.whatshouldiwatch.common.Constants
 import com.stameni.com.whatshouldiwatch.common.ImageLoader
 import com.stameni.com.whatshouldiwatch.common.ViewModelFactory
 import com.stameni.com.whatshouldiwatch.common.baseClasses.BaseActivity
@@ -53,13 +53,13 @@ class SingleMovieActivity : BaseActivity() {
         if (intent.extras != null) {
             viewModel = ViewModelProviders.of(this, viewModelFactory).get(SingleMovieViewModel::class.java)
 
-            val url = intent.extras!!.getString("posterUrl", "")
-            val id = intent.extras!!.getInt("movieId", 0)
-            val name = intent.extras!!.getString("movieName", "")
+            val url = intent.extras!!.getString(Constants.POSTER_URL, "")
+            val id = intent.extras!!.getInt(Constants.MOVIE_ID, 0)
+            val name = intent.extras!!.getString(Constants.MOVIE_NAME, "")
 
             supportActionBar!!.title = name
 
-            imageLoader.loadPosterImageFitCenter(url, poster_image, "w500")
+            imageLoader.loadPosterImageFitCenter(url, poster_image, Constants.LARGE_IMAGE_SIZE)
 
             viewModel.fetchSingleMovieImages(id)
             viewModel.fetchSingleMovieActors(id)
@@ -91,7 +91,7 @@ class SingleMovieActivity : BaseActivity() {
                             it.directorImageUrl,
                             director_image,
                             null,
-                            "w500"
+                            Constants.LARGE_IMAGE_SIZE
                         )
                     director_name.text = it.directorName
                     imdb_rating.text = "${it.imdbRating.toString()} / 10"

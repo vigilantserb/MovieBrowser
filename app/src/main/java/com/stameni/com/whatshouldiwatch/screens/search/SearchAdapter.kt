@@ -6,8 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AlphaAnimation
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
 import com.stameni.com.whatshouldiwatch.R
+import com.stameni.com.whatshouldiwatch.common.Constants
 import com.stameni.com.whatshouldiwatch.common.ImageLoader
 import com.stameni.com.whatshouldiwatch.common.listen
 import com.stameni.com.whatshouldiwatch.data.models.SearchItem
@@ -24,17 +24,17 @@ class SearchAdapter(
         val v = LayoutInflater.from(parent.context).inflate(R.layout.list_movie_item, parent, false)
         return ViewHolder(v, parent).listen { position, type ->
             val item = items[position]
-            if (item.type == "Movie"){
+            if (item.type == Constants.MOVIE_TYPE){
                 val intent = Intent(parent.context, SingleMovieActivity::class.java)
-                intent.putExtra("posterUrl", item.url)
-                intent.putExtra("movieId", item.id)
-                intent.putExtra("movieName", item.title)
+                intent.putExtra(Constants.POSTER_URL, item.url)
+                intent.putExtra(Constants.MOVIE_ID, item.id)
+                intent.putExtra(Constants.MOVIE_NAME, item.title)
                 parent.context.startActivity(intent)
-            } else if (item.type == "Person"){
+            } else if (item.type == Constants.PEOPLE_TYPE){
                 val intent = Intent(parent.context, SingleActorActivity::class.java)
-                intent.putExtra("actorName", item.title)
-                intent.putExtra("actorId", item.id)
-                intent.putExtra("actorUrl", item.url)
+                intent.putExtra(Constants.ACTOR_NAME, item.title)
+                intent.putExtra(Constants.ACTOR_ID, item.id)
+                intent.putExtra(Constants.ACTOR_IMAGE_URL, item.url)
                 parent.context.startActivity(intent)
             }
         }
@@ -64,7 +64,7 @@ class SearchAdapter(
 
         if (holder.year.text.isEmpty()) holder.year.visibility = View.GONE
 
-        if (url != null) imageLoader.loadPosterImageCenterCrop(url, holder.moviePoster, "w500")
+        if (url != null) imageLoader.loadPosterImageCenterCrop(url, holder.moviePoster, Constants.LARGE_IMAGE_SIZE)
 
         holder.setFadeAnimation(holder.itemView)
     }

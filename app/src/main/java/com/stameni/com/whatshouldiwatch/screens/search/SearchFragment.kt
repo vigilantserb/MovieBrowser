@@ -83,6 +83,15 @@ class SearchFragment : BaseFragment() {
 
         viewModel.fetchedData.observe(this, Observer { response ->
             progress_layout.visibility = View.GONE
+
+            movies_placeholder.visibility = View.VISIBLE
+            tv_show_placeholder.visibility = View.VISIBLE
+            people_placeholder.visibility = View.VISIBLE
+
+            movie_recycler_view.visibility = View.VISIBLE
+            tv_show_recycler_view.visibility = View.VISIBLE
+            people_recycler_view.visibility = View.VISIBLE
+
             response?.forEach {
                 when {
                     it.type == "Movie" -> movieSearchAdapter.add(it)

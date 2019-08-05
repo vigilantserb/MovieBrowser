@@ -2,10 +2,11 @@ package com.stameni.com.whatshouldiwatch.data.networkData.search
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.stameni.com.whatshouldiwatch.common.Constants
 import com.stameni.com.whatshouldiwatch.data.MovieApi
 import com.stameni.com.whatshouldiwatch.data.models.SearchItem
-import com.stameni.com.whatshouldiwatch.data.schemas.person.PeopleSearchSchema
 import com.stameni.com.whatshouldiwatch.data.schemas.movie.SearchSchema
+import com.stameni.com.whatshouldiwatch.data.schemas.person.PeopleSearchSchema
 import com.stameni.com.whatshouldiwatch.data.schemas.tvShow.TvShowSearchSchema
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -66,19 +67,19 @@ class SearchByTermUseCaseImpl(
 
         if(tvShowData.body() != null){
             tvShowData.body()!!.results.forEach {
-                searchData.add(SearchItem(it.name, it.posterPath, "TV Show", it.firstAirDate, it.id))
+                searchData.add(SearchItem(it.name, it.posterPath, Constants.TV_SHOW_TYPE, it.firstAirDate, it.id))
             }
         }
 
         if(movieData?.body() != null){
             movieData.body()!!.results.forEach {
-                searchData.add(SearchItem(it.title, it.posterPath, "Movie", it.releaseDate, it.id))
+                searchData.add(SearchItem(it.title, it.posterPath, Constants.MOVIE_TYPE, it.releaseDate, it.id))
             }
         }
 
         if(peopleData.body() != null){
             peopleData.body()!!.results.forEach {
-                searchData.add(SearchItem(it.name, it.profilePath, "Person", "", it.id))
+                searchData.add(SearchItem(it.name, it.profilePath, Constants.PEOPLE_TYPE, "", it.id))
             }
         }
 
