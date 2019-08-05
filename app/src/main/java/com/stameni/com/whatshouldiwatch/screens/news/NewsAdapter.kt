@@ -5,8 +5,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
 import com.stameni.com.whatshouldiwatch.R
+import com.stameni.com.whatshouldiwatch.common.Constants
 import com.stameni.com.whatshouldiwatch.common.ImageLoader
 import com.stameni.com.whatshouldiwatch.common.listen
 import com.stameni.com.whatshouldiwatch.data.models.NewsItem
@@ -25,7 +25,7 @@ class NewsAdapter(
         return ViewHolder(v, parent).listen { position, type ->
             val item = items[position]
             val intent = Intent(parent.context, NewsWebViewActivity::class.java)
-            intent.putExtra("source", item.source)
+            intent.putExtra(Constants.SOURCE_LINK, item.source)
             parent.context.startActivity(intent)
         }
     }

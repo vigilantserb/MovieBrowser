@@ -2,14 +2,15 @@ package com.stameni.com.whatshouldiwatch.screens.news
 
 import android.graphics.Bitmap
 import android.os.Build
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.webkit.WebChromeClient
 import android.webkit.WebSettings
 import android.webkit.WebView
 import android.webkit.WebViewClient
+import androidx.appcompat.app.AppCompatActivity
 import com.stameni.com.whatshouldiwatch.R
+import com.stameni.com.whatshouldiwatch.common.Constants
 import kotlinx.android.synthetic.main.activity_news_web_view.*
 
 class NewsWebViewActivity : AppCompatActivity(){
@@ -18,7 +19,7 @@ class NewsWebViewActivity : AppCompatActivity(){
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_news_web_view)
         if(intent.extras != null){
-            val source = intent.extras!!.getString("source", "")
+            val source = intent.extras!!.getString(Constants.SOURCE_LINK, "")
 
             web_view.loadUrl(source)
 

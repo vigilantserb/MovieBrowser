@@ -21,5 +21,8 @@ class Constants {
         //Image sizes
         const val LARGE_IMAGE_SIZE = "w500"
         const val SMALL_IMAGE_SIZE = "w92"
+
+        //Links
+        const val SOURCE_LINK = "source"
     }
 }

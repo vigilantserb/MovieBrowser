@@ -1,5 +1,6 @@
 package com.stameni.com.whatshouldiwatch.screens.singleMovie
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -12,6 +13,8 @@ import com.stameni.com.whatshouldiwatch.common.Constants
 import com.stameni.com.whatshouldiwatch.common.ImageLoader
 import com.stameni.com.whatshouldiwatch.common.ViewModelFactory
 import com.stameni.com.whatshouldiwatch.common.baseClasses.BaseActivity
+import com.stameni.com.whatshouldiwatch.data.models.MovieDetails
+import com.stameni.com.whatshouldiwatch.screens.news.NewsWebViewActivity
 import kotlinx.android.synthetic.main.activity_single_movie.*
 import javax.inject.Inject
 
@@ -25,6 +28,16 @@ class SingleMovieActivity : BaseActivity() {
     @Inject
     lateinit var imageLoader: ImageLoader
 
+    var imdbId = ""
+
+    var imagesAdapter = SingleMovieImagesAdapter(ArrayList(), imageLoader)
+    var actorsAdapter = SingleMovieActorsAdapter(ArrayList(), imageLoader)
+    var recommendationsAdapter = SingleMovieRecommendationsAdapter(ArrayList(), imageLoader)
+
+    val imagesManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+    val actorsManager = GridLayoutManager(this, 1, RecyclerView.HORIZONTAL, false)
+    val movieRecommendations = GridLayoutManager(this, 1, RecyclerView.HORIZONTAL, false)
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_single_movie)
@@ -32,14 +45,54 @@ class SingleMovieActivity : BaseActivity() {
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        val imagesAdapter = SingleMovieImagesAdapter(ArrayList(), imageLoader)
-        val actorsAdapter = SingleMovieActorsAdapter(ArrayList(), imageLoader)
-        val recommendationsAdapter = SingleMovieRecommendationsAdapter(ArrayList(), imageLoader)
+        initializeRecyclerViews()
 
-        val imagesManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
-        val actorsManager = GridLayoutManager(this, 1, RecyclerView.HORIZONTAL, false)
-        val movieRecommendations = GridLayoutManager(this, 1, RecyclerView.HORIZONTAL, false)
+        if (intent.extras != null) {
+            viewModel = ViewModelProviders.of(this, viewModelFactory).get(SingleMovieViewModel::class.java)
 
+            val moviePosterUrl = intent.extras!!.getString(Constants.POSTER_URL, "")
+            val movieId = intent.extras!!.getInt(Constants.MOVIE_ID, 0)
+            val movieName = intent.extras!!.getString(Constants.MOVIE_NAME, "")
+
+            imdb_rating.setOnClickListener {
+                if (imdbId.isNotEmpty()) {
+                    createImdbLink(imdbId)
+                }
+            }
+
+            supportActionBar!!.title = movieName
+
+            imageLoader.loadPosterImageFitCenter(moviePosterUrl, poster_image, Constants.LARGE_IMAGE_SIZE)
+
+            viewModel.fetchSingleMovieImages(movieId)
+            viewModel.fetchSingleMovieActors(movieId)
+            viewModel.fetchSingleMovieRecommendations(movieId)
+            viewModel.fetchSingleMovieDetails(movieId)
+            viewModel.fetchSingleMovieCertification(movieId)
+
+            viewModel.fetchedImages.observe(this, Observer {
+                imagesAdapter.addAll(it)
+            })
+
+            viewModel.fetchedActors.observe(this, Observer {
+                actorsAdapter.addAll(it)
+            })
+
+            viewModel.fetchedRecommendations.observe(this, Observer {
+                recommendationsAdapter.addAll(it)
+            })
+
+            viewModel.fetchedCertification.observe(this, Observer {
+                rating.text = it
+            })
+
+            viewModel.fetchedDetails.observe(this, Observer {
+                addMovieDetailsToScreen(it)
+            })
+        }
+    }
+
+    private fun initializeRecyclerViews() {
         movie_images_rv.adapter = imagesAdapter
         movie_images_rv.layoutManager = imagesManager
 
@@ -49,77 +102,38 @@ class SingleMovieActivity : BaseActivity() {
 
         movie_recommendations_rv.layoutManager = movieRecommendations
         movie_recommendations_rv.adapter = recommendationsAdapter
-
-        if (intent.extras != null) {
-            viewModel = ViewModelProviders.of(this, viewModelFactory).get(SingleMovieViewModel::class.java)
-
-            val url = intent.extras!!.getString(Constants.POSTER_URL, "")
-            val id = intent.extras!!.getInt(Constants.MOVIE_ID, 0)
-            val name = intent.extras!!.getString(Constants.MOVIE_NAME, "")
-
-            var imdbId = ""
-
-            imdb_rating.setOnClickListener {
-                if(imdbId.isNotEmpty()){
-
-                }
-            }
-
-            supportActionBar!!.title = name
-
-            imageLoader.loadPosterImageFitCenter(url, poster_image, Constants.LARGE_IMAGE_SIZE)
-
-            viewModel.fetchSingleMovieImages(id)
-            viewModel.fetchSingleMovieActors(id)
-            viewModel.fetchSingleMovieRecommendations(id)
-            viewModel.fetchSingleMovieDetails(id)
-            viewModel.fetchSingleMovieCertification(id)
-
-            viewModel.fetchedImages.observe(this, Observer {
-                if (it != null) {
-                    imagesAdapter.addAll(it)
-                }
-            })
-
-            viewModel.fetchedActors.observe(this, Observer {
-                if (it != null) {
-                    actorsAdapter.addAll(it)
-                }
-            })
-
-            viewModel.fetchedRecommendations.observe(this, Observer {
-                if (it != null) {
-                    recommendationsAdapter.addAll(it)
-                }
-            })
-
-            viewModel.fetchedCertification.observe(this, Observer {
-                rating.text = it
-            })
-
-            viewModel.fetchedDetails.observe(this, Observer {
-                if (it != null) {
-                    if (it.directorImageUrl != null)
-                        imageLoader.loadImageFromTmdb(
-                            it.directorImageUrl,
-                            director_image,
-                            null,
-                            Constants.LARGE_IMAGE_SIZE
-                        )
-                    if(!it.imdbId.isNullOrEmpty()) imdbId = it.imdbId
-                    director_name.text = it.directorName
-                    tmdb_rating.text = "${it.tmdbRating.toString()} / 10"
-                    movie_description.text = it.movieDescription
-                    release_date.text = it.releaseDate
-                    runtime.text = "${it.runtime.toString()} min"
-                    genres.text = it.genres
-                }
-            })
-        }
     }
 
     override fun onSupportNavigateUp(): Boolean {
         onBackPressed()
         return true
+    }
+
+    private fun addMovieDetailsToScreen(details: MovieDetails) {
+        if (details.directorImageUrl != null)
+            imageLoader.loadImageFromTmdb(
+                details.directorImageUrl,
+                director_image,
+                null,
+                Constants.LARGE_IMAGE_SIZE
+            )
+        if (!details.imdbId.isNullOrEmpty()) imdbId = details.imdbId
+        director_name.text = details.directorName
+        tmdb_rating.text = "${details.tmdbRating.toString()} / 10"
+        movie_description.text = details.movieDescription
+        release_date.text = details.releaseDate
+        runtime.text = "${details.runtime.toString()} min"
+        genres.text = details.genres
+    }
+
+    private fun createImdbLink(imdbId: String){
+        val url = "https://www.imdb.com/title/" + imdbId
+        goToUrlAddress(url)
+    }
+
+    private fun goToUrlAddress(url: String) {
+        val intent = Intent(this, NewsWebViewActivity::class.java)
+        intent.putExtra(Constants.SOURCE_LINK, url)
+        startActivity(intent)
     }
 }
