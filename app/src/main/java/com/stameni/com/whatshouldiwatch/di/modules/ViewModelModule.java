@@ -14,6 +14,7 @@ import com.stameni.com.whatshouldiwatch.data.networkData.movies.singleMovie.cert
 import com.stameni.com.whatshouldiwatch.data.networkData.movies.singleMovie.details.FetchSingleMovieDetails;
 import com.stameni.com.whatshouldiwatch.data.networkData.movies.singleMovie.images.FetchSingleMovieImages;
 import com.stameni.com.whatshouldiwatch.data.networkData.movies.singleMovie.recommendations.FetchSingleMovieRecommendations;
+import com.stameni.com.whatshouldiwatch.data.networkData.movies.singleMovie.trailer.FetchSingleMovieTrailer;
 import com.stameni.com.whatshouldiwatch.data.networkData.news.FetchEntertainmentNewsUseCase;
 import com.stameni.com.whatshouldiwatch.data.networkData.search.SearchByTermUseCase;
 import com.stameni.com.whatshouldiwatch.screens.discover.genre.GenreMoviesViewModel;
@@ -111,8 +112,10 @@ public class ViewModelModule {
             FetchSingleMovieActors fetchSingleMovieActors,
             FetchSingleMovieRecommendations singleMovieRecommendations,
             FetchSingleMovieDetails fetchSingleMovieDetails,
-            FetchSingleMovieCertification fetchSingleMovieCertification) {
-        return new SingleMovieViewModel(fetchSingleMovieImages, fetchSingleMovieActors, singleMovieRecommendations, fetchSingleMovieDetails, fetchSingleMovieCertification);
+            FetchSingleMovieCertification fetchSingleMovieCertification,
+            FetchSingleMovieTrailer fetchSingleMovieTrailer) {
+        return new SingleMovieViewModel(fetchSingleMovieImages, fetchSingleMovieActors, singleMovieRecommendations,
+                fetchSingleMovieDetails, fetchSingleMovieCertification, fetchSingleMovieTrailer);
     }
 
     @Provides

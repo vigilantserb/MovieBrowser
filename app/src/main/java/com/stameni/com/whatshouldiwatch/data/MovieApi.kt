@@ -8,6 +8,7 @@ import com.stameni.com.whatshouldiwatch.data.schemas.movie.cast.SingleMovieCastS
 import com.stameni.com.whatshouldiwatch.data.schemas.movie.certification.CertificationResults
 import com.stameni.com.whatshouldiwatch.data.schemas.movie.details.SingleMovieDetailsSchema
 import com.stameni.com.whatshouldiwatch.data.schemas.movie.images.SingleMovieImagesSchema
+import com.stameni.com.whatshouldiwatch.data.schemas.movie.trailer.SingleMovieVideosSchema
 import com.stameni.com.whatshouldiwatch.data.schemas.person.PeopleSearchSchema
 import com.stameni.com.whatshouldiwatch.data.schemas.person.singlePerson.SinglePersonSchema
 import com.stameni.com.whatshouldiwatch.data.schemas.tvShow.TvShowSearchSchema
@@ -82,6 +83,11 @@ interface MovieApi {
     fun getSingleMovieCertification(
         @Path("movie_id") movieId: Int
     ): Observable<Response<CertificationResults>>
+
+    @GET("/3/movie/{movie_id}/videos")
+    fun getSingleMovieTrailer(
+        @Path("movie_id") movieId: Int
+    ): Observable<Response<SingleMovieVideosSchema>>
 
     @GET("/3/movie/{movie_id}/recommendations")
     fun getSingleMovieRecommendations(

@@ -6,6 +6,7 @@ import com.stameni.com.whatshouldiwatch.data.networkData.movies.singleMovie.cert
 import com.stameni.com.whatshouldiwatch.data.networkData.movies.singleMovie.details.FetchSingleMovieDetails
 import com.stameni.com.whatshouldiwatch.data.networkData.movies.singleMovie.images.FetchSingleMovieImages
 import com.stameni.com.whatshouldiwatch.data.networkData.movies.singleMovie.recommendations.FetchSingleMovieRecommendations
+import com.stameni.com.whatshouldiwatch.data.networkData.movies.singleMovie.trailer.FetchSingleMovieTrailer
 import io.reactivex.disposables.CompositeDisposable
 
 class SingleMovieViewModel(
@@ -13,7 +14,8 @@ class SingleMovieViewModel(
     private val fetchSingleMovieActors: FetchSingleMovieActors,
     private val fetchSingleMovieRecommendations: FetchSingleMovieRecommendations,
     private val fetchSingleMovieDetails: FetchSingleMovieDetails,
-    private val fetchSingleMovieCertification: FetchSingleMovieCertification
+    private val fetchSingleMovieCertification: FetchSingleMovieCertification,
+    private val fetchSingleMovieTrailer: FetchSingleMovieTrailer
 ) : ViewModel() {
 
     val disposables = CompositeDisposable()
@@ -32,6 +34,9 @@ class SingleMovieViewModel(
 
     val fetchedCertification
         get() = fetchSingleMovieCertification.fetchedCertification
+
+    val fetchedTrailerUrl
+        get() = fetchSingleMovieTrailer.fetchedTrailerUrl
 
     fun fetchSingleMovieImages(movieId: Int) {
         disposables.add(
@@ -54,6 +59,12 @@ class SingleMovieViewModel(
     fun fetchSingleMovieDetails(movieId: Int) {
         disposables.add(
             fetchSingleMovieDetails.getSingleMovieDetails(movieId)
+        )
+    }
+
+    fun fetchSingleMovieTrailer(movieId: Int) {
+        disposables.add(
+            fetchSingleMovieTrailer.getSingleMovieTrailer(movieId)
         )
     }
 

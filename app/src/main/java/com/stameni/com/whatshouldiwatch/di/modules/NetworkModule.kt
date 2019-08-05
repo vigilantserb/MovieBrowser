@@ -23,6 +23,8 @@ import com.stameni.com.whatshouldiwatch.data.networkData.movies.singleMovie.imag
 import com.stameni.com.whatshouldiwatch.data.networkData.movies.singleMovie.images.FetchSingleMovieImagesImpl
 import com.stameni.com.whatshouldiwatch.data.networkData.movies.singleMovie.recommendations.FetchSingleMovieRecommendations
 import com.stameni.com.whatshouldiwatch.data.networkData.movies.singleMovie.recommendations.FetchSingleMovieRecommendationsImpl
+import com.stameni.com.whatshouldiwatch.data.networkData.movies.singleMovie.trailer.FetchSingleMovieTrailer
+import com.stameni.com.whatshouldiwatch.data.networkData.movies.singleMovie.trailer.FetchSingleMovieTrailerImpl
 import com.stameni.com.whatshouldiwatch.data.networkData.news.FetchEntertainmentNewsUseCase
 import com.stameni.com.whatshouldiwatch.data.networkData.news.FetchEntertainmentNewsUseCaseImpl
 import com.stameni.com.whatshouldiwatch.data.networkData.search.SearchByTermUseCase
@@ -158,4 +160,7 @@ class NetworkModule {
 
     @Provides
     fun getSingleMovieCerfitication(movieApi: MovieApi): FetchSingleMovieCertification = FetchSingleMovieCertificationImpl(movieApi)
+
+    @Provides
+    fun getSingleMovieTrailer(movieApi: MovieApi): FetchSingleMovieTrailer = FetchSingleMovieTrailerImpl(movieApi)
 }

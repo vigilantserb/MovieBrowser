@@ -1,6 +1,7 @@
 package com.stameni.com.whatshouldiwatch.screens.singleMovie
 
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -29,10 +30,11 @@ class SingleMovieActivity : BaseActivity() {
     lateinit var imageLoader: ImageLoader
 
     var imdbId = ""
+    var youtubeVideoKey = ""
 
-    var imagesAdapter = SingleMovieImagesAdapter(ArrayList(), imageLoader)
-    var actorsAdapter = SingleMovieActorsAdapter(ArrayList(), imageLoader)
-    var recommendationsAdapter = SingleMovieRecommendationsAdapter(ArrayList(), imageLoader)
+    var imagesAdapter: SingleMovieImagesAdapter? = null
+    var actorsAdapter:SingleMovieActorsAdapter? = null
+    var recommendationsAdapter:SingleMovieRecommendationsAdapter? = null
 
     val imagesManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
     val actorsManager = GridLayoutManager(this, 1, RecyclerView.HORIZONTAL, false)
@@ -44,6 +46,10 @@ class SingleMovieActivity : BaseActivity() {
         getControllerComponent().inject(this)
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
+        imagesAdapter = SingleMovieImagesAdapter(ArrayList(), imageLoader)
+        actorsAdapter = SingleMovieActorsAdapter(ArrayList(), imageLoader)
+        recommendationsAdapter = SingleMovieRecommendationsAdapter(ArrayList(), imageLoader)
 
         initializeRecyclerViews()
 
@@ -60,6 +66,16 @@ class SingleMovieActivity : BaseActivity() {
                 }
             }
 
+            trailer_button.setOnClickListener{
+                if(youtubeVideoKey.isNotEmpty()){
+                    val url = "https://www.youtube.com/watch?v=" + youtubeVideoKey
+                    var intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                    intent.setPackage("com.google.android.youtube")
+                    startActivity(intent)
+                }
+            }
+
             supportActionBar!!.title = movieName
 
             imageLoader.loadPosterImageFitCenter(moviePosterUrl, poster_image, Constants.LARGE_IMAGE_SIZE)
@@ -69,21 +85,26 @@ class SingleMovieActivity : BaseActivity() {
             viewModel.fetchSingleMovieRecommendations(movieId)
             viewModel.fetchSingleMovieDetails(movieId)
             viewModel.fetchSingleMovieCertification(movieId)
+            viewModel.fetchSingleMovieTrailer(movieId)
 
             viewModel.fetchedImages.observe(this, Observer {
-                imagesAdapter.addAll(it)
+                imagesAdapter!!.addAll(it)
             })
 
             viewModel.fetchedActors.observe(this, Observer {
-                actorsAdapter.addAll(it)
+                actorsAdapter!!.addAll(it)
             })
 
             viewModel.fetchedRecommendations.observe(this, Observer {
-                recommendationsAdapter.addAll(it)
+                recommendationsAdapter!!.addAll(it)
             })
 
             viewModel.fetchedCertification.observe(this, Observer {
                 rating.text = it
+            })
+
+            viewModel.fetchedTrailerUrl.observe(this, Observer {
+                youtubeVideoKey = it
             })
 
             viewModel.fetchedDetails.observe(this, Observer {
