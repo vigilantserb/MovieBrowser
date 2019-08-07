@@ -3,7 +3,7 @@ package com.stameni.com.whatshouldiwatch.data.networkData.actor.actorDetail
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.stameni.com.whatshouldiwatch.data.MovieApi
-import com.stameni.com.whatshouldiwatch.data.models.ActorDetail
+import com.stameni.com.whatshouldiwatch.data.models.PersonDetail
 import com.stameni.com.whatshouldiwatch.data.schemas.person.singlePerson.SinglePersonSchema
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
@@ -13,20 +13,20 @@ import org.threeten.bp.Period
 import retrofit2.Response
 
 
-class FetchSingleActorDetailsUseCaseImpl(
+class FetchPersonDetailsUseCaseImpl(
     private val movieApi: MovieApi
-) : FetchSingleActorDetailsUseCase {
+) : FetchPersonDetailsUseCase {
 
-    private val _actorDetails = MutableLiveData<ActorDetail>()
-    override val actorDetails: LiveData<ActorDetail>
-        get() = _actorDetails
+    private val _personDetails = MutableLiveData<PersonDetail>()
+    override val personDetails: LiveData<PersonDetail>
+        get() = _personDetails
 
     private val _fetchError = MutableLiveData<java.lang.Exception>()
     override val fetchError: LiveData<Exception>
         get() = _fetchError
 
-    override fun getActorDetails(actorId: Int): Disposable {
-        return movieApi.getSingleActorDetails(actorId)
+    override fun getPersonDetails(actorId: Int): Disposable {
+        return movieApi.getPersonDetails(actorId)
             .subscribeOn(Schedulers.io())
             .map {
                 formatResponse(it)
@@ -39,12 +39,12 @@ class FetchSingleActorDetailsUseCaseImpl(
         _fetchError.value = exception as java.lang.Exception?
     }
 
-    private fun onDetailsFetched(response: ActorDetail?) {
+    private fun onDetailsFetched(response: PersonDetail?) {
         if (response != null)
-            _actorDetails.value = response
+            _personDetails.value = response
     }
 
-    private fun formatResponse(response: Response<SinglePersonSchema>): ActorDetail? {
+    private fun formatResponse(response: Response<SinglePersonSchema>): PersonDetail? {
         if (response.isSuccessful) {
             val details = response.body()
 
@@ -63,7 +63,7 @@ class FetchSingleActorDetailsUseCaseImpl(
                 ).years
             }
 
-            return ActorDetail(years, details.name, details.placeOfBirth, "", details.biography)
+            return PersonDetail(years, details.name, details.placeOfBirth, "", details.biography)
         }
         return null
     }

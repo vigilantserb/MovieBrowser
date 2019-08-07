@@ -3,7 +3,7 @@ package com.stameni.com.whatshouldiwatch.di.modules;
 import androidx.lifecycle.ViewModel;
 import com.stameni.com.whatshouldiwatch.common.ViewModelFactory;
 import com.stameni.com.whatshouldiwatch.data.networkData.actor.FetchSingleActorMoviesUseCase;
-import com.stameni.com.whatshouldiwatch.data.networkData.actor.actorDetail.FetchSingleActorDetailsUseCase;
+import com.stameni.com.whatshouldiwatch.data.networkData.actor.actorDetail.FetchPersonDetailsUseCase;
 import com.stameni.com.whatshouldiwatch.data.networkData.lists.FetchGenreListUseCase;
 import com.stameni.com.whatshouldiwatch.data.networkData.lists.FetchListMoviesUseCase;
 import com.stameni.com.whatshouldiwatch.data.networkData.movies.FetchMoviesByGenreUseCase;
@@ -122,16 +122,16 @@ public class ViewModelModule {
     @IntoMap
     @ViewModelKey(SingleActorBiographyViewModel.class)
     ViewModel singleActorBiographyViewModel(
-            FetchSingleActorDetailsUseCase fetchSingleActorDetailsUseCase) {
-        return new SingleActorBiographyViewModel(fetchSingleActorDetailsUseCase);
+            FetchPersonDetailsUseCase fetchPersonDetailsUseCase) {
+        return new SingleActorBiographyViewModel(fetchPersonDetailsUseCase);
     }
 
     @Provides
     @IntoMap
     @ViewModelKey(SingleActorActivityViewModel.class)
     ViewModel singleActorActivityViewModel(
-            FetchSingleActorDetailsUseCase fetchSingleActorDetailsUseCase) {
-        return new SingleActorActivityViewModel(fetchSingleActorDetailsUseCase);
+            FetchPersonDetailsUseCase fetchPersonDetailsUseCase) {
+        return new SingleActorActivityViewModel(fetchPersonDetailsUseCase);
     }
 
     @Provides

@@ -6,8 +6,8 @@ import com.stameni.com.whatshouldiwatch.common.interceptors.ConnectivityIntercep
 import com.stameni.com.whatshouldiwatch.data.*
 import com.stameni.com.whatshouldiwatch.data.networkData.actor.FetchSingleActorMoviesUseCase
 import com.stameni.com.whatshouldiwatch.data.networkData.actor.FetchSingleActorMoviesUseCaseImpl
-import com.stameni.com.whatshouldiwatch.data.networkData.actor.actorDetail.FetchSingleActorDetailsUseCase
-import com.stameni.com.whatshouldiwatch.data.networkData.actor.actorDetail.FetchSingleActorDetailsUseCaseImpl
+import com.stameni.com.whatshouldiwatch.data.networkData.actor.actorDetail.FetchPersonDetailsUseCase
+import com.stameni.com.whatshouldiwatch.data.networkData.actor.actorDetail.FetchPersonDetailsUseCaseImpl
 import com.stameni.com.whatshouldiwatch.data.networkData.lists.FetchGenreListUseCase
 import com.stameni.com.whatshouldiwatch.data.networkData.lists.FetchGenreListUseCaseImpl
 import com.stameni.com.whatshouldiwatch.data.networkData.lists.FetchListMoviesUseCase
@@ -153,7 +153,7 @@ class NetworkModule {
     fun getSingleMoviesDetails(movieApi: MovieApi): FetchSingleMovieDetails = FetchSingleMovieDetailsImpl(movieApi)
 
     @Provides
-    fun getActorDetails(movieApi: MovieApi): FetchSingleActorDetailsUseCase = FetchSingleActorDetailsUseCaseImpl(movieApi)
+    fun getActorDetails(movieApi: MovieApi): FetchPersonDetailsUseCase = FetchPersonDetailsUseCaseImpl(movieApi)
 
     @Provides
     fun getActorMovies(movieApi: MovieApi): FetchSingleActorMoviesUseCase = FetchSingleActorMoviesUseCaseImpl(movieApi)

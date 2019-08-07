@@ -101,7 +101,7 @@ interface MovieApi {
     ): Observable<Response<SingleMovieDetailsSchema>>
 
     @GET("/3/person/{person_id}")
-    fun getSingleActorDetails(
+    fun getPersonDetails(
         @Path("person_id") personId: Int
     ): Observable<Response<SinglePersonSchema>>
 

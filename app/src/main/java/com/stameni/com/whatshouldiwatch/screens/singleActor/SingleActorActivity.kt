@@ -42,13 +42,13 @@ class SingleActorActivity : BaseActivity() {
             imageLoader.loadImageBlurCenterCrop(url, person_profile_blurred, Constants.LARGE_IMAGE_SIZE)
             imageLoader.loadImageNoFormat(url, person_profile, Constants.LARGE_IMAGE_SIZE)
 
-            viewModel.fetchActorDetails(id)
+            viewModel.fetchPersonDetails(id)
 
-            viewModel.actorDetails.observe(this, Observer {
-                person_age.text = "${it.actorAge} years old"
-                person_name.text = it.actorName
-                person_pob.text = it.actorBirthplace
-                person_movies.text = it.actorMovies
+            viewModel.personDetails.observe(this, Observer {
+                person_age.text = "${it.personAge} years old"
+                person_name.text = it.personName
+                person_pob.text = it.personBirthplace
+                person_movies.text = it.personMovieCount
             })
         }
     }

@@ -14,7 +14,7 @@ class Constants {
         const val MOVIE_NAME = "movieName"
 
         //Actor data
-        const val ACTOR_NAME = "actorName"
+        const val ACTOR_NAME = "personName"
         const val ACTOR_ID = "actorId"
         const val ACTOR_IMAGE_URL = "actorImageUrl"
 
