@@ -11,8 +11,8 @@ import com.stameni.com.whatshouldiwatch.common.Constants
 import com.stameni.com.whatshouldiwatch.common.ImageLoader
 import com.stameni.com.whatshouldiwatch.common.listen
 import com.stameni.com.whatshouldiwatch.data.models.SearchItem
-import com.stameni.com.whatshouldiwatch.screens.singleActor.SingleActorActivity
 import com.stameni.com.whatshouldiwatch.screens.singleMovie.SingleMovieActivity
+import com.stameni.com.whatshouldiwatch.screens.singlePerson.SinglePersonActivity
 import kotlinx.android.synthetic.main.list_movie_item.view.*
 
 class SearchAdapter(
@@ -31,7 +31,7 @@ class SearchAdapter(
                 intent.putExtra(Constants.MOVIE_NAME, item.title)
                 parent.context.startActivity(intent)
             } else if (item.type == Constants.PEOPLE_TYPE){
-                val intent = Intent(parent.context, SingleActorActivity::class.java)
+                val intent = Intent(parent.context, SinglePersonActivity::class.java)
                 intent.putExtra(Constants.ACTOR_NAME, item.title)
                 intent.putExtra(Constants.ACTOR_ID, item.id)
                 intent.putExtra(Constants.ACTOR_IMAGE_URL, item.url)

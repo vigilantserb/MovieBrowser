@@ -1,4 +1,4 @@
-package com.stameni.com.whatshouldiwatch.screens.singleActor.biography
+package com.stameni.com.whatshouldiwatch.screens.singlePerson.biography
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,7 +9,7 @@ import androidx.lifecycle.ViewModelProviders
 import com.stameni.com.whatshouldiwatch.R
 import com.stameni.com.whatshouldiwatch.common.ViewModelFactory
 import com.stameni.com.whatshouldiwatch.common.baseClasses.BaseFragment
-import kotlinx.android.synthetic.main.single_actor_biography_fragment.*
+import kotlinx.android.synthetic.main.single_person_biography_fragment.*
 import javax.inject.Inject
 
 class SingleActorBiographyFragment : BaseFragment() {
@@ -23,7 +23,7 @@ class SingleActorBiographyFragment : BaseFragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.single_actor_biography_fragment, container, false)
+        return inflater.inflate(R.layout.single_person_biography_fragment, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

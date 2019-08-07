@@ -13,7 +13,7 @@
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
-        <activity android:name=".screens.singleActor.SingleActorActivity"
+        <activity android:name=".screens.singlePerson.SinglePersonActivity"
                   android:configChanges="orientation"
                   android:screenOrientation="portrait"
                   android:theme="@style/AppTheme.NoActionBar">

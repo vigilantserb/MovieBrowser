@@ -24,10 +24,10 @@ import com.stameni.com.whatshouldiwatch.screens.discover.topLists.movielist.Movi
 import com.stameni.com.whatshouldiwatch.screens.discover.upcoming.UpcomingMoviesViewModel;
 import com.stameni.com.whatshouldiwatch.screens.news.NewsViewModel;
 import com.stameni.com.whatshouldiwatch.screens.search.SearchViewModel;
-import com.stameni.com.whatshouldiwatch.screens.singleActor.SingleActorActivityViewModel;
-import com.stameni.com.whatshouldiwatch.screens.singleActor.appearances.SingleActorAppearancesViewModel;
-import com.stameni.com.whatshouldiwatch.screens.singleActor.biography.SingleActorBiographyViewModel;
 import com.stameni.com.whatshouldiwatch.screens.singleMovie.SingleMovieViewModel;
+import com.stameni.com.whatshouldiwatch.screens.singlePerson.SinglePersonActivityViewModel;
+import com.stameni.com.whatshouldiwatch.screens.singlePerson.appearances.SinglePersonAppearancesViewModel;
+import com.stameni.com.whatshouldiwatch.screens.singlePerson.biography.SingleActorBiographyViewModel;
 import dagger.MapKey;
 import dagger.Module;
 import dagger.Provides;
@@ -128,17 +128,17 @@ public class ViewModelModule {
 
     @Provides
     @IntoMap
-    @ViewModelKey(SingleActorActivityViewModel.class)
+    @ViewModelKey(SinglePersonActivityViewModel.class)
     ViewModel singleActorActivityViewModel(
             FetchPersonDetailsUseCase fetchPersonDetailsUseCase) {
-        return new SingleActorActivityViewModel(fetchPersonDetailsUseCase);
+        return new SinglePersonActivityViewModel(fetchPersonDetailsUseCase);
     }
 
     @Provides
     @IntoMap
-    @ViewModelKey(SingleActorAppearancesViewModel.class)
+    @ViewModelKey(SinglePersonAppearancesViewModel.class)
     ViewModel singleActorAppearancesViewModel(
             FetchSingleActorMoviesUseCase fetchSingleActorMoviesUseCase) {
-        return new SingleActorAppearancesViewModel(fetchSingleActorMoviesUseCase);
+        return new SinglePersonAppearancesViewModel(fetchSingleActorMoviesUseCase);
     }
 }

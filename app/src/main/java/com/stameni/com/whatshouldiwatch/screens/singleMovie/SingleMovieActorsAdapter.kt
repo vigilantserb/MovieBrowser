@@ -10,7 +10,7 @@ import com.stameni.com.whatshouldiwatch.common.Constants
 import com.stameni.com.whatshouldiwatch.common.ImageLoader
 import com.stameni.com.whatshouldiwatch.common.listen
 import com.stameni.com.whatshouldiwatch.data.models.Actor
-import com.stameni.com.whatshouldiwatch.screens.singleActor.SingleActorActivity
+import com.stameni.com.whatshouldiwatch.screens.singlePerson.SinglePersonActivity
 import kotlinx.android.synthetic.main.single_movie_actor_item.view.*
 
 class SingleMovieActorsAdapter(
@@ -22,7 +22,7 @@ class SingleMovieActorsAdapter(
         val v = LayoutInflater.from(parent.context).inflate(R.layout.single_movie_actor_item, parent, false)
         return ViewHolder(v, parent).listen { position, type ->
             val item = items[position]
-            val intent = Intent(parent.context, SingleActorActivity::class.java)
+            val intent = Intent(parent.context, SinglePersonActivity::class.java)
             intent.putExtra(Constants.ACTOR_NAME, item.actorName)
             intent.putExtra(Constants.ACTOR_ID, item.actorId)
             intent.putExtra(Constants.ACTOR_IMAGE_URL, item.profileImageUrl)

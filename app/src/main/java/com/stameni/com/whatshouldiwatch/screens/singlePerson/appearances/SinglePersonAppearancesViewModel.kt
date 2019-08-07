@@ -1,10 +1,10 @@
-package com.stameni.com.whatshouldiwatch.screens.singleActor.appearances
+package com.stameni.com.whatshouldiwatch.screens.singlePerson.appearances
 
 import androidx.lifecycle.ViewModel
 import com.stameni.com.whatshouldiwatch.data.networkData.actor.FetchSingleActorMoviesUseCase
 import io.reactivex.disposables.CompositeDisposable
 
-class SingleActorAppearancesViewModel(
+class SinglePersonAppearancesViewModel(
     private val fetchSingleActorMoviesUseCase: FetchSingleActorMoviesUseCase
 ) : ViewModel() {
 

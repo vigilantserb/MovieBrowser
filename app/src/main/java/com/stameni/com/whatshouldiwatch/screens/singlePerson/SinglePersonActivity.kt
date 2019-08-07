@@ -1,4 +1,4 @@
-package com.stameni.com.whatshouldiwatch.screens.singleActor
+package com.stameni.com.whatshouldiwatch.screens.singlePerson
 
 import android.os.Bundle
 import androidx.lifecycle.Observer
@@ -8,10 +8,10 @@ import com.stameni.com.whatshouldiwatch.common.Constants
 import com.stameni.com.whatshouldiwatch.common.ImageLoader
 import com.stameni.com.whatshouldiwatch.common.ViewModelFactory
 import com.stameni.com.whatshouldiwatch.common.baseClasses.BaseActivity
-import kotlinx.android.synthetic.main.activity_single_actor.*
+import kotlinx.android.synthetic.main.activity_single_person.*
 import javax.inject.Inject
 
-class SingleActorActivity : BaseActivity() {
+class SinglePersonActivity : BaseActivity() {
 
     @Inject
     lateinit var imageLoader: ImageLoader
@@ -19,19 +19,19 @@ class SingleActorActivity : BaseActivity() {
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
 
-    private lateinit var viewModel: SingleActorActivityViewModel
+    private lateinit var viewModel: SinglePersonActivityViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         getControllerComponent().inject(this)
-        setContentView(R.layout.activity_single_actor)
+        setContentView(R.layout.activity_single_person)
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        viewpager_main.adapter = SingleActorViewPagerAdapter(supportFragmentManager)
+        viewpager_main.adapter = SinglePersonViewPagerAdapter(supportFragmentManager)
         tabs.setupWithViewPager(viewpager_main)
 
         if(intent.extras != null){
-            viewModel = ViewModelProviders.of(this, viewModelFactory).get(SingleActorActivityViewModel::class.java)
+            viewModel = ViewModelProviders.of(this, viewModelFactory).get(SinglePersonActivityViewModel::class.java)
 
             val name = intent.extras!!.getString(Constants.ACTOR_NAME, "")
             val id = intent.extras!!.getInt(Constants.ACTOR_ID, 0)

@@ -11,10 +11,10 @@ import com.stameni.com.whatshouldiwatch.screens.discover.topLists.movielist.Movi
 import com.stameni.com.whatshouldiwatch.screens.discover.upcoming.UpcomingMovies
 import com.stameni.com.whatshouldiwatch.screens.news.NewsFragment
 import com.stameni.com.whatshouldiwatch.screens.search.SearchFragment
-import com.stameni.com.whatshouldiwatch.screens.singleActor.SingleActorActivity
-import com.stameni.com.whatshouldiwatch.screens.singleActor.appearances.SingleActorAppearancesFragment
-import com.stameni.com.whatshouldiwatch.screens.singleActor.biography.SingleActorBiographyFragment
 import com.stameni.com.whatshouldiwatch.screens.singleMovie.SingleMovieActivity
+import com.stameni.com.whatshouldiwatch.screens.singlePerson.SinglePersonActivity
+import com.stameni.com.whatshouldiwatch.screens.singlePerson.appearances.SinglePersonAppearancesFragment
+import com.stameni.com.whatshouldiwatch.screens.singlePerson.biography.SingleActorBiographyFragment
 import dagger.Subcomponent
 
 @Subcomponent(modules = [ControllerModule::class, ViewModelModule::class, NetworkModule::class])
@@ -28,7 +28,7 @@ interface ControllerComponent {
     fun inject(newsFragment: NewsFragment)
     fun inject(singleMovieActivity: SingleMovieActivity)
     fun inject(topListMovies: TopListMovies)
-    fun inject(singleActorActivity: SingleActorActivity)
+    fun inject(singlePersonActivity: SinglePersonActivity)
     fun inject(singleActorBiographyFragment: SingleActorBiographyFragment)
-    fun inject(singleActorAppearancesFragment: SingleActorAppearancesFragment)
+    fun inject(singlePersonAppearancesFragment: SinglePersonAppearancesFragment)
 }

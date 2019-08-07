@@ -1,19 +1,19 @@
-package com.stameni.com.whatshouldiwatch.screens.singleActor
+package com.stameni.com.whatshouldiwatch.screens.singlePerson.biography
 
 import androidx.lifecycle.ViewModel
 import com.stameni.com.whatshouldiwatch.data.networkData.actor.actorDetail.FetchPersonDetailsUseCase
 import io.reactivex.disposables.CompositeDisposable
 
-class SingleActorActivityViewModel (
+class SingleActorBiographyViewModel(
     private val fetchPersonDetailsUseCase: FetchPersonDetailsUseCase
 ) : ViewModel() {
 
     val disposables = CompositeDisposable()
 
-    val personDetails
+    val actorDetails
         get() = fetchPersonDetailsUseCase.personDetails
 
-    fun fetchPersonDetails(actorId: Int) {
+    fun fetchActorDetails(actorId: Int) {
         disposables.add(
             fetchPersonDetailsUseCase.getPersonDetails(actorId)
         )

@@ -1,4 +1,4 @@
-package com.stameni.com.whatshouldiwatch.screens.singleActor.appearances
+package com.stameni.com.whatshouldiwatch.screens.singlePerson.appearances
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -13,23 +13,23 @@ import com.stameni.com.whatshouldiwatch.common.ImageLoader
 import com.stameni.com.whatshouldiwatch.common.ViewModelFactory
 import com.stameni.com.whatshouldiwatch.common.baseClasses.BaseFragment
 import com.stameni.com.whatshouldiwatch.screens.search.SearchAdapter
-import kotlinx.android.synthetic.main.single_actor_movies_fragment.*
+import kotlinx.android.synthetic.main.single_person_movies_fragment.*
 import javax.inject.Inject
 
-class SingleActorAppearancesFragment : BaseFragment() {
+class SinglePersonAppearancesFragment : BaseFragment() {
 
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
     @Inject
     lateinit var imageLoader: ImageLoader
 
-    private lateinit var viewModel: SingleActorAppearancesViewModel
+    private lateinit var viewModel: SinglePersonAppearancesViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.single_actor_movies_fragment, container, false)
+        return inflater.inflate(R.layout.single_person_movies_fragment, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -45,7 +45,7 @@ class SingleActorAppearancesFragment : BaseFragment() {
         if (activity!!.intent.extras != null) {
             val id = activity!!.intent.extras!!.getInt("actorId", 0)
 
-            viewModel = ViewModelProviders.of(this, viewModelFactory).get(SingleActorAppearancesViewModel::class.java)
+            viewModel = ViewModelProviders.of(this, viewModelFactory).get(SinglePersonAppearancesViewModel::class.java)
 
             viewModel.getActorMovies(id)
             viewModel.fetchedMovies.observe(this, Observer {
