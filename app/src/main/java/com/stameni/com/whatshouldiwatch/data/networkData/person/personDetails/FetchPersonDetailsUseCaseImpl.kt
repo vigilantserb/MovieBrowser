@@ -2,6 +2,7 @@ package com.stameni.com.whatshouldiwatch.data.networkData.person.personDetails
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.stameni.com.whatshouldiwatch.common.Constants
 import com.stameni.com.whatshouldiwatch.data.MovieApi
 import com.stameni.com.whatshouldiwatch.data.models.PersonDetail
 import com.stameni.com.whatshouldiwatch.data.schemas.person.singlePerson.SinglePersonSchema
@@ -25,11 +26,11 @@ class FetchPersonDetailsUseCaseImpl(
     override val fetchError: LiveData<Exception>
         get() = _fetchError
 
-    override fun getPersonDetails(actorId: Int): Disposable {
+    override fun getPersonDetails(actorId: Int, type: String): Disposable {
         return movieApi.getPersonDetails(actorId)
             .subscribeOn(Schedulers.io())
             .map {
-                formatResponse(it)
+                formatResponse(it, type)
             }
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({ onDetailsFetched(it) }, { onDetailsFetchFailed(it) })
@@ -44,7 +45,10 @@ class FetchPersonDetailsUseCaseImpl(
             _personDetails.value = response
     }
 
-    private fun formatResponse(response: Response<SinglePersonSchema>): PersonDetail? {
+    private fun formatResponse(
+        response: Response<SinglePersonSchema>,
+        type: String
+    ): PersonDetail? {
         if (response.isSuccessful) {
             val details = response.body()
 
@@ -66,12 +70,19 @@ class FetchPersonDetailsUseCaseImpl(
 
             var numberOfMovies = 0
 
+
             if (details.combinedCredits != null) {
-                if (details.combinedCredits.cast != null) {
-                    numberOfMovies += details.combinedCredits.cast.size
-                }
-                if (details.combinedCredits.crew != null) {
-                    numberOfMovies += details.combinedCredits.crew.size
+                if (type.contains(Constants.ACTOR_TYPE)) {
+                    if (details.combinedCredits.cast != null) {
+                        numberOfMovies += details.combinedCredits.cast.size
+                    }
+                } else if (type.contains(Constants.DIRECTOR_TYPE)) {
+                    if (details.combinedCredits.crew != null) {
+                        details.combinedCredits.crew.forEach {
+                            if(it.department == "Writing")
+                                numberOfMovies++
+                        }
+                    }
                 }
             }
 

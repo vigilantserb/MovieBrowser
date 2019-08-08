@@ -13,9 +13,9 @@ class SinglePersonActivityViewModel (
     val personDetails
         get() = fetchPersonDetailsUseCase.personDetails
 
-    fun fetchPersonDetails(actorId: Int) {
+    fun fetchPersonDetails(actorId: Int, type: String) {
         disposables.add(
-            fetchPersonDetailsUseCase.getPersonDetails(actorId)
+            fetchPersonDetailsUseCase.getPersonDetails(actorId, type)
         )
     }
 }

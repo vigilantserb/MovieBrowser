@@ -13,9 +13,9 @@ class SingleActorBiographyViewModel(
     val fetchedBiography
         get() = fetchPersonDetailsUseCase.personDetails
 
-    fun fetchPersonBiography(actorId: Int) {
+    fun fetchPersonBiography(actorId: Int, type: String) {
         disposables.add(
-            fetchPersonDetailsUseCase.getPersonDetails(actorId)
+            fetchPersonDetailsUseCase.getPersonDetails(actorId, type)
         )
     }
 }

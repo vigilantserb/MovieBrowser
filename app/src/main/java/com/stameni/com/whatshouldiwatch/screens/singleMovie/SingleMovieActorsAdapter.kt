@@ -23,6 +23,7 @@ class SingleMovieActorsAdapter(
         return ViewHolder(v, parent).listen { position, type ->
             val item = items[position]
             val intent = Intent(parent.context, SinglePersonActivity::class.java)
+            intent.putExtra(Constants.PERSON_TYPE, Constants.ACTOR_TYPE)
             intent.putExtra(Constants.PERSON_NAME, item.actorName)
             intent.putExtra(Constants.PERSON_ID, item.actorId)
             intent.putExtra(Constants.PERSON_IMAGE_URL, item.profileImageUrl)

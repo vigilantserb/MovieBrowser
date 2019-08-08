@@ -15,6 +15,7 @@ import com.stameni.com.whatshouldiwatch.data.networkData.movies.singleMovie.reco
 import com.stameni.com.whatshouldiwatch.data.networkData.movies.singleMovie.trailer.FetchSingleMovieTrailer;
 import com.stameni.com.whatshouldiwatch.data.networkData.news.FetchEntertainmentNewsUseCase;
 import com.stameni.com.whatshouldiwatch.data.networkData.person.actorMovies.FetchSingleActorMoviesUseCase;
+import com.stameni.com.whatshouldiwatch.data.networkData.person.directorMovies.FetchSingleDirectorMovies;
 import com.stameni.com.whatshouldiwatch.data.networkData.person.personDetails.FetchPersonDetailsUseCase;
 import com.stameni.com.whatshouldiwatch.data.networkData.search.SearchByTermUseCase;
 import com.stameni.com.whatshouldiwatch.screens.discover.genre.GenreMoviesViewModel;
@@ -138,7 +139,8 @@ public class ViewModelModule {
     @IntoMap
     @ViewModelKey(SinglePersonAppearancesViewModel.class)
     ViewModel singleActorAppearancesViewModel(
-            FetchSingleActorMoviesUseCase fetchSingleActorMoviesUseCase) {
-        return new SinglePersonAppearancesViewModel(fetchSingleActorMoviesUseCase);
+            FetchSingleActorMoviesUseCase fetchSingleActorMoviesUseCase,
+            FetchSingleDirectorMovies fetchSingleDirectorMovies) {
+        return new SinglePersonAppearancesViewModel(fetchSingleActorMoviesUseCase, fetchSingleDirectorMovies);
     }
 }

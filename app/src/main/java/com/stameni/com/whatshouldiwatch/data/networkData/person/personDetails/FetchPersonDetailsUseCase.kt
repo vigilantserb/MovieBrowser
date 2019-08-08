@@ -10,5 +10,5 @@ interface FetchPersonDetailsUseCase {
 
     val fetchError: LiveData<Exception>
 
-    fun getPersonDetails(actorId: Int): Disposable
+    fun getPersonDetails(actorId: Int, type: String): Disposable
 }

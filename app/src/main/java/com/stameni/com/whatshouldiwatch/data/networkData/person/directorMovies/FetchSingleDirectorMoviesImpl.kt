@@ -1,4 +1,4 @@
-package com.stameni.com.whatshouldiwatch.data.networkData.person.actorMovies
+package com.stameni.com.whatshouldiwatch.data.networkData.person.directorMovies
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -10,9 +10,9 @@ import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 import retrofit2.Response
 
-class FetchSingleActorMoviesUseCaseImpl(
+class FetchSingleDirectorMoviesImpl(
     private val movieApi: MovieApi
-) : FetchSingleActorMoviesUseCase {
+) : FetchSingleDirectorMovies {
 
     val _fetchedData = MutableLiveData<ArrayList<SearchItem>>()
 
@@ -24,8 +24,8 @@ class FetchSingleActorMoviesUseCaseImpl(
     override val fetchError: LiveData<Exception>
         get() = _fetchError
 
-    override fun fetchSingleActorMovies(castId: Int): Disposable {
-        return movieApi.getSingleActorMovies(castId)
+    override fun fetchSingleDirectorMovies(crewId: Int): Disposable {
+        return movieApi.getSingleDirectorMovies(crewId)
             .subscribeOn(Schedulers.io())
             .map {
                 formatResponse(it)

@@ -13,11 +13,17 @@ class Constants {
         const val MOVIE_ID = "movieId"
         const val MOVIE_NAME = "movieName"
 
-        //Actor data
+        //Person data
         const val PERSON_TYPE = "personType"
         const val PERSON_NAME = "personName"
         const val PERSON_ID = "personId"
         const val PERSON_IMAGE_URL = "personImageUrl"
+
+        //Actor
+        const val ACTOR_TYPE = "actorType"
+
+        //Director
+        const val DIRECTOR_TYPE = "directorType"
 
         //Image sizes
         const val LARGE_IMAGE_SIZE = "w500"

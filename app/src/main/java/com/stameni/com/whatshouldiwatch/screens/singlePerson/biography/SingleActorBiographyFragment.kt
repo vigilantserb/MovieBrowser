@@ -37,7 +37,7 @@ class SingleActorBiographyFragment : BaseFragment() {
 
                 viewModel = ViewModelProviders.of(this, viewModelFactory).get(SingleActorBiographyViewModel::class.java)
 
-                viewModel.fetchPersonBiography(id)
+                viewModel.fetchPersonBiography(id, "")
 
                 viewModel.fetchedBiography.observe(this, Observer {
                     person_biography.text = it.personBiography

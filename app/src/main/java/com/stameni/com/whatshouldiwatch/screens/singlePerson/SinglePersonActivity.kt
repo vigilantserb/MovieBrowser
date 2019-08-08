@@ -43,7 +43,7 @@ class SinglePersonActivity : BaseActivity() {
             imageLoader.loadImageBlurCenterCrop(url, person_profile_blurred, Constants.LARGE_IMAGE_SIZE)
             imageLoader.loadImageNoFormat(url, person_profile, Constants.LARGE_IMAGE_SIZE)
 
-            viewModel.fetchPersonDetails(id)
+            viewModel.fetchPersonDetails(id, type)
 
             viewModel.personDetails.observe(this, Observer {
                 person_age.text = "${it.personAge} years old"

@@ -44,12 +44,21 @@ class SinglePersonAppearancesFragment : BaseFragment() {
         actor_movies_rv.layoutManager = layoutManager
 
         if (activity!!.intent.extras != null) {
-            val id = activity!!.intent.extras!!.getInt(Constants.PERSON_ID, 0)
+            val personType = activity!!.intent.extras!!.getString(Constants.PERSON_TYPE, "")
+            val personId = activity!!.intent.extras!!.getInt(Constants.PERSON_ID, 0)
 
             viewModel = ViewModelProviders.of(this, viewModelFactory).get(SinglePersonAppearancesViewModel::class.java)
 
-            viewModel.getActorMovies(id)
-            viewModel.fetchedMovies.observe(this, Observer {
+            if(personType.contains(Constants.ACTOR_TYPE)) viewModel.getActorMovies(personId)
+            else viewModel.getDirectorMovies(personId)
+
+            viewModel.fetchedActorMovies.observe(this, Observer {
+                if (it != null) {
+                    adapter.addAll(it)
+                }
+            })
+
+            viewModel.fetchedDirectorMovies.observe(this, Observer {
                 if (it != null) {
                     adapter.addAll(it)
                 }

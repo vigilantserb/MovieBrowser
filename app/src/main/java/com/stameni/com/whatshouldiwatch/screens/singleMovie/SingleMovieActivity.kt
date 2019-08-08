@@ -149,6 +149,7 @@ class SingleMovieActivity : BaseActivity() {
         directors_data.setOnClickListener {
             if(details.directorId != 0){
                 val intent = Intent(this, SinglePersonActivity::class.java)
+                intent.putExtra(Constants.PERSON_TYPE, Constants.DIRECTOR_TYPE)
                 intent.putExtra(Constants.PERSON_NAME, details.directorName)
                 intent.putExtra(Constants.PERSON_ID, details.directorId)
                 intent.putExtra(Constants.PERSON_IMAGE_URL, details.directorImageUrl)
