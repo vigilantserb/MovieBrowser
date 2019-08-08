@@ -14,9 +14,9 @@ class Constants {
         const val MOVIE_NAME = "movieName"
 
         //Actor data
-        const val ACTOR_NAME = "personName"
-        const val ACTOR_ID = "actorId"
-        const val ACTOR_IMAGE_URL = "actorImageUrl"
+        const val PERSON_NAME = "personName"
+        const val PERSON_ID = "actorId"
+        const val PERSON_IMAGE_URL = "actorImageUrl"
 
         //Image sizes
         const val LARGE_IMAGE_SIZE = "w500"

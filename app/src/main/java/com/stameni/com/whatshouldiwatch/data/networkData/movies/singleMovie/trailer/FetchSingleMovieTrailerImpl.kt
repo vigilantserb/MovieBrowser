@@ -46,7 +46,7 @@ class FetchSingleMovieTrailerImpl(
 
         if(response.isSuccessful){
             response.body()!!.results.forEach {
-                if(it.site == "YouTube") link = it.key
+                if(it.site == "YouTube" && it.type == "Trailer") link = it.key
             }
         }
 

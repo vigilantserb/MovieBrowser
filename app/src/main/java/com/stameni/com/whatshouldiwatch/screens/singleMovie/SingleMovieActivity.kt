@@ -16,6 +16,7 @@ import com.stameni.com.whatshouldiwatch.common.ViewModelFactory
 import com.stameni.com.whatshouldiwatch.common.baseClasses.BaseActivity
 import com.stameni.com.whatshouldiwatch.data.models.MovieDetails
 import com.stameni.com.whatshouldiwatch.screens.news.NewsWebViewActivity
+import com.stameni.com.whatshouldiwatch.screens.singlePerson.SinglePersonActivity
 import kotlinx.android.synthetic.main.activity_single_movie.*
 import javax.inject.Inject
 
@@ -145,14 +146,22 @@ class SingleMovieActivity : BaseActivity() {
         release_date.text = details.releaseDate
         runtime.text = "${details.runtime.toString()} min"
         genres.text = details.genres
+        directors_data.setOnClickListener {
+            if(details.directorId != 0){
+                val intent = Intent(this, SinglePersonActivity::class.java)
+                intent.putExtra(Constants.PERSON_NAME, details.directorName)
+                intent.putExtra(Constants.PERSON_ID, details.directorId)
+                intent.putExtra(Constants.PERSON_IMAGE_URL, details.directorImageUrl)
+                startActivity(intent)
+            }
+        }
     }
 
     private fun createImdbLink(imdbId: String){
-        val url = "https://www.imdb.com/title/" + imdbId
-        goToUrlAddress(url)
+        goToImdbMoviePage("https://www.imdb.com/title/$imdbId")
     }
 
-    private fun goToUrlAddress(url: String) {
+    private fun goToImdbMoviePage(url: String) {
         val intent = Intent(this, NewsWebViewActivity::class.java)
         intent.putExtra(Constants.SOURCE_LINK, url)
         startActivity(intent)

@@ -33,9 +33,9 @@ class SinglePersonActivity : BaseActivity() {
         if(intent.extras != null){
             viewModel = ViewModelProviders.of(this, viewModelFactory).get(SinglePersonActivityViewModel::class.java)
 
-            val name = intent.extras!!.getString(Constants.ACTOR_NAME, "")
-            val id = intent.extras!!.getInt(Constants.ACTOR_ID, 0)
-            val url = intent.extras!!.getString(Constants.ACTOR_IMAGE_URL, "")
+            val name = intent.extras!!.getString(Constants.PERSON_NAME, "")
+            val id = intent.extras!!.getInt(Constants.PERSON_ID, 0)
+            val url = intent.extras!!.getString(Constants.PERSON_IMAGE_URL, "")
 
             supportActionBar!!.title = name
 

@@ -49,10 +49,12 @@ class FetchSingleMovieDetailsImpl(
             }
             var directorName = ""
             var directorImageUrl = ""
+            var directorId = 0
             data.credits.crew.forEach {
                 if (it.job == "Director") {
                     directorName = it.name
                     directorImageUrl = it.profilePath
+                    directorId = it.id
                 }
             }
             return MovieDetails(
@@ -64,7 +66,8 @@ class FetchSingleMovieDetailsImpl(
                 data.runtime,
                 genres,
                 directorName,
-                directorImageUrl
+                directorImageUrl,
+                directorId
             )
         }
         return null

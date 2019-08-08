@@ -9,5 +9,6 @@ data class MovieDetails(
     val runtime: Int?,
     val genres: String?,
     val directorName: String?,
-    val directorImageUrl: String?
+    val directorImageUrl: String?,
+    val directorId: Int
 )
