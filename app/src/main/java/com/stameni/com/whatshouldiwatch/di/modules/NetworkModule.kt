@@ -1,13 +1,9 @@
 package com.stameni.com.whatshouldiwatch.di.modules
 
-import android.content.Context
-import com.stameni.com.whatshouldiwatch.common.interceptors.ConnectivityInterceptor
-import com.stameni.com.whatshouldiwatch.common.interceptors.ConnectivityInterceptorImpl
-import com.stameni.com.whatshouldiwatch.data.*
-import com.stameni.com.whatshouldiwatch.data.networkData.actor.FetchSingleActorMoviesUseCase
-import com.stameni.com.whatshouldiwatch.data.networkData.actor.FetchSingleActorMoviesUseCaseImpl
-import com.stameni.com.whatshouldiwatch.data.networkData.actor.actorDetail.FetchPersonDetailsUseCase
-import com.stameni.com.whatshouldiwatch.data.networkData.actor.actorDetail.FetchPersonDetailsUseCaseImpl
+import com.stameni.com.whatshouldiwatch.data.MovieApi
+import com.stameni.com.whatshouldiwatch.data.NEWS_API_KEY
+import com.stameni.com.whatshouldiwatch.data.NEWS_BASE_URL
+import com.stameni.com.whatshouldiwatch.data.NewsApi
 import com.stameni.com.whatshouldiwatch.data.networkData.lists.FetchGenreListUseCase
 import com.stameni.com.whatshouldiwatch.data.networkData.lists.FetchGenreListUseCaseImpl
 import com.stameni.com.whatshouldiwatch.data.networkData.lists.FetchListMoviesUseCase
@@ -27,6 +23,10 @@ import com.stameni.com.whatshouldiwatch.data.networkData.movies.singleMovie.trai
 import com.stameni.com.whatshouldiwatch.data.networkData.movies.singleMovie.trailer.FetchSingleMovieTrailerImpl
 import com.stameni.com.whatshouldiwatch.data.networkData.news.FetchEntertainmentNewsUseCase
 import com.stameni.com.whatshouldiwatch.data.networkData.news.FetchEntertainmentNewsUseCaseImpl
+import com.stameni.com.whatshouldiwatch.data.networkData.person.actorMovies.FetchSingleActorMoviesUseCase
+import com.stameni.com.whatshouldiwatch.data.networkData.person.actorMovies.FetchSingleActorMoviesUseCaseImpl
+import com.stameni.com.whatshouldiwatch.data.networkData.person.personDetails.FetchPersonDetailsUseCase
+import com.stameni.com.whatshouldiwatch.data.networkData.person.personDetails.FetchPersonDetailsUseCaseImpl
 import com.stameni.com.whatshouldiwatch.data.networkData.search.SearchByTermUseCase
 import com.stameni.com.whatshouldiwatch.data.networkData.search.SearchByTermUseCaseImpl
 import dagger.Module
@@ -41,44 +41,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 @Module
 class NetworkModule {
     @Provides
-    internal fun getConnectivityInterceptor(context: Context): ConnectivityInterceptor =
-        ConnectivityInterceptorImpl(context)
-
-    @Provides
-    internal fun getMovieApi(retrofit: Retrofit, connectivityInterceptor: ConnectivityInterceptor): MovieApi {
-        val requestInterceptor = Interceptor { chain ->
-            val url = chain.request()
-                .url()
-                .newBuilder()
-                .addQueryParameter("api_key", API_KEY)
-                .build()
-            val request = chain.request()
-                .newBuilder()
-                .url(url)
-                .build()
-            return@Interceptor chain.proceed(request)
-        }
-
-        val logging = HttpLoggingInterceptor()
-        logging.level = HttpLoggingInterceptor.Level.BODY
-
-        val okHttpClient = OkHttpClient.Builder()
-            .addInterceptor(logging)
-            .addInterceptor(requestInterceptor)
-            .addInterceptor(connectivityInterceptor)
-            .build()
-
-        return retrofit.newBuilder()
-            .client(okHttpClient)
-            .baseUrl(BASE_URL)
-            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
-            .create(MovieApi::class.java)
-    }
-
-    @Provides
-    internal fun getNewsApi(retrofit: Retrofit, connectivityInterceptor: ConnectivityInterceptor): NewsApi {
+    internal fun getNewsApi(retrofit: Retrofit): NewsApi {
         val requestInterceptor = Interceptor { chain ->
             val url = chain.request()
                 .url()
@@ -98,7 +61,6 @@ class NetworkModule {
         val okHttpClient = OkHttpClient.Builder()
             .addInterceptor(logging)
             .addInterceptor(requestInterceptor)
-            .addInterceptor(connectivityInterceptor)
             .build()
 
         return Retrofit.Builder()
@@ -156,7 +118,8 @@ class NetworkModule {
     fun getActorDetails(movieApi: MovieApi): FetchPersonDetailsUseCase = FetchPersonDetailsUseCaseImpl(movieApi)
 
     @Provides
-    fun getActorMovies(movieApi: MovieApi): FetchSingleActorMoviesUseCase = FetchSingleActorMoviesUseCaseImpl(movieApi)
+    fun getActorMovies(movieApi: MovieApi): FetchSingleActorMoviesUseCase =
+        FetchSingleActorMoviesUseCaseImpl(movieApi)
 
     @Provides
     fun getSingleMovieCerfitication(movieApi: MovieApi): FetchSingleMovieCertification = FetchSingleMovieCertificationImpl(movieApi)

@@ -102,12 +102,19 @@ interface MovieApi {
 
     @GET("/3/person/{person_id}")
     fun getPersonDetails(
-        @Path("person_id") personId: Int
+        @Path("person_id") personId: Int,
+        @Query("append_to_response") append: String = "combined_credits"
     ): Observable<Response<SinglePersonSchema>>
 
     @GET("/3/discover/movie")
     fun getSingleActorMovies(
         @Query("with_cast") castId: Int,
+        @Query("page") page: Int = 1
+    ): Observable<Response<SearchSchema>>
+
+    @GET("/3/discover/movie")
+    fun getSingleDirectorMovies(
+        @Query("with_crew") crewId: Int,
         @Query("page") page: Int = 1
     ): Observable<Response<SearchSchema>>
 

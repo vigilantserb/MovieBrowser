@@ -1,7 +1,7 @@
 package com.stameni.com.whatshouldiwatch.screens.singlePerson.appearances
 
 import androidx.lifecycle.ViewModel
-import com.stameni.com.whatshouldiwatch.data.networkData.actor.FetchSingleActorMoviesUseCase
+import com.stameni.com.whatshouldiwatch.data.networkData.person.actorMovies.FetchSingleActorMoviesUseCase
 import io.reactivex.disposables.CompositeDisposable
 
 class SinglePersonAppearancesViewModel(
@@ -9,6 +9,8 @@ class SinglePersonAppearancesViewModel(
 ) : ViewModel() {
 
     val fetchedMovies = fetchSingleActorMoviesUseCase.fetchedData
+
+    val numberOfMovies = fetchSingleActorMoviesUseCase.personMovieNumber
 
     val disposables = CompositeDisposable()
 

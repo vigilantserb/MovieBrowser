@@ -30,11 +30,12 @@ class SinglePersonActivity : BaseActivity() {
         viewpager_main.adapter = SinglePersonViewPagerAdapter(supportFragmentManager)
         tabs.setupWithViewPager(viewpager_main)
 
-        if(intent.extras != null){
+        if (intent.extras != null) {
             viewModel = ViewModelProviders.of(this, viewModelFactory).get(SinglePersonActivityViewModel::class.java)
 
+            val type = intent.extras!!.getString(Constants.PERSON_TYPE, "")
             val name = intent.extras!!.getString(Constants.PERSON_NAME, "")
-            val id = intent.extras!!.getInt(Constants.PERSON_ID, 0)
+            val id = intent.extras!!.getInt(Constants.PERSON_ID, -1)
             val url = intent.extras!!.getString(Constants.PERSON_IMAGE_URL, "")
 
             supportActionBar!!.title = name
@@ -48,7 +49,9 @@ class SinglePersonActivity : BaseActivity() {
                 person_age.text = "${it.personAge} years old"
                 person_name.text = it.personName
                 person_pob.text = it.personBirthplace
-                person_movies.text = it.personMovieCount
+                if (it.personMovieCount == 1) person_movies.text = "${it.personMovieCount} movie"
+                else person_movies.text = "${it.personMovieCount} movies"
+
             })
         }
     }

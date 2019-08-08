@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.stameni.com.whatshouldiwatch.R
+import com.stameni.com.whatshouldiwatch.common.Constants
 import com.stameni.com.whatshouldiwatch.common.ViewModelFactory
 import com.stameni.com.whatshouldiwatch.common.baseClasses.BaseFragment
 import kotlinx.android.synthetic.main.single_person_biography_fragment.*
@@ -32,14 +33,14 @@ class SingleActorBiographyFragment : BaseFragment() {
 
         if(activity != null){
             if(activity!!.intent.extras != null){
-                val id = activity!!.intent.extras!!.getInt("actorId", 0)
+                val id = activity!!.intent.extras!!.getInt(Constants.PERSON_ID, 0)
 
                 viewModel = ViewModelProviders.of(this, viewModelFactory).get(SingleActorBiographyViewModel::class.java)
 
-                viewModel.fetchActorDetails(id)
+                viewModel.fetchPersonBiography(id)
 
-                viewModel.actorDetails.observe(this, Observer {
-                    actor_biography.text = it.actorBiography
+                viewModel.fetchedBiography.observe(this, Observer {
+                    person_biography.text = it.personBiography
                 })
             }
         }

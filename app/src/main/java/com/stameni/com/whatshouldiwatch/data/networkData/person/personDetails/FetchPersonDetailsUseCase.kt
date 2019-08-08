@@ -1,4 +1,4 @@
-package com.stameni.com.whatshouldiwatch.data.networkData.actor.actorDetail
+package com.stameni.com.whatshouldiwatch.data.networkData.person.personDetails
 
 import androidx.lifecycle.LiveData
 import com.stameni.com.whatshouldiwatch.data.models.PersonDetail

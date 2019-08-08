@@ -1,4 +1,4 @@
-package com.stameni.com.whatshouldiwatch.data.networkData.actor.actorDetail
+package com.stameni.com.whatshouldiwatch.data.networkData.person.personDetails
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -49,7 +49,8 @@ class FetchPersonDetailsUseCaseImpl(
             val details = response.body()
 
             var birthdayString = details!!.birthday.split("-")
-            val birthdayDate =LocalDate.of(birthdayString[0].toInt(), birthdayString[1].toInt(), birthdayString[2].toInt())
+            val birthdayDate =
+                LocalDate.of(birthdayString[0].toInt(), birthdayString[1].toInt(), birthdayString[2].toInt())
 
             val deathdayString = details.deathday
 
@@ -63,7 +64,18 @@ class FetchPersonDetailsUseCaseImpl(
                 ).years
             }
 
-            return PersonDetail(years, details.name, details.placeOfBirth, "", details.biography)
+            var numberOfMovies = 0
+
+            if (details.combinedCredits != null) {
+                if (details.combinedCredits.cast != null) {
+                    numberOfMovies += details.combinedCredits.cast.size
+                }
+                if (details.combinedCredits.crew != null) {
+                    numberOfMovies += details.combinedCredits.crew.size
+                }
+            }
+
+            return PersonDetail(years, details.name, details.placeOfBirth, numberOfMovies, details.biography)
         }
         return null
     }

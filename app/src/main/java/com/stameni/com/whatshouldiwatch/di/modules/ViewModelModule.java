@@ -2,8 +2,6 @@ package com.stameni.com.whatshouldiwatch.di.modules;
 
 import androidx.lifecycle.ViewModel;
 import com.stameni.com.whatshouldiwatch.common.ViewModelFactory;
-import com.stameni.com.whatshouldiwatch.data.networkData.actor.FetchSingleActorMoviesUseCase;
-import com.stameni.com.whatshouldiwatch.data.networkData.actor.actorDetail.FetchPersonDetailsUseCase;
 import com.stameni.com.whatshouldiwatch.data.networkData.lists.FetchGenreListUseCase;
 import com.stameni.com.whatshouldiwatch.data.networkData.lists.FetchListMoviesUseCase;
 import com.stameni.com.whatshouldiwatch.data.networkData.movies.FetchMoviesByGenreUseCase;
@@ -16,6 +14,8 @@ import com.stameni.com.whatshouldiwatch.data.networkData.movies.singleMovie.imag
 import com.stameni.com.whatshouldiwatch.data.networkData.movies.singleMovie.recommendations.FetchSingleMovieRecommendations;
 import com.stameni.com.whatshouldiwatch.data.networkData.movies.singleMovie.trailer.FetchSingleMovieTrailer;
 import com.stameni.com.whatshouldiwatch.data.networkData.news.FetchEntertainmentNewsUseCase;
+import com.stameni.com.whatshouldiwatch.data.networkData.person.actorMovies.FetchSingleActorMoviesUseCase;
+import com.stameni.com.whatshouldiwatch.data.networkData.person.personDetails.FetchPersonDetailsUseCase;
 import com.stameni.com.whatshouldiwatch.data.networkData.search.SearchByTermUseCase;
 import com.stameni.com.whatshouldiwatch.screens.discover.genre.GenreMoviesViewModel;
 import com.stameni.com.whatshouldiwatch.screens.discover.genre.moviegridlist.MovieGridViewModel;

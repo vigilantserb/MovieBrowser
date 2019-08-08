@@ -1,4 +1,4 @@
-package com.stameni.com.whatshouldiwatch.data.networkData.actor
+package com.stameni.com.whatshouldiwatch.data.networkData.person.actorMovies
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -16,8 +16,13 @@ class FetchSingleActorMoviesUseCaseImpl(
 
     val _fetchedData = MutableLiveData<ArrayList<SearchItem>>()
 
+    val _personMovieNumber = MutableLiveData<String>()
+
     override val fetchedData: LiveData<ArrayList<SearchItem>>
         get() = _fetchedData
+
+    override val personMovieNumber: LiveData<String>
+        get() = _personMovieNumber
 
     val _fetchError = MutableLiveData<java.lang.Exception>()
 
@@ -28,10 +33,23 @@ class FetchSingleActorMoviesUseCaseImpl(
         return movieApi.getSingleActorMovies(castId)
             .subscribeOn(Schedulers.io())
             .map {
+                getNumberOfMovies(it)
+            }
+            .map {
                 formatResponse(it)
             }
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({ onDetailsFetched(it) }, { onDetailsFetchFailed(it) })
+    }
+
+    private fun getNumberOfMovies(response: Response<SearchSchema>): Response<SearchSchema> {
+        if (response.isSuccessful) {
+            if (response.body() != null) {
+                val details = response.body()
+                _personMovieNumber.postValue(details!!.totalResults.toString())
+            }
+        }
+        return response
     }
 
     private fun onDetailsFetchFailed(it: Throwable?) {

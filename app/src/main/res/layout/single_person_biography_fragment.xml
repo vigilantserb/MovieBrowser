@@ -13,7 +13,7 @@
             android:layout_marginBottom="48dp">
 
         <TextView
-                android:id="@+id/actor_biography"
+                android:id="@+id/person_biography"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textColor="@color/light_gray"

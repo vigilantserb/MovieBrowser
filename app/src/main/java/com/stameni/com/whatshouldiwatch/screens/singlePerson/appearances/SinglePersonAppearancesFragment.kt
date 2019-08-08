@@ -9,6 +9,7 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.stameni.com.whatshouldiwatch.R
+import com.stameni.com.whatshouldiwatch.common.Constants
 import com.stameni.com.whatshouldiwatch.common.ImageLoader
 import com.stameni.com.whatshouldiwatch.common.ViewModelFactory
 import com.stameni.com.whatshouldiwatch.common.baseClasses.BaseFragment
@@ -43,7 +44,7 @@ class SinglePersonAppearancesFragment : BaseFragment() {
         actor_movies_rv.layoutManager = layoutManager
 
         if (activity!!.intent.extras != null) {
-            val id = activity!!.intent.extras!!.getInt("actorId", 0)
+            val id = activity!!.intent.extras!!.getInt(Constants.PERSON_ID, 0)
 
             viewModel = ViewModelProviders.of(this, viewModelFactory).get(SinglePersonAppearancesViewModel::class.java)
 

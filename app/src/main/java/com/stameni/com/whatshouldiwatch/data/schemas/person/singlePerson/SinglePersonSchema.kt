@@ -7,11 +7,13 @@ data class SinglePersonSchema(
     @SerializedName("adult")
     val adult: Boolean,
     @SerializedName("also_known_as")
-    val alsoKnownAs: List<Any>,
+    val alsoKnownAs: List<String>,
     @SerializedName("biography")
     val biography: String,
     @SerializedName("birthday")
     val birthday: String,
+    @SerializedName("combined_credits")
+    val combinedCredits: CombinedCredits?,
     @SerializedName("deathday")
     val deathday: String?,
     @SerializedName("gender")
