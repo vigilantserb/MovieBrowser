@@ -156,6 +156,19 @@ class SingleMovieActivity : BaseActivity() {
                 startActivity(intent)
             }
         }
+        button3.setOnClickListener {
+            var movieDate = ""
+            if(details.releaseDate != null){
+                movieDate = details.releaseDate.removeRange(4, details.releaseDate.length)
+            }
+            val string = "Hey! Check out ${details.movieTitle} | ${movieDate} directed by ${details.directorName}. Rated ${details.tmdbRating} on TMDB!"
+            val sendIntent: Intent = Intent().apply {
+                action = Intent.ACTION_SEND
+                putExtra(Intent.EXTRA_TEXT, string)
+                type = "text/plain"
+            }
+            startActivity(sendIntent)
+        }
     }
 
     private fun createImdbLink(imdbId: String){

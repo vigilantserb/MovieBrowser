@@ -78,13 +78,12 @@
                     app:layout_constraintBottom_toBottomOf="@id/buttons_group"
                     app:layout_constraintStart_toEndOf="@+id/trailer_button"
                     app:layout_constraintEnd_toStartOf="@+id/button3"/>
-            <ImageButton
+            <Button
                     android:id="@+id/button3"
                     android:layout_width="48dp"
                     android:layout_height="48dp"
-                    android:src="@drawable/ic_share"
+                    android:background="@drawable/ic_share"
                     android:scaleType="centerCrop"
-                    android:background="@android:color/transparent"
                     app:layout_constraintTop_toTopOf="@id/buttons_group"
                     app:layout_constraintBottom_toBottomOf="@id/buttons_group"
                     app:layout_constraintStart_toEndOf="@+id/button"
