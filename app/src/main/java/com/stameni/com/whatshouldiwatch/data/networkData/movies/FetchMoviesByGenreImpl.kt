@@ -3,7 +3,7 @@ package com.stameni.com.whatshouldiwatch.data.networkData.movies
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.stameni.com.whatshouldiwatch.data.MovieApi
-import com.stameni.com.whatshouldiwatch.data.models.Movie
+import com.stameni.com.whatshouldiwatch.data.models.movie.Movie
 import com.stameni.com.whatshouldiwatch.data.schemas.movie.SearchSchema
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
@@ -52,7 +52,16 @@ class FetchMoviesByGenreImpl(
         val movieData = ArrayList<Movie>()
         if (response.body() != null) {
             response.body()!!.results.forEach {
-                movieData.add(Movie(it.id, it.title, "", "", it.posterPath, 0.0))
+                movieData.add(
+                    Movie(
+                        it.id,
+                        it.title,
+                        "",
+                        "",
+                        it.posterPath,
+                        0.0
+                    )
+                )
             }
         }
         return movieData

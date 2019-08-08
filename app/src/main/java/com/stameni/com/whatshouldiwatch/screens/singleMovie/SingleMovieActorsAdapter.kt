@@ -9,7 +9,7 @@ import com.stameni.com.whatshouldiwatch.R
 import com.stameni.com.whatshouldiwatch.common.Constants
 import com.stameni.com.whatshouldiwatch.common.ImageLoader
 import com.stameni.com.whatshouldiwatch.common.listen
-import com.stameni.com.whatshouldiwatch.data.models.Actor
+import com.stameni.com.whatshouldiwatch.data.models.movie.Actor
 import com.stameni.com.whatshouldiwatch.screens.singlePerson.SinglePersonActivity
 import kotlinx.android.synthetic.main.single_movie_actor_item.view.*
 

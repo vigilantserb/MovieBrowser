@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.stameni.com.whatshouldiwatch.R
 import com.stameni.com.whatshouldiwatch.common.ImageLoader
 import com.stameni.com.whatshouldiwatch.common.listen
-import com.stameni.com.whatshouldiwatch.data.models.Movie
+import com.stameni.com.whatshouldiwatch.data.models.movie.Movie
 import kotlinx.android.synthetic.main.single_movie_recommendation_item.view.*
 
 class SingleMovieRecommendationsAdapter(

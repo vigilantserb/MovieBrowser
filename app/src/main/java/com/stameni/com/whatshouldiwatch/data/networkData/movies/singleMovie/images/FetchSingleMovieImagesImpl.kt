@@ -3,7 +3,7 @@ package com.stameni.com.whatshouldiwatch.data.networkData.movies.singleMovie.ima
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.stameni.com.whatshouldiwatch.data.MovieApi
-import com.stameni.com.whatshouldiwatch.data.models.MovieImage
+import com.stameni.com.whatshouldiwatch.data.models.movie.MovieImage
 import com.stameni.com.whatshouldiwatch.data.schemas.movie.images.SingleMovieImagesSchema
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
@@ -59,7 +59,12 @@ class FetchSingleMovieImagesImpl(
         if(response.isSuccessful){
             if(response.body()?.backdrops != null){
                 response.body()!!.backdrops.forEach {
-                    formattedData.add(MovieImage(it.filePath, it.voteAverage))
+                    formattedData.add(
+                        MovieImage(
+                            it.filePath,
+                            it.voteAverage
+                        )
+                    )
                 }
             }
         }

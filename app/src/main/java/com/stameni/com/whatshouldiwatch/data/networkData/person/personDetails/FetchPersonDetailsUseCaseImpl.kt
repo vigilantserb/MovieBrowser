@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.stameni.com.whatshouldiwatch.common.Constants
 import com.stameni.com.whatshouldiwatch.data.MovieApi
-import com.stameni.com.whatshouldiwatch.data.models.PersonDetail
+import com.stameni.com.whatshouldiwatch.data.models.person.PersonDetail
 import com.stameni.com.whatshouldiwatch.data.schemas.person.singlePerson.SinglePersonSchema
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
@@ -86,7 +86,13 @@ class FetchPersonDetailsUseCaseImpl(
                 }
             }
 
-            return PersonDetail(years, details.name, details.placeOfBirth, numberOfMovies, details.biography)
+            return PersonDetail(
+                years,
+                details.name,
+                details.placeOfBirth,
+                numberOfMovies,
+                details.biography
+            )
         }
         return null
     }

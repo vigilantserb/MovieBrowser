@@ -1,4 +1,4 @@
-package com.stameni.com.whatshouldiwatch.data.models
+package com.stameni.com.whatshouldiwatch.data.models.movie
 
 data class MovieDetails(
     val movieTitle: String?,

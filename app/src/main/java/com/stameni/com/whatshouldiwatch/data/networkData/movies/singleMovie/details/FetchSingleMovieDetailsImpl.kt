@@ -3,7 +3,7 @@ package com.stameni.com.whatshouldiwatch.data.networkData.movies.singleMovie.det
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.stameni.com.whatshouldiwatch.data.MovieApi
-import com.stameni.com.whatshouldiwatch.data.models.MovieDetails
+import com.stameni.com.whatshouldiwatch.data.models.movie.MovieDetails
 import com.stameni.com.whatshouldiwatch.data.schemas.movie.details.SingleMovieDetailsSchema
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable

@@ -15,7 +15,7 @@ class Constants {
 
         //Person data
         const val PERSON_TYPE = "personType"
-        const val PERSON_NAME = "personName"
+        const val PERSON_NAME = "name"
         const val PERSON_ID = "personId"
         const val PERSON_IMAGE_URL = "personImageUrl"
 

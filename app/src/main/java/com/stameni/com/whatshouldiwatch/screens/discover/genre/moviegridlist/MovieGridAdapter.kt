@@ -6,11 +6,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AlphaAnimation
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
 import com.stameni.com.whatshouldiwatch.R
 import com.stameni.com.whatshouldiwatch.common.ImageLoader
 import com.stameni.com.whatshouldiwatch.common.listen
-import com.stameni.com.whatshouldiwatch.data.models.Movie
+import com.stameni.com.whatshouldiwatch.data.models.movie.Movie
 import com.stameni.com.whatshouldiwatch.screens.singleMovie.SingleMovieActivity
 import kotlinx.android.synthetic.main.movie_grid_item.view.*
 

@@ -1,7 +1,7 @@
 package com.stameni.com.whatshouldiwatch.data.networkData.person.personDetails
 
 import androidx.lifecycle.LiveData
-import com.stameni.com.whatshouldiwatch.data.models.PersonDetail
+import com.stameni.com.whatshouldiwatch.data.models.person.PersonDetail
 import io.reactivex.disposables.Disposable
 
 interface FetchPersonDetailsUseCase {

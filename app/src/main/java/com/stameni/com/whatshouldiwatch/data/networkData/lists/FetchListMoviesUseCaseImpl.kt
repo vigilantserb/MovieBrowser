@@ -3,7 +3,7 @@ package com.stameni.com.whatshouldiwatch.data.networkData.lists
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.stameni.com.whatshouldiwatch.data.MovieApi
-import com.stameni.com.whatshouldiwatch.data.models.Movie
+import com.stameni.com.whatshouldiwatch.data.models.movie.Movie
 import com.stameni.com.whatshouldiwatch.data.schemas.genre.GenreListSchema
 import com.stameni.com.whatshouldiwatch.data.schemas.movie.MovieListSchema
 import io.reactivex.Observable
@@ -12,7 +12,6 @@ import io.reactivex.disposables.Disposable
 import io.reactivex.functions.BiFunction
 import io.reactivex.schedulers.Schedulers
 import retrofit2.Response
-import java.util.concurrent.TimeUnit
 
 
 class FetchListMoviesUseCaseImpl(
@@ -68,7 +67,16 @@ class FetchListMoviesUseCaseImpl(
                     }
                 }
             }
-            formattedMovies.add(Movie(movie.id, movie.title, movie.releaseDate, genres, movie.posterPath, movie.voteAverage))
+            formattedMovies.add(
+                Movie(
+                    movie.id,
+                    movie.title,
+                    movie.releaseDate,
+                    genres,
+                    movie.posterPath,
+                    movie.voteAverage
+                )
+            )
         }
         return formattedMovies
     }

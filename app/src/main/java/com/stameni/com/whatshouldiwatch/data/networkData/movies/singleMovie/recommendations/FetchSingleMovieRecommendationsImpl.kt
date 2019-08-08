@@ -3,7 +3,7 @@ package com.stameni.com.whatshouldiwatch.data.networkData.movies.singleMovie.rec
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.stameni.com.whatshouldiwatch.data.MovieApi
-import com.stameni.com.whatshouldiwatch.data.models.Movie
+import com.stameni.com.whatshouldiwatch.data.models.movie.Movie
 import com.stameni.com.whatshouldiwatch.data.schemas.movie.SearchSchema
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
@@ -48,7 +48,16 @@ class FetchSingleMovieRecommendationsImpl(
 
         if(it.isSuccessful){
             it.body()!!.results.forEach {
-                formattedData.add(Movie(it.id, it.title, it.releaseDate, "", it.posterPath, it.voteAverage))
+                formattedData.add(
+                    Movie(
+                        it.id,
+                        it.title,
+                        it.releaseDate,
+                        "",
+                        it.posterPath,
+                        it.voteAverage
+                    )
+                )
             }
         }
 

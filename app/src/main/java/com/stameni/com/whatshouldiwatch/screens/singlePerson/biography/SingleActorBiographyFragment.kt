@@ -40,7 +40,7 @@ class SingleActorBiographyFragment : BaseFragment() {
                 viewModel.fetchPersonBiography(id, "")
 
                 viewModel.fetchedBiography.observe(this, Observer {
-                    person_biography.text = it.personBiography
+                    person_biography.text = it.biography
                 })
             }
         }

@@ -1,9 +1,8 @@
 package com.stameni.com.whatshouldiwatch.data.networkData.lists
 
 import androidx.lifecycle.LiveData
-import com.stameni.com.whatshouldiwatch.data.models.Movie
+import com.stameni.com.whatshouldiwatch.data.models.movie.Movie
 import io.reactivex.disposables.Disposable
-import java.lang.Exception
 
 interface FetchListMoviesUseCase {
 

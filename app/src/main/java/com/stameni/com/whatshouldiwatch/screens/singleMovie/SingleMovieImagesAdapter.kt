@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.stameni.com.whatshouldiwatch.R
 import com.stameni.com.whatshouldiwatch.common.ImageLoader
 import com.stameni.com.whatshouldiwatch.common.listen
-import com.stameni.com.whatshouldiwatch.data.models.MovieImage
+import com.stameni.com.whatshouldiwatch.data.models.movie.MovieImage
 import kotlinx.android.synthetic.main.single_movie_image_item.view.*
 
 class SingleMovieImagesAdapter(

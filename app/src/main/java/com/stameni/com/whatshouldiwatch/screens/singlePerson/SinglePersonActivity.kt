@@ -46,11 +46,11 @@ class SinglePersonActivity : BaseActivity() {
             viewModel.fetchPersonDetails(id, type)
 
             viewModel.personDetails.observe(this, Observer {
-                person_age.text = "${it.personAge} years old"
-                person_name.text = it.personName
-                person_pob.text = it.personBirthplace
-                if (it.personMovieCount == 1) person_movies.text = "${it.personMovieCount} movie"
-                else person_movies.text = "${it.personMovieCount} movies"
+                person_age.text = "${it.age} years old"
+                person_name.text = it.name
+                person_pob.text = it.birthplace
+                if (it.movieCount == 1) person_movies.text = "${it.movieCount} movie"
+                else person_movies.text = "${it.movieCount} movies"
 
             })
         }

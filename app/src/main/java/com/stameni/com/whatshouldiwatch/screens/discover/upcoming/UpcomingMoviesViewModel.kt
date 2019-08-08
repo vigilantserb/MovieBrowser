@@ -2,7 +2,7 @@ package com.stameni.com.whatshouldiwatch.screens.discover.upcoming
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
-import com.stameni.com.whatshouldiwatch.data.models.Movie
+import com.stameni.com.whatshouldiwatch.data.models.movie.Movie
 import com.stameni.com.whatshouldiwatch.data.networkData.movies.FetchUpcomingMovies
 import io.reactivex.disposables.CompositeDisposable
 

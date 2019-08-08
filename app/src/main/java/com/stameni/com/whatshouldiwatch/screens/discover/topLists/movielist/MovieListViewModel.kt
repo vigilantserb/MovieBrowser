@@ -2,10 +2,9 @@ package com.stameni.com.whatshouldiwatch.screens.discover.topLists.movielist
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
-import com.stameni.com.whatshouldiwatch.data.models.Movie
+import com.stameni.com.whatshouldiwatch.data.models.movie.Movie
 import com.stameni.com.whatshouldiwatch.data.networkData.lists.FetchListMoviesUseCase
 import io.reactivex.disposables.CompositeDisposable
-import java.lang.Exception
 
 class MovieListViewModel(
     private val fetchListMoviesUseCase: FetchListMoviesUseCase

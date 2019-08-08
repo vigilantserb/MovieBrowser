@@ -14,7 +14,7 @@ import com.stameni.com.whatshouldiwatch.common.Constants
 import com.stameni.com.whatshouldiwatch.common.ImageLoader
 import com.stameni.com.whatshouldiwatch.common.ViewModelFactory
 import com.stameni.com.whatshouldiwatch.common.baseClasses.BaseActivity
-import com.stameni.com.whatshouldiwatch.data.models.MovieDetails
+import com.stameni.com.whatshouldiwatch.data.models.movie.MovieDetails
 import com.stameni.com.whatshouldiwatch.screens.news.NewsWebViewActivity
 import com.stameni.com.whatshouldiwatch.screens.singlePerson.SinglePersonActivity
 import kotlinx.android.synthetic.main.activity_single_movie.*

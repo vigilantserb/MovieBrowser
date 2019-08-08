@@ -1,7 +1,7 @@
 package com.stameni.com.whatshouldiwatch.data.networkData.movies
 
 import androidx.lifecycle.LiveData
-import com.stameni.com.whatshouldiwatch.data.models.Movie
+import com.stameni.com.whatshouldiwatch.data.models.movie.Movie
 import io.reactivex.disposables.Disposable
 
 interface FetchNowPlayingMovies {
