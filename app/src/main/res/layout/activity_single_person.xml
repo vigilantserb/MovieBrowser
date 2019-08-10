@@ -94,8 +94,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="bottom"
+                    android:background="@android:color/transparent"
                     app:tabTextAppearance="@style/TabTextAppearance"
-                    android:background="@color/color_background"
                     app:tabIndicatorColor="@color/color_red"/>
 
         </com.google.android.material.appbar.CollapsingToolbarLayout>

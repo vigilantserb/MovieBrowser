@@ -69,8 +69,8 @@ class SingleMovieActivity : BaseActivity() {
 
             trailer_button.setOnClickListener{
                 if(youtubeVideoKey.isNotEmpty()){
-                    val url = "https://www.youtube.com/watch?v=" + youtubeVideoKey
-                    var intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+                    val url = "https://www.youtube.com/watch?v=$youtubeVideoKey"
+                    val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                     intent.setPackage("com.google.android.youtube")
                     startActivity(intent)
@@ -79,7 +79,7 @@ class SingleMovieActivity : BaseActivity() {
 
             supportActionBar!!.title = movieName
 
-            imageLoader.loadPosterImageFitCenter(moviePosterUrl, poster_image, Constants.LARGE_IMAGE_SIZE)
+            imageLoader.loadImageNoFormat(moviePosterUrl, poster_image, Constants.LARGE_IMAGE_SIZE)
 
             viewModel.fetchSingleMovieImages(movieId)
             viewModel.fetchSingleMovieActors(movieId)
@@ -161,7 +161,7 @@ class SingleMovieActivity : BaseActivity() {
             if(details.releaseDate != null){
                 movieDate = details.releaseDate.removeRange(4, details.releaseDate.length)
             }
-            val string = "Hey! Check out ${details.movieTitle} | ${movieDate} directed by ${details.directorName}. Rated ${details.tmdbRating} on TMDB!"
+            val string = "Hey! Check out ${details.movieTitle} | $movieDate directed by ${details.directorName}. Rated ${details.tmdbRating} on TMDB!"
             val sendIntent: Intent = Intent().apply {
                 action = Intent.ACTION_SEND
                 putExtra(Intent.EXTRA_TEXT, string)
