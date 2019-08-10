@@ -1,19 +1,21 @@
 package com.stameni.com.whatshouldiwatch.screens.mylist
 
-import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-
+import androidx.lifecycle.ViewModelProviders
 import com.stameni.com.whatshouldiwatch.R
+import com.stameni.com.whatshouldiwatch.common.baseClasses.BaseFragment
+import com.stameni.com.whatshouldiwatch.data.room.MovieDatabase
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
+import javax.inject.Inject
 
-class MyListFragment : Fragment() {
+class MyListFragment : BaseFragment() {
 
-    companion object {
-        fun newInstance() = MyListFragment()
-    }
+    @Inject
+    lateinit var movieRoomDatabase: MovieDatabase
 
     private lateinit var viewModel: MyListViewModel
 
@@ -24,10 +26,19 @@ class MyListFragment : Fragment() {
         return inflater.inflate(R.layout.my_list_fragment, container, false)
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        controllerComponent.inject(this)
         viewModel = ViewModelProviders.of(this).get(MyListViewModel::class.java)
-        // TODO: Use the ViewModel
-    }
 
+        val xx = movieRoomDatabase.movieDao()
+            .getMovies()
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({
+                it.forEach {
+                    println(it.movieName)
+                }
+            }, { println("Failure") })
+    }
 }

@@ -58,7 +58,9 @@ class FetchSingleMovieDetailsImpl(
                 }
             }
             return MovieDetails(
+                data.id,
                 data.title,
+                data.posterPath,
                 data.overview,
                 data.imdbId,
                 data.voteAverage,

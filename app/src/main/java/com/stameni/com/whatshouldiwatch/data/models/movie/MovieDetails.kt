@@ -1,7 +1,9 @@
 package com.stameni.com.whatshouldiwatch.data.models.movie
 
 data class MovieDetails(
+    val movieId: Int?,
     val movieTitle: String?,
+    val posterPath: String?,
     val movieDescription: String?,
     val imdbId: String?,
     val tmdbRating: Double?,

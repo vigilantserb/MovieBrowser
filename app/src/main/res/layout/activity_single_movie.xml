@@ -40,7 +40,6 @@
                 android:id="@+id/poster_image"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-
                 app:layout_constraintBottom_toTopOf="@id/buttons_group"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -55,38 +54,36 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toStartOf="parent">
 
-            <ImageButton
+            <Button
                     android:id="@+id/trailer_button"
                     android:layout_width="48dp"
                     android:layout_height="48dp"
-                    android:src="@drawable/ic_play"
+                    android:background="@drawable/ic_play"
                     android:scaleType="centerCrop"
-                    android:background="@android:color/transparent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/button"
+                    app:layout_constraintEnd_toStartOf="@+id/watch_later_button"
                     app:layout_constraintTop_toTopOf="@id/buttons_group"
                     app:layout_constraintBottom_toBottomOf="@id/buttons_group"/>
 
-            <ImageButton
-                    android:id="@+id/button"
+            <Button
+                    android:id="@+id/watch_later_button"
                     android:layout_width="48dp"
                     android:layout_height="48dp"
-                    android:src="@drawable/ic_watch_later"
+                    android:background="@drawable/ic_watch_later"
                     android:scaleType="centerCrop"
-                    android:background="@android:color/transparent"
                     app:layout_constraintTop_toTopOf="@id/buttons_group"
                     app:layout_constraintBottom_toBottomOf="@id/buttons_group"
                     app:layout_constraintStart_toEndOf="@+id/trailer_button"
-                    app:layout_constraintEnd_toStartOf="@+id/button3"/>
+                    app:layout_constraintEnd_toStartOf="@+id/share_movie_button"/>
             <Button
-                    android:id="@+id/button3"
+                    android:id="@+id/share_movie_button"
                     android:layout_width="48dp"
                     android:layout_height="48dp"
                     android:background="@drawable/ic_share"
                     android:scaleType="centerCrop"
                     app:layout_constraintTop_toTopOf="@id/buttons_group"
                     app:layout_constraintBottom_toBottomOf="@id/buttons_group"
-                    app:layout_constraintStart_toEndOf="@+id/button"
+                    app:layout_constraintStart_toEndOf="@+id/watch_later_button"
                     app:layout_constraintEnd_toEndOf="parent"/>
         </androidx.constraintlayout.widget.ConstraintLayout>
 

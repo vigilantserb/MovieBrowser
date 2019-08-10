@@ -5,14 +5,16 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity(tableName = "movie")
-class Movie (
+class Movie(
     @ColumnInfo(name = "movieName")
-    val movieName: String,
+    val movieName: String?,
     @ColumnInfo(name = "movieGenres")
-    val movieGenres: String,
+    val movieGenres: String?,
     @ColumnInfo(name = "movieImageUrl")
-    val movieImageUrl: String
+    val movieImageUrl: String?,
+    @ColumnInfo(name = "movieId")
+    val movieId: Int?
 ){
     @PrimaryKey(autoGenerate = true)
-    var movieId: Int = 0
+    var id: Int = 0
 }

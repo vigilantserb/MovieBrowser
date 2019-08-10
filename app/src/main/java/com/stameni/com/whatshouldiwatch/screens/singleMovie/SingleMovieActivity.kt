@@ -1,8 +1,10 @@
 package com.stameni.com.whatshouldiwatch.screens.singleMovie
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -16,8 +18,11 @@ import com.stameni.com.whatshouldiwatch.common.ViewModelFactory
 import com.stameni.com.whatshouldiwatch.common.baseClasses.BaseActivity
 import com.stameni.com.whatshouldiwatch.data.models.movie.MovieDetails
 import com.stameni.com.whatshouldiwatch.data.room.MovieDatabase
+import com.stameni.com.whatshouldiwatch.data.room.models.Movie
 import com.stameni.com.whatshouldiwatch.screens.news.NewsWebViewActivity
 import com.stameni.com.whatshouldiwatch.screens.singlePerson.SinglePersonActivity
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_single_movie.*
 import javax.inject.Inject
 
@@ -30,6 +35,9 @@ class SingleMovieActivity : BaseActivity() {
 
     @Inject
     lateinit var imageLoader: ImageLoader
+
+    @Inject
+    lateinit var movieRoomDatabase: MovieDatabase
 
     var imdbId = ""
     var youtubeVideoKey = ""
@@ -64,23 +72,19 @@ class SingleMovieActivity : BaseActivity() {
 
             imdb_rating.setOnClickListener {
                 if (imdbId.isNotEmpty()) {
-                    createImdbLink(imdbId)
+                    goToImdbPage(imdbId)
                 }
             }
 
             trailer_button.setOnClickListener {
                 if (youtubeVideoKey.isNotEmpty()) {
-                    val url = "https://www.youtube.com/watch?v=$youtubeVideoKey"
-                    val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
-                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                    intent.setPackage("com.google.android.youtube")
-                    startActivity(intent)
+                    prepareMovieTrailer(youtubeVideoKey)
                 }
             }
 
             supportActionBar!!.title = movieName
 
-            imageLoader.loadImageNoFormat(moviePosterUrl, poster_image, Constants.LARGE_IMAGE_SIZE)
+            imageLoader.loadPosterImageFitCenter(moviePosterUrl, poster_image, Constants.LARGE_IMAGE_SIZE)
 
             viewModel.fetchSingleMovieImages(movieId)
             viewModel.fetchSingleMovieActors(movieId)
@@ -115,6 +119,14 @@ class SingleMovieActivity : BaseActivity() {
         }
     }
 
+    private fun prepareMovieTrailer(youtubeVideoKey: String) {
+        val url = "https://www.youtube.com/watch?v=$youtubeVideoKey"
+        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+        intent.setPackage("com.google.android.youtube")
+        startActivity(intent)
+    }
+
     private fun initializeRecyclerViews() {
         movie_images_rv.adapter = imagesAdapter
         movie_images_rv.layoutManager = imagesManager
@@ -147,45 +159,79 @@ class SingleMovieActivity : BaseActivity() {
         release_date.text = details.releaseDate
         runtime.text = "${details.runtime.toString()} min"
         genres.text = details.genres
-        val db = MovieDatabase(this) as MovieDatabase
-//        val x = db.movieDao()
-//            .insertMovie(Movie("test", "test", "test"))
-//            .subscribeOn(Schedulers.io())
-//            .observeOn(AndroidSchedulers.mainThread())
-//            .subscribe({
-//                println("Success")
-//            }, { println("Failure") })
+
         directors_data.setOnClickListener {
             if (details.directorId != 0) {
-                val intent = Intent(this, SinglePersonActivity::class.java)
-                intent.putExtra(Constants.PERSON_TYPE, Constants.DIRECTOR_TYPE)
-                intent.putExtra(Constants.PERSON_NAME, details.directorName)
-                intent.putExtra(Constants.PERSON_ID, details.directorId)
-                intent.putExtra(Constants.PERSON_IMAGE_URL, details.directorImageUrl)
-                startActivity(intent)
+                goToSingleDirectorPage(details)
             }
         }
-        button3.setOnClickListener {
-            var movieDate = ""
-            if (details.releaseDate != null) {
-                movieDate = details.releaseDate.removeRange(4, details.releaseDate.length)
-            }
-            val string =
-                "Hey! Check out ${details.movieTitle} | $movieDate directed by ${details.directorName}. Rated ${details.tmdbRating} on TMDB!"
-            val sendIntent: Intent = Intent().apply {
-                action = Intent.ACTION_SEND
-                putExtra(Intent.EXTRA_TEXT, string)
-                type = "text/plain"
-            }
-            startActivity(sendIntent)
+
+        share_movie_button.setOnClickListener {
+            createShareMovieMessage(details)
+        }
+
+        watch_later_button.setOnClickListener {
+            saveMovieToLocalDatabase(details)
         }
     }
 
-    private fun createImdbLink(imdbId: String) {
-        goToImdbMoviePage("https://www.imdb.com/title/$imdbId")
+    private fun goToSingleDirectorPage(movieDetails: MovieDetails){
+        val intent = Intent(this, SinglePersonActivity::class.java)
+        intent.putExtra(Constants.PERSON_TYPE, Constants.DIRECTOR_TYPE)
+        intent.putExtra(Constants.PERSON_NAME, movieDetails.directorName)
+        intent.putExtra(Constants.PERSON_ID, movieDetails.directorId)
+        intent.putExtra(Constants.PERSON_IMAGE_URL, movieDetails.directorImageUrl)
+        startActivity(intent)
     }
 
-    private fun goToImdbMoviePage(url: String) {
+    @SuppressLint("CheckResult")
+    private fun saveMovieToLocalDatabase(movieDetails: MovieDetails){
+        movieRoomDatabase.movieDao()
+            .getMovies()
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({movies ->
+                checkIfMovieIsAlreadyInLocalDatabase(movies, movieDetails)
+            }, { println("Failure") })
+    }
+
+    @SuppressLint("CheckResult")
+    private fun checkIfMovieIsAlreadyInLocalDatabase(movies: List<Movie>?, movieDetails: MovieDetails) {
+        val movieId = movieDetails.movieId
+        val movie: Movie? = movies!!.find { it.movieId == movieId }
+        if(movie == null){
+            movieRoomDatabase.movieDao()
+                .insertMovie(Movie(movieDetails.movieTitle, movieDetails.genres, movieDetails.posterPath, movieDetails.movieId))
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({
+                    Toast.makeText(this, "${movieDetails.movieTitle} added to watch later list", Toast.LENGTH_LONG).show()
+                }, { println("Failure") })
+        }else{
+            Toast.makeText(this, "${movieDetails.movieTitle} is already in watch later list", Toast.LENGTH_LONG).show()
+        }
+    }
+
+    private fun createShareMovieMessage(movieDetails: MovieDetails){
+        var movieDate = ""
+        if (movieDetails.releaseDate != null) {
+            movieDate = movieDetails.releaseDate.removeRange(4, movieDetails.releaseDate.length)
+        }
+        val string =
+            "Hey! Check out ${movieDetails.movieTitle} | $movieDate directed by ${movieDetails.directorName}. Rated ${movieDetails.tmdbRating} on TMDB!"
+        val sendIntent: Intent = Intent().apply {
+            action = Intent.ACTION_SEND
+            putExtra(Intent.EXTRA_TEXT, string)
+            type = "text/plain"
+        }
+        startActivity(sendIntent)
+    }
+
+    private fun goToImdbPage(imdbId: String) {
+        createImdbLink("https://www.imdb.com/title/$imdbId")
+    }
+
+    private fun createImdbLink(url: String) {
         val intent = Intent(this, NewsWebViewActivity::class.java)
         intent.putExtra(Constants.SOURCE_LINK, url)
         startActivity(intent)
