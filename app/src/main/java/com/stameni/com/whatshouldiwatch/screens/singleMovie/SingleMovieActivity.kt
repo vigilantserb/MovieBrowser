@@ -15,6 +15,7 @@ import com.stameni.com.whatshouldiwatch.common.ImageLoader
 import com.stameni.com.whatshouldiwatch.common.ViewModelFactory
 import com.stameni.com.whatshouldiwatch.common.baseClasses.BaseActivity
 import com.stameni.com.whatshouldiwatch.data.models.movie.MovieDetails
+import com.stameni.com.whatshouldiwatch.data.room.MovieDatabase
 import com.stameni.com.whatshouldiwatch.screens.news.NewsWebViewActivity
 import com.stameni.com.whatshouldiwatch.screens.singlePerson.SinglePersonActivity
 import kotlinx.android.synthetic.main.activity_single_movie.*
@@ -34,8 +35,8 @@ class SingleMovieActivity : BaseActivity() {
     var youtubeVideoKey = ""
 
     var imagesAdapter: SingleMovieImagesAdapter? = null
-    var actorsAdapter:SingleMovieActorsAdapter? = null
-    var recommendationsAdapter:SingleMovieRecommendationsAdapter? = null
+    var actorsAdapter: SingleMovieActorsAdapter? = null
+    var recommendationsAdapter: SingleMovieRecommendationsAdapter? = null
 
     val imagesManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
     val actorsManager = GridLayoutManager(this, 1, RecyclerView.HORIZONTAL, false)
@@ -67,8 +68,8 @@ class SingleMovieActivity : BaseActivity() {
                 }
             }
 
-            trailer_button.setOnClickListener{
-                if(youtubeVideoKey.isNotEmpty()){
+            trailer_button.setOnClickListener {
+                if (youtubeVideoKey.isNotEmpty()) {
                     val url = "https://www.youtube.com/watch?v=$youtubeVideoKey"
                     val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
@@ -146,8 +147,16 @@ class SingleMovieActivity : BaseActivity() {
         release_date.text = details.releaseDate
         runtime.text = "${details.runtime.toString()} min"
         genres.text = details.genres
+        val db = MovieDatabase(this) as MovieDatabase
+//        val x = db.movieDao()
+//            .insertMovie(Movie("test", "test", "test"))
+//            .subscribeOn(Schedulers.io())
+//            .observeOn(AndroidSchedulers.mainThread())
+//            .subscribe({
+//                println("Success")
+//            }, { println("Failure") })
         directors_data.setOnClickListener {
-            if(details.directorId != 0){
+            if (details.directorId != 0) {
                 val intent = Intent(this, SinglePersonActivity::class.java)
                 intent.putExtra(Constants.PERSON_TYPE, Constants.DIRECTOR_TYPE)
                 intent.putExtra(Constants.PERSON_NAME, details.directorName)
@@ -158,10 +167,11 @@ class SingleMovieActivity : BaseActivity() {
         }
         button3.setOnClickListener {
             var movieDate = ""
-            if(details.releaseDate != null){
+            if (details.releaseDate != null) {
                 movieDate = details.releaseDate.removeRange(4, details.releaseDate.length)
             }
-            val string = "Hey! Check out ${details.movieTitle} | $movieDate directed by ${details.directorName}. Rated ${details.tmdbRating} on TMDB!"
+            val string =
+                "Hey! Check out ${details.movieTitle} | $movieDate directed by ${details.directorName}. Rated ${details.tmdbRating} on TMDB!"
             val sendIntent: Intent = Intent().apply {
                 action = Intent.ACTION_SEND
                 putExtra(Intent.EXTRA_TEXT, string)
@@ -171,7 +181,7 @@ class SingleMovieActivity : BaseActivity() {
         }
     }
 
-    private fun createImdbLink(imdbId: String){
+    private fun createImdbLink(imdbId: String) {
         goToImdbMoviePage("https://www.imdb.com/title/$imdbId")
     }
 

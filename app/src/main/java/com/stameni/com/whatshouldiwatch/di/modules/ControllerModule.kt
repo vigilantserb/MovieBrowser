@@ -30,11 +30,6 @@ class ControllerModule(private val mActivity: FragmentActivity) {
     }
 
     @Provides
-    internal fun context(activity: Activity): Context {
-        return activity
-    }
-
-    @Provides
     internal fun getSharedPreferences(context: Context) = PreferenceManager.getDefaultSharedPreferences(context)
 
     @Provides

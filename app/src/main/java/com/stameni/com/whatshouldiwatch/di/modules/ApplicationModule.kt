@@ -1,14 +1,14 @@
 package com.stameni.com.whatshouldiwatch.di.modules
 
 import android.app.Application
-import com.stameni.com.whatshouldiwatch.data.API_KEY
+import android.content.Context
+import com.stameni.com.whatshouldiwatch.common.interceptors.ConnectivityInterceptor
+import com.stameni.com.whatshouldiwatch.common.interceptors.ConnectivityInterceptorImpl
 import com.stameni.com.whatshouldiwatch.data.BASE_URL
 import com.stameni.com.whatshouldiwatch.data.MovieApi
+import com.stameni.com.whatshouldiwatch.data.NewsApi
 import dagger.Module
 import dagger.Provides
-import okhttp3.Interceptor
-import okhttp3.OkHttpClient
-import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
@@ -17,8 +17,16 @@ import javax.inject.Singleton
 
 @Module
 class ApplicationModule(private val mApplication: Application) {
+
     @Provides
     internal fun getApplication(): Application = mApplication
+
+    @Provides
+    internal fun getApplicationContext(): Context = mApplication
+
+    @Provides
+    internal fun getConnectivityInterceptor(context: Context): ConnectivityInterceptor =
+        ConnectivityInterceptorImpl(context)
 
     @Singleton
     @Provides
@@ -30,34 +38,12 @@ class ApplicationModule(private val mApplication: Application) {
 
     @Singleton
     @Provides
-    internal fun getMovieApi(retrofit: Retrofit): MovieApi {
-        val requestInterceptor = Interceptor { chain ->
-            val url = chain.request()
-                .url()
-                .newBuilder()
-                .addQueryParameter("api_key", API_KEY)
-                .build()
-            val request = chain.request()
-                .newBuilder()
-                .url(url)
-                .build()
-            return@Interceptor chain.proceed(request)
-        }
+    internal fun getMovieApi(connectivityInterceptor: ConnectivityInterceptor): MovieApi =
+        MovieApi(connectivityInterceptor)
 
-        val logging = HttpLoggingInterceptor()
-        logging.level = HttpLoggingInterceptor.Level.BODY
+    @Singleton
+    @Provides
+    internal fun getNewsApi(connectivityInterceptor: ConnectivityInterceptor): NewsApi =
+        NewsApi.invoke(connectivityInterceptor)
 
-        val okHttpClient = OkHttpClient.Builder()
-            .addInterceptor(logging)
-            .addInterceptor(requestInterceptor)
-            .build()
-
-        return retrofit.newBuilder()
-            .client(okHttpClient)
-            .baseUrl(BASE_URL)
-            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
-            .create(MovieApi::class.java)
-    }
 }
