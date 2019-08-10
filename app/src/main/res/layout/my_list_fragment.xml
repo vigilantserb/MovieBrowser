@@ -4,11 +4,12 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/color_background"
         tools:context=".screens.mylist.MyListFragment">
 
-    <TextView
+    <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/movies_rv"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="Hello"/>
-
+            android:layout_marginBottom="102dp"/>
 </FrameLayout>
