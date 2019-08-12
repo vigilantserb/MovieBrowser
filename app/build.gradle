@@ -101,4 +101,7 @@ dependencies {
 
     //CircleImageView
     implementation 'de.hdodenhof:circleimageview:3.0.0'
+
+    //Timber logger
+    implementation 'com.jakewharton.timber:timber:4.7.1'
 }

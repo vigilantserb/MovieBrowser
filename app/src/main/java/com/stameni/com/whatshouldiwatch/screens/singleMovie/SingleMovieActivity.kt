@@ -24,6 +24,7 @@ import com.stameni.com.whatshouldiwatch.screens.singlePerson.SinglePersonActivit
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_single_movie.*
+import timber.log.Timber
 import javax.inject.Inject
 
 class SingleMovieActivity : BaseActivity() {
@@ -192,7 +193,7 @@ class SingleMovieActivity : BaseActivity() {
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({movies ->
                 checkIfMovieIsAlreadyInLocalDatabase(movies, movieDetails)
-            }, { println("Failure") })
+            }, { e-> Timber.d(e) })
     }
 
     @SuppressLint("CheckResult")
@@ -206,7 +207,7 @@ class SingleMovieActivity : BaseActivity() {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
                     Toast.makeText(this, "${movieDetails.movieTitle} added to watch later list", Toast.LENGTH_LONG).show()
-                }, { println("Failure") })
+                }, {  e-> Timber.d(e) })
         }else{
             Toast.makeText(this, "${movieDetails.movieTitle} is already in watch later list", Toast.LENGTH_LONG).show()
         }
