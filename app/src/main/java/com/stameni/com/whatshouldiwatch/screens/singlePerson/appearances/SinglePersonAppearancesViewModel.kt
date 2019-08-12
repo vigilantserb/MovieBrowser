@@ -1,8 +1,8 @@
 package com.stameni.com.whatshouldiwatch.screens.singlePerson.appearances
 
 import androidx.lifecycle.ViewModel
-import com.stameni.com.whatshouldiwatch.data.networkData.person.actorMovies.FetchSingleActorMoviesUseCase
-import com.stameni.com.whatshouldiwatch.data.networkData.person.directorMovies.FetchSingleDirectorMovies
+import com.stameni.com.whatshouldiwatch.data.retrofit.networkData.person.actorMovies.FetchSingleActorMoviesUseCase
+import com.stameni.com.whatshouldiwatch.data.retrofit.networkData.person.directorMovies.FetchSingleDirectorMovies
 import io.reactivex.disposables.CompositeDisposable
 
 class SinglePersonAppearancesViewModel(

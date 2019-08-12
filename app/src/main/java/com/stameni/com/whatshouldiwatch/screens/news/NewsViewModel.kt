@@ -1,7 +1,7 @@
 package com.stameni.com.whatshouldiwatch.screens.news
 
 import androidx.lifecycle.ViewModel
-import com.stameni.com.whatshouldiwatch.data.networkData.news.FetchEntertainmentNewsUseCase
+import com.stameni.com.whatshouldiwatch.data.retrofit.networkData.news.FetchEntertainmentNewsUseCase
 import io.reactivex.disposables.CompositeDisposable
 
 class NewsViewModel(

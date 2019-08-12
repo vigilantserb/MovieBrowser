@@ -18,7 +18,7 @@ import com.stameni.com.whatshouldiwatch.common.ViewModelFactory
 import com.stameni.com.whatshouldiwatch.common.baseClasses.BaseActivity
 import com.stameni.com.whatshouldiwatch.data.models.movie.MovieDetails
 import com.stameni.com.whatshouldiwatch.data.room.MovieDatabase
-import com.stameni.com.whatshouldiwatch.data.room.models.Movie
+import com.stameni.com.whatshouldiwatch.data.room.roomModels.Movie
 import com.stameni.com.whatshouldiwatch.screens.news.NewsWebViewActivity
 import com.stameni.com.whatshouldiwatch.screens.singlePerson.SinglePersonActivity
 import io.reactivex.android.schedulers.AndroidSchedulers

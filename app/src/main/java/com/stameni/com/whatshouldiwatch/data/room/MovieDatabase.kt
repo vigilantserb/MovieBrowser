@@ -5,7 +5,7 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.stameni.com.whatshouldiwatch.data.room.dao.MovieDao
-import com.stameni.com.whatshouldiwatch.data.room.models.Movie
+import com.stameni.com.whatshouldiwatch.data.room.roomModels.Movie
 
 
 @Database(entities = [Movie::class], version = 1)

@@ -3,9 +3,8 @@ package com.stameni.com.whatshouldiwatch.screens.discover.genre
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import com.stameni.com.whatshouldiwatch.data.models.Genre
-import com.stameni.com.whatshouldiwatch.data.networkData.lists.FetchGenreListUseCase
+import com.stameni.com.whatshouldiwatch.data.retrofit.networkData.lists.FetchGenreListUseCase
 import io.reactivex.disposables.CompositeDisposable
-import java.lang.Exception
 
 class GenreMoviesViewModel(private val fetchGenreListUseCase: FetchGenreListUseCase) : ViewModel() {
 

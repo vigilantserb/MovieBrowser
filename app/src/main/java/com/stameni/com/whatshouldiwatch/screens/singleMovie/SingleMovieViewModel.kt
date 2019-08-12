@@ -1,12 +1,12 @@
 package com.stameni.com.whatshouldiwatch.screens.singleMovie
 
 import androidx.lifecycle.ViewModel
-import com.stameni.com.whatshouldiwatch.data.networkData.movies.singleMovie.cast.FetchSingleMovieActors
-import com.stameni.com.whatshouldiwatch.data.networkData.movies.singleMovie.certification.FetchSingleMovieCertification
-import com.stameni.com.whatshouldiwatch.data.networkData.movies.singleMovie.details.FetchSingleMovieDetails
-import com.stameni.com.whatshouldiwatch.data.networkData.movies.singleMovie.images.FetchSingleMovieImages
-import com.stameni.com.whatshouldiwatch.data.networkData.movies.singleMovie.recommendations.FetchSingleMovieRecommendations
-import com.stameni.com.whatshouldiwatch.data.networkData.movies.singleMovie.trailer.FetchSingleMovieTrailer
+import com.stameni.com.whatshouldiwatch.data.retrofit.networkData.movies.singleMovie.cast.FetchSingleMovieActors
+import com.stameni.com.whatshouldiwatch.data.retrofit.networkData.movies.singleMovie.certification.FetchSingleMovieCertification
+import com.stameni.com.whatshouldiwatch.data.retrofit.networkData.movies.singleMovie.details.FetchSingleMovieDetails
+import com.stameni.com.whatshouldiwatch.data.retrofit.networkData.movies.singleMovie.images.FetchSingleMovieImages
+import com.stameni.com.whatshouldiwatch.data.retrofit.networkData.movies.singleMovie.recommendations.FetchSingleMovieRecommendations
+import com.stameni.com.whatshouldiwatch.data.retrofit.networkData.movies.singleMovie.trailer.FetchSingleMovieTrailer
 import io.reactivex.disposables.CompositeDisposable
 
 class SingleMovieViewModel(

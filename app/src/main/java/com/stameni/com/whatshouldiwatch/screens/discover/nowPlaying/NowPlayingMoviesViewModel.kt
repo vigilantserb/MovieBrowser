@@ -3,7 +3,7 @@ package com.stameni.com.whatshouldiwatch.screens.discover.nowPlaying
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import com.stameni.com.whatshouldiwatch.data.models.movie.Movie
-import com.stameni.com.whatshouldiwatch.data.networkData.movies.FetchNowPlayingMovies
+import com.stameni.com.whatshouldiwatch.data.retrofit.networkData.movies.FetchNowPlayingMovies
 import io.reactivex.disposables.CompositeDisposable
 
 class NowPlayingMoviesViewModel(

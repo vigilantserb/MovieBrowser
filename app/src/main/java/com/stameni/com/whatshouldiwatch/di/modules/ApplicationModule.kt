@@ -4,9 +4,9 @@ import android.app.Application
 import android.content.Context
 import com.stameni.com.whatshouldiwatch.common.interceptors.ConnectivityInterceptor
 import com.stameni.com.whatshouldiwatch.common.interceptors.ConnectivityInterceptorImpl
-import com.stameni.com.whatshouldiwatch.data.BASE_URL
-import com.stameni.com.whatshouldiwatch.data.MovieApi
-import com.stameni.com.whatshouldiwatch.data.NewsApi
+import com.stameni.com.whatshouldiwatch.data.retrofit.BASE_URL
+import com.stameni.com.whatshouldiwatch.data.retrofit.MovieApi
+import com.stameni.com.whatshouldiwatch.data.retrofit.NewsApi
 import dagger.Module
 import dagger.Provides
 import retrofit2.Retrofit

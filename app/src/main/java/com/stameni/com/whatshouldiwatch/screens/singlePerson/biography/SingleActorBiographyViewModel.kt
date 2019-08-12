@@ -1,7 +1,7 @@
 package com.stameni.com.whatshouldiwatch.screens.singlePerson.biography
 
 import androidx.lifecycle.ViewModel
-import com.stameni.com.whatshouldiwatch.data.networkData.person.personDetails.FetchPersonDetailsUseCase
+import com.stameni.com.whatshouldiwatch.data.retrofit.networkData.person.personDetails.FetchPersonDetailsUseCase
 import io.reactivex.disposables.CompositeDisposable
 
 class SingleActorBiographyViewModel(

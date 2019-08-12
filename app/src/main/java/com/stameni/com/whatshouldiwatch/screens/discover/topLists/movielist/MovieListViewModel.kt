@@ -3,7 +3,7 @@ package com.stameni.com.whatshouldiwatch.screens.discover.topLists.movielist
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import com.stameni.com.whatshouldiwatch.data.models.movie.Movie
-import com.stameni.com.whatshouldiwatch.data.networkData.lists.FetchListMoviesUseCase
+import com.stameni.com.whatshouldiwatch.data.retrofit.networkData.lists.FetchListMoviesUseCase
 import io.reactivex.disposables.CompositeDisposable
 
 class MovieListViewModel(

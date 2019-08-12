@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.stameni.com.whatshouldiwatch.R
 import com.stameni.com.whatshouldiwatch.common.Constants
 import com.stameni.com.whatshouldiwatch.common.ImageLoader
-import com.stameni.com.whatshouldiwatch.data.room.models.Movie
+import com.stameni.com.whatshouldiwatch.data.room.roomModels.Movie
 import com.stameni.com.whatshouldiwatch.screens.singleMovie.SingleMovieActivity
 import kotlinx.android.synthetic.main.my_list_movie_item.view.*
 
