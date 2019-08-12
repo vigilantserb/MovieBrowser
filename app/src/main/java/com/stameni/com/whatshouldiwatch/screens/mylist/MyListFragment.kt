@@ -38,8 +38,8 @@ class MyListFragment : BaseFragment() {
         controllerComponent.inject(this)
         viewModel = ViewModelProviders.of(this).get(MyListViewModel::class.java)
 
-        var layoutManager = GridLayoutManager(context, 1, RecyclerView.VERTICAL, false)
-        var adapter = LocalMovieListAdapter(ArrayList(), imageLoader)
+        val layoutManager = GridLayoutManager(context, 1, RecyclerView.VERTICAL, false)
+        val adapter = LocalMovieListAdapter(ArrayList(), imageLoader)
 
         movies_rv.adapter = adapter
         movies_rv.layoutManager = layoutManager
@@ -49,7 +49,10 @@ class MyListFragment : BaseFragment() {
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
-                adapter.addAll(it)
+                if (it.isNotEmpty()){
+                    no_movies_placeholder.visibility = View.GONE
+                    adapter.addAll(it)
+                }
             }, { println("Failure") })
     }
 }
