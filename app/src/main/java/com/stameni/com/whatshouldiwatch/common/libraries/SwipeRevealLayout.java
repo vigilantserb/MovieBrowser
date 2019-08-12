@@ -1,4 +1,4 @@
-package com.stameni.com.whatshouldiwatch.common;
+package com.stameni.com.whatshouldiwatch.common.libraries;
 
 import android.annotation.SuppressLint;
 import android.content.Context;

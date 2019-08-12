@@ -10,10 +10,10 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.stameni.com.whatshouldiwatch.R
-import com.stameni.com.whatshouldiwatch.common.CustomSnackbar
 import com.stameni.com.whatshouldiwatch.common.ImageLoader
 import com.stameni.com.whatshouldiwatch.common.ViewModelFactory
 import com.stameni.com.whatshouldiwatch.common.baseClasses.BaseFragment
+import com.stameni.com.whatshouldiwatch.common.libraries.CustomSnackbar
 import com.stameni.com.whatshouldiwatch.screens.discover.genre.moviegridlist.MovieGridAdapter
 import kotlinx.android.synthetic.main.now_playing_movies_fragment.*
 import javax.inject.Inject

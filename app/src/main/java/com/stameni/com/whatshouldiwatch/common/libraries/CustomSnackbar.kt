@@ -1,4 +1,4 @@
-package com.stameni.com.whatshouldiwatch.common
+package com.stameni.com.whatshouldiwatch.common.libraries
 
 import android.view.LayoutInflater
 import android.view.View
@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import com.google.android.material.snackbar.BaseTransientBottomBar
 import com.stameni.com.whatshouldiwatch.R
+import com.stameni.com.whatshouldiwatch.common.findSuitableParent
 
 class CustomSnackbar(
     parent: ViewGroup,

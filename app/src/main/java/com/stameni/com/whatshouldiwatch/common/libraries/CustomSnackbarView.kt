@@ -1,4 +1,4 @@
-package com.stameni.com.whatshouldiwatch.common
+package com.stameni.com.whatshouldiwatch.common.libraries
 
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator

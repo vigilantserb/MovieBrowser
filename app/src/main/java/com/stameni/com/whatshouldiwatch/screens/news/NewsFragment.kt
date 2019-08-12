@@ -9,10 +9,10 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.stameni.com.whatshouldiwatch.R
-import com.stameni.com.whatshouldiwatch.common.CustomSnackbar
 import com.stameni.com.whatshouldiwatch.common.ImageLoader
 import com.stameni.com.whatshouldiwatch.common.ViewModelFactory
 import com.stameni.com.whatshouldiwatch.common.baseClasses.BaseFragment
+import com.stameni.com.whatshouldiwatch.common.libraries.CustomSnackbar
 import kotlinx.android.synthetic.main.news_fragment.*
 import javax.inject.Inject
 
