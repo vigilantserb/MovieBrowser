@@ -20,14 +20,14 @@
                 android:orientation="horizontal">
 
             <Button
-                    android:id="@+id/info_button"
+                    android:id="@+id/watched_button"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:layout_marginEnd="8dp"
                     android:background="@drawable/ic_watched"/>
 
             <Button
-                    android:id="@+id/edit_button"
+                    android:id="@+id/delete_button"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:layout_marginStart="8dp"

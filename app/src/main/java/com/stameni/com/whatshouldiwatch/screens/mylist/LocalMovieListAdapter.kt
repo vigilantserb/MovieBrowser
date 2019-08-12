@@ -16,7 +16,8 @@ import kotlinx.android.synthetic.main.my_list_movie_item.view.*
 
 class LocalMovieListAdapter(
     private val items: ArrayList<Movie>,
-    private val imageLoader: ImageLoader
+    private val imageLoader: ImageLoader,
+    val viewModel: MyListViewModel
 ) : RecyclerView.Adapter<LocalMovieListAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -39,6 +40,12 @@ class LocalMovieListAdapter(
         }
     }
 
+    fun removeAll() {
+        val size = items.size
+        items.clear()
+        notifyItemRangeRemoved(0, size)
+    }
+
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val listItem = items[position]
         holder.movieTitle.text = listItem.movieName
@@ -48,10 +55,12 @@ class LocalMovieListAdapter(
         val url = listItem.movieImageUrl
 
         holder.infoButton.setOnClickListener { v ->
-            Toast.makeText(v.context, "INFO CLICKED", Toast.LENGTH_SHORT).show()
+            Toast.makeText(v.context, "Movie watched", Toast.LENGTH_SHORT).show()
+            viewModel.deleteSingleMovie(listItem)
         }
         holder.editButton.setOnClickListener { v ->
-            Toast.makeText(v.context, "EDIT CLICKED", Toast.LENGTH_SHORT).show()
+            Toast.makeText(v.context, "Movie deleted", Toast.LENGTH_SHORT).show()
+            viewModel.deleteSingleMovie(listItem)
         }
 
         holder.movieView.setOnClickListener {
@@ -72,8 +81,8 @@ class LocalMovieListAdapter(
         var moviePoster = itemView.movie_poster
         var movieYear = itemView.year_text_view
         var movieGenres = itemView.genres_text_view
-        var infoButton = itemView.info_button
-        var editButton = itemView.edit_button
+        var infoButton = itemView.watched_button
+        var editButton = itemView.delete_button
         var movieView = itemView.movie_root
 
         fun setFadeAnimation(view: View) {

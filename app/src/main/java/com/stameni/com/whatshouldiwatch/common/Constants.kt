@@ -4,6 +4,9 @@ package com.stameni.com.whatshouldiwatch.common
 class Constants {
 
     companion object {
+        //GLOBAL
+        const val SUCCESS = 1
+
         const val MOVIE_TYPE = "Movie"
         const val TV_SHOW_TYPE = "TV Show"
         const val PEOPLE_TYPE = "People"

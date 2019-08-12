@@ -4,11 +4,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.stameni.com.whatshouldiwatch.R
+import com.stameni.com.whatshouldiwatch.common.Constants
 import com.stameni.com.whatshouldiwatch.common.ImageLoader
+import com.stameni.com.whatshouldiwatch.common.ViewModelFactory
 import com.stameni.com.whatshouldiwatch.common.baseClasses.BaseFragment
 import com.stameni.com.whatshouldiwatch.data.room.MovieDatabase
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -24,6 +27,9 @@ class MyListFragment : BaseFragment() {
     @Inject
     lateinit var imageLoader: ImageLoader
 
+    @Inject
+    lateinit var viewModelFactory: ViewModelFactory
+
     private lateinit var viewModel: MyListViewModel
 
     override fun onCreateView(
@@ -36,20 +42,31 @@ class MyListFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         controllerComponent.inject(this)
-        viewModel = ViewModelProviders.of(this).get(MyListViewModel::class.java)
+        viewModel = ViewModelProviders.of(this, viewModelFactory).get(MyListViewModel::class.java)
 
         val layoutManager = GridLayoutManager(context, 1, RecyclerView.VERTICAL, false)
-        val adapter = LocalMovieListAdapter(ArrayList(), imageLoader)
+        val adapter = LocalMovieListAdapter(ArrayList(), imageLoader, viewModel)
 
         movies_rv.adapter = adapter
         movies_rv.layoutManager = layoutManager
 
+        fetchWatchlistMovies(adapter)
+
+        viewModel.isMovieWatched.observe(this, Observer {
+            if (it == Constants.SUCCESS) {
+                adapter.removeAll()
+                fetchWatchlistMovies(adapter)
+            }
+        })
+    }
+
+    private fun fetchWatchlistMovies(adapter: LocalMovieListAdapter) {
         val xx = movieRoomDatabase.movieDao()
             .getMovies()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
-                if (it.isNotEmpty()){
+                if (it.isNotEmpty()) {
                     no_movies_placeholder.visibility = View.GONE
                     adapter.addAll(it)
                 }
