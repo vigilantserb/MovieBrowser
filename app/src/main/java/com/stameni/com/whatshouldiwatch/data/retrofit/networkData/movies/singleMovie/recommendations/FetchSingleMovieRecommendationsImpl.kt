@@ -46,18 +46,19 @@ class FetchSingleMovieRecommendationsImpl(
     private fun formatResponse(it: Response<SearchSchema>): ArrayList<Movie> {
         val formattedData = ArrayList<Movie>()
 
-        if(it.isSuccessful){
+        if (it.isSuccessful) {
             it.body()!!.results.forEach {
-                formattedData.add(
-                    Movie(
-                        it.id,
-                        it.title,
-                        it.releaseDate,
-                        "",
-                        it.posterPath,
-                        it.voteAverage
+                if (it.posterPath != null)
+                    formattedData.add(
+                        Movie(
+                            it.id,
+                            it.title,
+                            it.releaseDate,
+                            "",
+                            it.posterPath,
+                            it.voteAverage
+                        )
                     )
-                )
             }
         }
 

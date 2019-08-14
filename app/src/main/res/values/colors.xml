@@ -8,6 +8,7 @@
     <color name="color_text">#fff</color>
     <color name="color_red">#ff5252</color>
     <color name="light_gray">#888</color>
+    <color name="medium_dark_gray">#555</color>
     <color name="dark_gray">#444</color>
 
 </resources>
