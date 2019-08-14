@@ -23,7 +23,7 @@
             android:id="@+id/bottom_nav"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:itemBackground="@color/color_background"
+            app:itemBackground="@color/color_background_dark"
             app:itemIconTint="@drawable/tab_color_selector"
             app:itemTextColor="@drawable/tab_color_selector"
             app:layout_constraintBottom_toBottomOf="@+id/nav_host_fragment"

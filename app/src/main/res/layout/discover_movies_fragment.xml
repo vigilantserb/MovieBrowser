@@ -14,7 +14,7 @@
             app:tabMode="fixed"
             app:tabGravity="fill"
             app:tabTextAppearance="@style/TabTextAppearance"
-            android:background="@color/color_background"
+            android:background="@color/color_background_dark"
             app:tabIndicatorColor="@color/color_red"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
