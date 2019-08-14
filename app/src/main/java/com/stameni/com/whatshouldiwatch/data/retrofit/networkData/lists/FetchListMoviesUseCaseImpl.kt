@@ -59,14 +59,17 @@ class FetchListMoviesUseCaseImpl(
     ): ArrayList<Movie> {
         val formattedMovies = ArrayList<Movie>()
         movies.body()!!.items.forEach { movie ->
-            var genres = ""
+            val genreString = ArrayList<String>()
             movie.genreIds.forEach { genreId ->
                 genreResponse.body()!!.genres.forEach {
                     if (it.id == genreId) {
-                        genres += "| ${it.name} "
+                        genreString.add(it.name)
                     }
                 }
             }
+
+            val genres = genreString.joinToString(", ")
+
             formattedMovies.add(
                 Movie(
                     movie.id,

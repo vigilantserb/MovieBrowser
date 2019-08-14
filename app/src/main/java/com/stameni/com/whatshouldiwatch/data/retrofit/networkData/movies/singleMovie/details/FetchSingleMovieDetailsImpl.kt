@@ -43,10 +43,9 @@ class FetchSingleMovieDetailsImpl(
     private fun formatResponse(it: Response<SingleMovieDetailsSchema>): MovieDetails? {
         if (it.isSuccessful) {
             val data = it.body()!!
-            var genres = ""
-            data.genres.forEach {
-                genres += "${it.name} | "
-            }
+            val genreString = ArrayList<String>()
+            data.genres.forEach { genreString.add(it.name) }
+            val genres = genreString.joinToString(", ")
             var directorName = ""
             var directorImageUrl = ""
             var directorId = 0
