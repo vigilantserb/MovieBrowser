@@ -54,7 +54,7 @@ class ImageLoader(
                 .into(view)
         }else{
             Glide.with(context)
-                .load(R.drawable.list_placeholder)
+                .load(R.drawable.poster_placeholder)
                 .centerCrop()
                 .into(view)
         }

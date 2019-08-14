@@ -8,6 +8,8 @@ import androidx.room.PrimaryKey
 class Movie(
     @ColumnInfo(name = "movieName")
     val movieName: String?,
+    @ColumnInfo(name = "releaseDate")
+    val releaseDate: String?,
     @ColumnInfo(name = "movieGenres")
     val movieGenres: String?,
     @ColumnInfo(name = "movieImageUrl")

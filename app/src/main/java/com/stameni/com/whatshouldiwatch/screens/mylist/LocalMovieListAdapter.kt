@@ -40,27 +40,21 @@ class LocalMovieListAdapter(
         }
     }
 
-    fun removeAll() {
-        val size = items.size
-        items.clear()
-        notifyItemRangeRemoved(0, size)
-    }
-
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val listItem = items[position]
         holder.movieTitle.text = listItem.movieName
         holder.movieGenres.text = listItem.movieGenres
-        holder.movieYear.text = "1989"
+        holder.movieYear.text = listItem.releaseDate
         holder.movieTitle.text = listItem.movieName
         val url = listItem.movieImageUrl
 
         holder.infoButton.setOnClickListener { v ->
             Toast.makeText(v.context, "Movie watched", Toast.LENGTH_SHORT).show()
-            viewModel.deleteSingleMovie(listItem)
+            removeSingleMovie(listItem, position)
         }
         holder.editButton.setOnClickListener { v ->
             Toast.makeText(v.context, "Movie deleted", Toast.LENGTH_SHORT).show()
-            viewModel.deleteSingleMovie(listItem)
+            removeSingleMovie(listItem, position)
         }
 
         holder.movieView.setOnClickListener {
@@ -74,6 +68,13 @@ class LocalMovieListAdapter(
 
         if (url != null) imageLoader.loadPosterImageCenterCrop(url, holder.moviePoster, "w92")
         holder.setFadeAnimation(holder.itemView)
+    }
+
+    private fun removeSingleMovie(listItem: Movie, position: Int) {
+        items.remove(listItem)
+        notifyItemRemoved(position)
+        notifyItemRangeChanged(position, items.size)
+        viewModel.deleteSingleMovie(listItem)
     }
 
     class ViewHolder(itemView: View, parent: ViewGroup) : RecyclerView.ViewHolder(itemView) {

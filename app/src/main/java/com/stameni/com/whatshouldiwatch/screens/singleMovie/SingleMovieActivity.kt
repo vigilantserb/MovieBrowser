@@ -202,7 +202,7 @@ class SingleMovieActivity : BaseActivity() {
         val movie: Movie? = movies!!.find { it.movieId == movieId }
         if(movie == null){
             movieRoomDatabase.movieDao()
-                .insertMovie(Movie(movieDetails.movieTitle, movieDetails.genres, movieDetails.posterPath, movieDetails.movieId))
+                .insertMovie(Movie(movieDetails.movieTitle, movieDetails.releaseDate, movieDetails.genres, movieDetails.posterPath, movieDetails.movieId))
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({

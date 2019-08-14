@@ -1,15 +1,14 @@
 package com.stameni.com.whatshouldiwatch.screens.mylist
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.stameni.com.whatshouldiwatch.R
-import com.stameni.com.whatshouldiwatch.common.Constants
 import com.stameni.com.whatshouldiwatch.common.ImageLoader
 import com.stameni.com.whatshouldiwatch.common.ViewModelFactory
 import com.stameni.com.whatshouldiwatch.common.baseClasses.BaseFragment
@@ -51,17 +50,11 @@ class MyListFragment : BaseFragment() {
         movies_rv.layoutManager = layoutManager
 
         fetchWatchlistMovies(adapter)
-
-        viewModel.isMovieWatched.observe(this, Observer {
-            if (it == Constants.SUCCESS) {
-                adapter.removeAll()
-                fetchWatchlistMovies(adapter)
-            }
-        })
     }
 
+    @SuppressLint("CheckResult")
     private fun fetchWatchlistMovies(adapter: LocalMovieListAdapter) {
-        val xx = movieRoomDatabase.movieDao()
+        movieRoomDatabase.movieDao()
             .getMovies()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
