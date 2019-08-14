@@ -12,6 +12,7 @@ import com.stameni.com.whatshouldiwatch.screens.discover.upcoming.UpcomingMovies
 import com.stameni.com.whatshouldiwatch.screens.mylist.MyListFragment
 import com.stameni.com.whatshouldiwatch.screens.news.NewsFragment
 import com.stameni.com.whatshouldiwatch.screens.search.SearchFragment
+import com.stameni.com.whatshouldiwatch.screens.settings.SettingsFragment
 import com.stameni.com.whatshouldiwatch.screens.singleMovie.SingleMovieActivity
 import com.stameni.com.whatshouldiwatch.screens.singlePerson.SinglePersonActivity
 import com.stameni.com.whatshouldiwatch.screens.singlePerson.appearances.SinglePersonAppearancesFragment
@@ -33,4 +34,5 @@ interface ControllerComponent {
     fun inject(singleActorBiographyFragment: SingleActorBiographyFragment)
     fun inject(singlePersonAppearancesFragment: SinglePersonAppearancesFragment)
     fun inject(myListFragment: MyListFragment)
+    fun inject(settingsFragment: SettingsFragment)
 }
