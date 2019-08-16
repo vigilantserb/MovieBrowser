@@ -12,6 +12,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import com.stameni.com.whatshouldiwatch.R
 import com.stameni.com.whatshouldiwatch.common.baseClasses.BaseFragment
+import com.stameni.com.whatshouldiwatch.screens.settings.about.AboutUsActivity
 import kotlinx.android.synthetic.main.fragment_settings_new.*
 import java.io.File
 import javax.inject.Inject
@@ -55,6 +56,10 @@ class SettingsFragment : BaseFragment() {
             intent.data = data
             startActivity(intent)
         }
+
+        about_us_placeholder.setOnClickListener {
+            startActivity(Intent(context, AboutUsActivity::class.java))
+        }
     }
 
     private fun handleImageCache() {
@@ -69,7 +74,7 @@ class SettingsFragment : BaseFragment() {
 
     private fun promptToDeleteDir(dirSize: Long, dir: File) {
         var cacheSizeMb = 0
-        if(dirSize > 0) cacheSizeMb = (dirSize/1024/1024).toInt()
+        if (dirSize > 0) cacheSizeMb = (dirSize / 1024 / 1024).toInt()
         val dialogClickListener = DialogInterface.OnClickListener { dialog, which ->
             when (which) {
                 DialogInterface.BUTTON_POSITIVE -> {
@@ -84,7 +89,8 @@ class SettingsFragment : BaseFragment() {
         }
 
         val builder = AlertDialog.Builder(context)
-        builder.setMessage("Are you sure you want to delete $cacheSizeMb MB of data?").setPositiveButton("Yes", dialogClickListener)
+        builder.setMessage("Are you sure you want to delete $cacheSizeMb MB of data?")
+            .setPositiveButton("Yes", dialogClickListener)
             .setNegativeButton("No", dialogClickListener).show()
     }
 
