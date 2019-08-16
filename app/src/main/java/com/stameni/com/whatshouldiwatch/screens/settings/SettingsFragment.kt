@@ -2,7 +2,9 @@ package com.stameni.com.whatshouldiwatch.screens.settings
 
 import android.app.AlertDialog
 import android.content.DialogInterface
+import android.content.Intent
 import android.content.SharedPreferences
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -45,6 +47,13 @@ class SettingsFragment : BaseFragment() {
 
         image_cache_placeholder.setOnClickListener {
             handleImageCache()
+        }
+
+        contact_us_placeholder.setOnClickListener {
+            val intent = Intent(Intent.ACTION_VIEW)
+            val data = Uri.parse("mailto:mihajlo07@gmail.com?subject=[What Should I Watch?] Help" + "" + "&body=" + "")
+            intent.data = data
+            startActivity(intent)
         }
     }
 
