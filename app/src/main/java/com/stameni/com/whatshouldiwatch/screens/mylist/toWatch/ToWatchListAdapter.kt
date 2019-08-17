@@ -1,4 +1,4 @@
-package com.stameni.com.whatshouldiwatch.screens.mylist
+package com.stameni.com.whatshouldiwatch.screens.mylist.toWatch
 
 import android.content.Intent
 import android.view.LayoutInflater
@@ -14,11 +14,11 @@ import com.stameni.com.whatshouldiwatch.data.room.roomModels.Movie
 import com.stameni.com.whatshouldiwatch.screens.singleMovie.SingleMovieActivity
 import kotlinx.android.synthetic.main.my_list_movie_item.view.*
 
-class LocalMovieListAdapter(
+class ToWatchListAdapter(
     private val items: ArrayList<Movie>,
     private val imageLoader: ImageLoader,
-    val viewModel: MyListViewModel
-) : RecyclerView.Adapter<LocalMovieListAdapter.ViewHolder>() {
+    val viewModel: ToWatchViewModel
+) : RecyclerView.Adapter<ToWatchListAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val v = LayoutInflater.from(parent.context).inflate(R.layout.my_list_movie_item, parent, false)

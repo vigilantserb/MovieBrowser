@@ -50,14 +50,14 @@ class SettingsFragment : BaseFragment() {
             handleImageCache()
         }
 
-        contact_us_placeholder.setOnClickListener {
+        watched_placeholder.setOnClickListener {
             val intent = Intent(Intent.ACTION_VIEW)
             val data = Uri.parse("mailto:mihajlo07@gmail.com?subject=[What Should I Watch?] Help" + "" + "&body=" + "")
             intent.data = data
             startActivity(intent)
         }
 
-        about_us_placeholder.setOnClickListener {
+        to_watch_placeholder.setOnClickListener {
             startActivity(Intent(context, AboutUsActivity::class.java))
         }
     }

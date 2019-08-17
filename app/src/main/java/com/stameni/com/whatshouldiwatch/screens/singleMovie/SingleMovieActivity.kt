@@ -1,8 +1,9 @@
 package com.stameni.com.whatshouldiwatch.screens.singleMovie
 
 import android.annotation.SuppressLint
+import android.app.AlertDialog
+import android.content.DialogInterface
 import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.widget.Toast
 import androidx.lifecycle.Observer
@@ -12,9 +13,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.stameni.com.whatshouldiwatch.R
-import com.stameni.com.whatshouldiwatch.common.Constants
-import com.stameni.com.whatshouldiwatch.common.ImageLoader
-import com.stameni.com.whatshouldiwatch.common.ViewModelFactory
+import com.stameni.com.whatshouldiwatch.common.*
 import com.stameni.com.whatshouldiwatch.common.baseClasses.BaseActivity
 import com.stameni.com.whatshouldiwatch.data.models.movie.MovieDetails
 import com.stameni.com.whatshouldiwatch.data.room.MovieDatabase
@@ -22,6 +21,7 @@ import com.stameni.com.whatshouldiwatch.data.room.roomModels.Movie
 import com.stameni.com.whatshouldiwatch.screens.news.NewsWebViewActivity
 import com.stameni.com.whatshouldiwatch.screens.singlePerson.SinglePersonActivity
 import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_single_movie.*
 import timber.log.Timber
@@ -121,11 +121,7 @@ class SingleMovieActivity : BaseActivity() {
     }
 
     private fun prepareMovieTrailer(youtubeVideoKey: String) {
-        val url = "https://www.youtube.com/watch?v=$youtubeVideoKey"
-        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-        intent.setPackage("com.google.android.youtube")
-        startActivity(intent)
+        startActivity(LinkGenerator.generateYoutubeTrailerIntent(youtubeVideoKey))
     }
 
     private fun initializeRecyclerViews() {
@@ -176,7 +172,7 @@ class SingleMovieActivity : BaseActivity() {
         }
     }
 
-    private fun goToSingleDirectorPage(movieDetails: MovieDetails){
+    private fun goToSingleDirectorPage(movieDetails: MovieDetails) {
         val intent = Intent(this, SinglePersonActivity::class.java)
         intent.putExtra(Constants.PERSON_TYPE, Constants.DIRECTOR_TYPE)
         intent.putExtra(Constants.PERSON_NAME, movieDetails.directorName)
@@ -186,53 +182,86 @@ class SingleMovieActivity : BaseActivity() {
     }
 
     @SuppressLint("CheckResult")
-    private fun saveMovieToLocalDatabase(movieDetails: MovieDetails){
+    private fun saveMovieToLocalDatabase(movieDetails: MovieDetails) {
         movieRoomDatabase.movieDao()
             .getMovies()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe({movies ->
+            .subscribe({ movies ->
                 checkIfMovieIsAlreadyInLocalDatabase(movies, movieDetails)
-            }, { e-> Timber.d(e) })
+            }, { e -> Timber.d(e) })
     }
 
     @SuppressLint("CheckResult")
     private fun checkIfMovieIsAlreadyInLocalDatabase(movies: List<Movie>?, movieDetails: MovieDetails) {
         val movieId = movieDetails.movieId
         val movie: Movie? = movies!!.find { it.movieId == movieId }
-        if(movie == null){
-            movieRoomDatabase.movieDao()
-                .insertMovie(Movie(movieDetails.movieTitle, movieDetails.releaseDate, movieDetails.genres, movieDetails.posterPath, movieDetails.movieId))
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({
-                    Toast.makeText(this, "${movieDetails.movieTitle} added to watch later list", Toast.LENGTH_LONG).show()
-                }, {  e-> Timber.d(e) })
-        }else{
-            Toast.makeText(this, "${movieDetails.movieTitle} is already in watch later list", Toast.LENGTH_LONG).show()
+        if (movie == null) {
+            val dialogClickListener = DialogInterface.OnClickListener { dialog, which ->
+                when (which) {
+                    DialogInterface.BUTTON_POSITIVE -> {
+                        addMovieToListBasedOnType("watched", movieDetails)
+                    }
+
+                    DialogInterface.BUTTON_NEGATIVE -> {
+                        addMovieToListBasedOnType("toWatch", movieDetails)
+                    }
+                }
+            }
+
+            val builder = AlertDialog.Builder(this)
+            builder.setMessage("Which list would you like to add ${movieDetails.movieTitle} to?")
+                .setPositiveButton("Watched", dialogClickListener)
+                .setNegativeButton("Watch later", dialogClickListener).show()
+        } else {
+            if (movie.listType == "watched") {
+                updateMovieListType("toWatch", movieDetails)
+            } else {
+                updateMovieListType("watched", movieDetails)
+            }
         }
     }
 
-    private fun createShareMovieMessage(movieDetails: MovieDetails){
-        var movieDate = ""
-        if (movieDetails.releaseDate != null) {
-            movieDate = movieDetails.releaseDate.removeRange(4, movieDetails.releaseDate.length)
-        }
-        val string =
-            "Hey! Check out ${movieDetails.movieTitle} | $movieDate directed by ${movieDetails.directorName}. Rated ${movieDetails.tmdbRating} on TMDB!"
-        val sendIntent: Intent = Intent().apply {
-            action = Intent.ACTION_SEND
-            putExtra(Intent.EXTRA_TEXT, string)
-            type = "text/plain"
-        }
-        startActivity(sendIntent)
+    private fun addMovieToListBasedOnType(listType: String, movieDetails: MovieDetails): Disposable {
+        val listName = if (listType == "toWatch") "watch" else "watched"
+        return movieRoomDatabase.movieDao()
+            .insertMovie(
+                Movie(
+                    movieDetails.movieTitle,
+                    movieDetails.releaseDate,
+                    movieDetails.genres,
+                    movieDetails.posterPath,
+                    movieDetails.movieId,
+                    listType
+                )
+            )
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({
+                Toast.makeText(this, "${movieDetails.movieTitle} added to $listName list. Click again to change.", Toast.LENGTH_LONG).show()
+            }, { e -> Timber.d(e) })
+    }
+
+    private fun updateMovieListType(listType: String, movieDetails: MovieDetails): Disposable {
+        val listName = if (listType == "toWatch") "watch" else "watched"
+        return movieRoomDatabase.movieDao()
+            .updateMovie(
+                listType,
+                movieDetails.movieId
+            )
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({
+                Toast.makeText(this, "${movieDetails.movieTitle} added to $listName list", Toast.LENGTH_LONG).show()
+            }, { e -> Timber.d(e) })
+    }
+
+    private fun createShareMovieMessage(movieDetails: MovieDetails) {
+        startActivity(MessageGenerator.shareMovieMessageIntent(movieDetails))
     }
 
     private fun goToImdbPage(imdbId: String) {
-        createImdbLink("https://www.imdb.com/title/$imdbId")
-    }
-
-    private fun createImdbLink(url: String) {
+        val url ="https://www.imdb.com/title/$imdbId"
         val intent = Intent(this, NewsWebViewActivity::class.java)
         intent.putExtra(Constants.SOURCE_LINK, url)
         startActivity(intent)

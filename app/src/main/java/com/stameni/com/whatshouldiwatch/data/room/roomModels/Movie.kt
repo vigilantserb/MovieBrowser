@@ -15,7 +15,9 @@ class Movie(
     @ColumnInfo(name = "movieImageUrl")
     val movieImageUrl: String?,
     @ColumnInfo(name = "movieId")
-    val movieId: Int?
+    val movieId: Int?,
+    @ColumnInfo(name = "listType")
+    val listType: String?
 ){
     @PrimaryKey(autoGenerate = true)
     var id: Int = 0

@@ -18,4 +18,7 @@ interface MovieDao {
 
     @Delete
     fun deleteMovie(movie: Movie): Completable
+
+    @Query("UPDATE movie SET listType=:listType WHERE movieId = :id")
+    fun updateMovie(listType: String, id: Int?): Completable
 }

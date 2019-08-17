@@ -5,7 +5,6 @@
         android:orientation="horizontal"
         android:background="@color/color_background"
         android:layout_width="match_parent"
-        android:layout_margin="5dp"
         android:layout_height="100dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -19,7 +18,7 @@
         <ImageView
                 android:id="@+id/movie_poster"
                 android:layout_width="64dp"
-                android:padding="10dp"
+                android:padding="8dp"
                 android:layout_height="match_parent"
                 app:layout_constraintStart_toStartOf="@+id/guideline1"
                 app:layout_constraintBottom_toBottomOf="parent"

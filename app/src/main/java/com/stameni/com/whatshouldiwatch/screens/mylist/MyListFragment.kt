@@ -1,20 +1,19 @@
 package com.stameni.com.whatshouldiwatch.screens.mylist
 
-import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.stameni.com.whatshouldiwatch.R
 import com.stameni.com.whatshouldiwatch.common.ImageLoader
 import com.stameni.com.whatshouldiwatch.common.ViewModelFactory
 import com.stameni.com.whatshouldiwatch.common.baseClasses.BaseFragment
 import com.stameni.com.whatshouldiwatch.data.room.MovieDatabase
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
+import com.stameni.com.whatshouldiwatch.screens.mylist.toWatch.ToWatchActivity
+import com.stameni.com.whatshouldiwatch.screens.mylist.watched.WatchedActivity
 import kotlinx.android.synthetic.main.my_list_fragment.*
 import javax.inject.Inject
 
@@ -43,26 +42,21 @@ class MyListFragment : BaseFragment() {
         controllerComponent.inject(this)
         viewModel = ViewModelProviders.of(this, viewModelFactory).get(MyListViewModel::class.java)
 
-        val layoutManager = GridLayoutManager(context, 1, RecyclerView.VERTICAL, false)
-        val adapter = LocalMovieListAdapter(ArrayList(), imageLoader, viewModel)
+        viewModel.countMoviesByType()
 
-        movies_rv.adapter = adapter
-        movies_rv.layoutManager = layoutManager
+        to_watch_placeholder.setOnClickListener {
+            startActivity(Intent(context, ToWatchActivity::class.java))
+        }
+        watched_placeholder.setOnClickListener {
+            startActivity(Intent(context, WatchedActivity::class.java))
+        }
 
-        fetchWatchlistMovies(adapter)
-    }
+        viewModel.toWatchCount.observe(this, Observer {
+            to_watch_count.text = it.toString()
+        })
 
-    @SuppressLint("CheckResult")
-    private fun fetchWatchlistMovies(adapter: LocalMovieListAdapter) {
-        movieRoomDatabase.movieDao()
-            .getMovies()
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe({
-                if (it.isNotEmpty()) {
-                    no_movies_placeholder.visibility = View.GONE
-                    adapter.addAll(it)
-                }
-            }, { println("Failure") })
+        viewModel.watchedCount.observe(this, Observer {
+            watched_count.text = it.toString()
+        })
     }
 }

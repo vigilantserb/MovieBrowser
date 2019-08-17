@@ -13,6 +13,12 @@
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
+        <activity android:name=".screens.mylist.watched.WatchedActivity"
+                  android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+        <activity android:name=".screens.mylist.toWatch.ToWatchActivity"
+                  android:theme="@style/AppTheme.NoActionBar">
+        </activity>
         <activity
                 android:name=".screens.settings.about.AboutUsActivity"
                 android:label="@string/title_activity_about_us"

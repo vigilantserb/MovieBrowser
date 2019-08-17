@@ -40,10 +40,10 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="@id/separator2"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toStartOf="@id/about_us_placeholder"/>
+                app:layout_constraintEnd_toStartOf="@id/to_watch_placeholder"/>
 
         <TextView
-                android:id="@+id/about_us_placeholder"
+                android:id="@+id/to_watch_placeholder"
                 android:background="?attr/selectableItemBackground"
                 android:clickable="true"
                 android:text="Rate us in the Play Store"
@@ -58,12 +58,12 @@
                 app:layout_constraintBottom_toTopOf="@id/separator2"/>
 
         <ImageView
-                android:id="@+id/about_us_arrow"
+                android:id="@+id/to_watch_arrow"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_keyboard_arrow_right"
                 android:layout_marginEnd="64dp"
-                app:layout_constraintStart_toEndOf="@+id/about_us_placeholder"
+                app:layout_constraintStart_toEndOf="@+id/to_watch_placeholder"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintBottom_toTopOf="@id/separator2"/>
@@ -73,12 +73,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:background="@color/medium_dark_gray"
-                app:layout_constraintTop_toBottomOf="@id/about_us_placeholder"
+                app:layout_constraintTop_toBottomOf="@id/to_watch_placeholder"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"/>
 
         <TextView
-                android:id="@+id/contact_us_placeholder"
+                android:id="@+id/watched_placeholder"
                 android:background="?attr/selectableItemBackground"
                 android:clickable="true"
                 android:text="Tell a friend"
@@ -87,7 +87,7 @@
                 android:layout_height="wrap_content"
                 android:padding="16dp"
                 android:paddingStart="64dp"
-                app:layout_constraintTop_toBottomOf="@+id/about_us_placeholder"
+                app:layout_constraintTop_toBottomOf="@+id/to_watch_placeholder"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_chainStyle="spread_inside"
@@ -100,18 +100,18 @@
                 android:layout_marginStart="64dp"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                app:layout_constraintEnd_toStartOf="@id/contact_us_placeholder"
+                app:layout_constraintEnd_toStartOf="@id/watched_placeholder"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/separator2"/>
 
         <ImageView
-                android:id="@+id/contact_us_arrow"
+                android:id="@+id/watched_arrow"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_keyboard_arrow_right"
                 android:layout_marginEnd="64dp"
-                app:layout_constraintStart_toEndOf="@+id/contact_us_placeholder"
+                app:layout_constraintStart_toEndOf="@+id/watched_placeholder"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintTop_toBottomOf="@id/separator2"
