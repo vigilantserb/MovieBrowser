@@ -1,6 +1,7 @@
 package com.stameni.com.whatshouldiwatch.screens.mylist.toWatch
 
 import android.os.Bundle
+import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.GridLayoutManager
@@ -36,6 +37,10 @@ class ToWatchActivity : BaseActivity() {
 
         viewModel.fetchedMovies.observe(this, Observer {
             adapter.addAll(it)
+        })
+
+        viewModel.successMessage.observe(this, Observer {
+            Toast.makeText(this, it, Toast.LENGTH_SHORT).show()
         })
 
         movies_rv.adapter = adapter

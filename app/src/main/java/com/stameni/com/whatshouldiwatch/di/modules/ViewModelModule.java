@@ -18,10 +18,7 @@ import com.stameni.com.whatshouldiwatch.data.retrofit.networkData.person.actorMo
 import com.stameni.com.whatshouldiwatch.data.retrofit.networkData.person.directorMovies.FetchSingleDirectorMovies;
 import com.stameni.com.whatshouldiwatch.data.retrofit.networkData.person.personDetails.FetchPersonDetailsUseCase;
 import com.stameni.com.whatshouldiwatch.data.retrofit.networkData.search.SearchByTermUseCase;
-import com.stameni.com.whatshouldiwatch.data.room.localData.CountMoviesByTypeUseCase;
-import com.stameni.com.whatshouldiwatch.data.room.localData.DeleteMovieUseCase;
-import com.stameni.com.whatshouldiwatch.data.room.localData.FetchMovieListUseCase;
-import com.stameni.com.whatshouldiwatch.data.room.localData.SaveMovieToDatabase;
+import com.stameni.com.whatshouldiwatch.data.room.localData.*;
 import com.stameni.com.whatshouldiwatch.screens.discover.genre.GenreMoviesViewModel;
 import com.stameni.com.whatshouldiwatch.screens.discover.genre.moviegridlist.MovieGridViewModel;
 import com.stameni.com.whatshouldiwatch.screens.discover.nowPlaying.NowPlayingMoviesViewModel;
@@ -29,6 +26,7 @@ import com.stameni.com.whatshouldiwatch.screens.discover.topLists.movielist.Movi
 import com.stameni.com.whatshouldiwatch.screens.discover.upcoming.UpcomingMoviesViewModel;
 import com.stameni.com.whatshouldiwatch.screens.mylist.MyListViewModel;
 import com.stameni.com.whatshouldiwatch.screens.mylist.toWatch.ToWatchViewModel;
+import com.stameni.com.whatshouldiwatch.screens.mylist.watched.WatchedViewModel;
 import com.stameni.com.whatshouldiwatch.screens.news.NewsViewModel;
 import com.stameni.com.whatshouldiwatch.screens.search.SearchViewModel;
 import com.stameni.com.whatshouldiwatch.screens.singleMovie.SingleMovieViewModel;
@@ -164,7 +162,18 @@ public class ViewModelModule {
     @ViewModelKey(ToWatchViewModel.class)
     ViewModel toWatchViewModel(
             DeleteMovieUseCase deleteMovieUseCase,
-            FetchMovieListUseCase fetchMovieListUseCase) {
-        return new ToWatchViewModel(deleteMovieUseCase, fetchMovieListUseCase);
+            FetchMovieListUseCase fetchMovieListUseCase,
+            UpdateMovieDataUseCase updateMovieDataUseCase) {
+        return new ToWatchViewModel(deleteMovieUseCase, fetchMovieListUseCase, updateMovieDataUseCase);
+    }
+
+    @Provides
+    @IntoMap
+    @ViewModelKey(WatchedViewModel.class)
+    ViewModel watchedViewModel(
+            DeleteMovieUseCase deleteMovieUseCase,
+            FetchMovieListUseCase fetchMovieListUseCase,
+            UpdateMovieDataUseCase updateMovieDataUseCase) {
+        return new WatchedViewModel(deleteMovieUseCase, fetchMovieListUseCase, updateMovieDataUseCase);
     }
 }

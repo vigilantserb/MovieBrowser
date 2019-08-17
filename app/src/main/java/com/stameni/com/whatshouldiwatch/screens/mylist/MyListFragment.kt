@@ -11,16 +11,12 @@ import com.stameni.com.whatshouldiwatch.R
 import com.stameni.com.whatshouldiwatch.common.ImageLoader
 import com.stameni.com.whatshouldiwatch.common.ViewModelFactory
 import com.stameni.com.whatshouldiwatch.common.baseClasses.BaseFragment
-import com.stameni.com.whatshouldiwatch.data.room.MovieDatabase
 import com.stameni.com.whatshouldiwatch.screens.mylist.toWatch.ToWatchActivity
 import com.stameni.com.whatshouldiwatch.screens.mylist.watched.WatchedActivity
 import kotlinx.android.synthetic.main.my_list_fragment.*
 import javax.inject.Inject
 
 class MyListFragment : BaseFragment() {
-
-    @Inject
-    lateinit var movieRoomDatabase: MovieDatabase
 
     @Inject
     lateinit var imageLoader: ImageLoader
@@ -58,5 +54,10 @@ class MyListFragment : BaseFragment() {
         viewModel.watchedCount.observe(this, Observer {
             watched_count.text = it.toString()
         })
+    }
+
+    override fun onResume() {
+        super.onResume()
+        viewModel.countMoviesByType()
     }
 }

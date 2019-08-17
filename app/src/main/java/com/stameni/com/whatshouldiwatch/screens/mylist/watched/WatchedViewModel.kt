@@ -1,4 +1,4 @@
-package com.stameni.com.whatshouldiwatch.screens.mylist.toWatch
+package com.stameni.com.whatshouldiwatch.screens.mylist.watched
 
 import androidx.lifecycle.ViewModel
 import com.stameni.com.whatshouldiwatch.data.room.localData.DeleteMovieUseCase
@@ -7,7 +7,7 @@ import com.stameni.com.whatshouldiwatch.data.room.localData.UpdateMovieDataUseCa
 import com.stameni.com.whatshouldiwatch.data.room.roomModels.Movie
 import io.reactivex.disposables.CompositeDisposable
 
-class ToWatchViewModel (
+class WatchedViewModel(
     private val deleteSingleMovie: DeleteMovieUseCase,
     private val fetchMovieListUseCase: FetchMovieListUseCase,
     private val updateMovieDataUseCase: UpdateMovieDataUseCase

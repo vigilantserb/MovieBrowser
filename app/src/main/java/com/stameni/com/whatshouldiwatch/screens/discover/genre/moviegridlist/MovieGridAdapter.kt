@@ -25,7 +25,7 @@ class MovieGridAdapter(
             val intent = Intent(parent.context, SingleMovieActivity::class.java)
             intent.putExtra("posterUrl", item.moviePosterUrl)
             intent.putExtra("movieId", item.movieId)
-            intent.putExtra("movieName", item.movieTitle)
+            intent.putExtra("movieTitle", item.movieTitle)
             parent.context.startActivity(intent)
         }
     }

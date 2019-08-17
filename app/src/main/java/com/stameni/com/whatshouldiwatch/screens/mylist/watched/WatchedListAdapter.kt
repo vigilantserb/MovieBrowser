@@ -1,4 +1,4 @@
-package com.stameni.com.whatshouldiwatch.screens.mylist.toWatch
+package com.stameni.com.whatshouldiwatch.screens.mylist.watched
 
 import android.content.Intent
 import android.view.LayoutInflater
@@ -12,16 +12,16 @@ import com.stameni.com.whatshouldiwatch.common.Constants
 import com.stameni.com.whatshouldiwatch.common.ImageLoader
 import com.stameni.com.whatshouldiwatch.data.room.roomModels.Movie
 import com.stameni.com.whatshouldiwatch.screens.singleMovie.SingleMovieActivity
-import kotlinx.android.synthetic.main.my_list_movie_item.view.*
+import kotlinx.android.synthetic.main.my_watched_movie_item.view.*
 
-class ToWatchListAdapter(
+class WatchedListAdapter(
     private val items: ArrayList<Movie>,
     private val imageLoader: ImageLoader,
-    val viewModel: ToWatchViewModel
-) : RecyclerView.Adapter<ToWatchListAdapter.ViewHolder>() {
+    val viewModel: WatchedViewModel
+) : RecyclerView.Adapter<WatchedListAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val v = LayoutInflater.from(parent.context).inflate(R.layout.my_list_movie_item, parent, false)
+        val v = LayoutInflater.from(parent.context).inflate(R.layout.my_watched_movie_item, parent, false)
         return ViewHolder(v, parent)
     }
 
@@ -48,11 +48,11 @@ class ToWatchListAdapter(
         holder.movieTitle.text = listItem.movieTitle
         val url = listItem.movieImageUrl
 
-        holder.infoButton.setOnClickListener { v ->
+        holder.toWatchButton.setOnClickListener { v ->
             Toast.makeText(v.context, "Movie watched", Toast.LENGTH_SHORT).show()
             updateSingleMovie(listItem, position)
         }
-        holder.editButton.setOnClickListener { v ->
+        holder.deleteButton.setOnClickListener { v ->
             Toast.makeText(v.context, "Movie deleted", Toast.LENGTH_SHORT).show()
             removeSingleMovie(listItem, position)
         }
@@ -77,7 +77,7 @@ class ToWatchListAdapter(
 
     private fun updateSingleMovie(listItem: Movie, position: Int){
         popElementFromList(listItem, position)
-        viewModel.updateMovie(listItem, "watched")
+        viewModel.updateMovie(listItem, "toWatch")
     }
 
     private fun popElementFromList(listItem: Movie, position: Int){
@@ -91,8 +91,8 @@ class ToWatchListAdapter(
         var moviePoster = itemView.movie_poster
         var movieYear = itemView.year_text_view
         var movieGenres = itemView.genres_text_view
-        var infoButton = itemView.watched_button
-        var editButton = itemView.delete_button
+        var toWatchButton = itemView.to_watch_button
+        var deleteButton = itemView.delete_button
         var movieView = itemView.movie_root
 
         fun setFadeAnimation(view: View) {

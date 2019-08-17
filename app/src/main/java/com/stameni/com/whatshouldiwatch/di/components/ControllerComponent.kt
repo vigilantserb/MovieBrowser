@@ -11,6 +11,7 @@ import com.stameni.com.whatshouldiwatch.screens.discover.topLists.movielist.Movi
 import com.stameni.com.whatshouldiwatch.screens.discover.upcoming.UpcomingMovies
 import com.stameni.com.whatshouldiwatch.screens.mylist.MyListFragment
 import com.stameni.com.whatshouldiwatch.screens.mylist.toWatch.ToWatchActivity
+import com.stameni.com.whatshouldiwatch.screens.mylist.watched.WatchedActivity
 import com.stameni.com.whatshouldiwatch.screens.news.NewsFragment
 import com.stameni.com.whatshouldiwatch.screens.search.SearchFragment
 import com.stameni.com.whatshouldiwatch.screens.settings.SettingsFragment
@@ -37,4 +38,5 @@ interface ControllerComponent {
     fun inject(myListFragment: MyListFragment)
     fun inject(settingsFragment: SettingsFragment)
     fun inject(toWatchActivity: ToWatchActivity)
+    fun inject(watchedActivity: WatchedActivity)
 }

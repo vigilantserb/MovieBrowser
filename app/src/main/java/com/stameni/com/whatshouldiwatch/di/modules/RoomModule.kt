@@ -3,10 +3,7 @@ package com.stameni.com.whatshouldiwatch.di.modules
 import android.content.Context
 import com.stameni.com.whatshouldiwatch.data.room.MovieDatabase
 import com.stameni.com.whatshouldiwatch.data.room.dao.MovieDao
-import com.stameni.com.whatshouldiwatch.data.room.localData.CountMoviesByTypeUseCase
-import com.stameni.com.whatshouldiwatch.data.room.localData.DeleteMovieUseCase
-import com.stameni.com.whatshouldiwatch.data.room.localData.FetchMovieListUseCase
-import com.stameni.com.whatshouldiwatch.data.room.localData.SaveMovieToDatabase
+import com.stameni.com.whatshouldiwatch.data.room.localData.*
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
@@ -31,8 +28,12 @@ class RoomModule {
     fun fetchMovieList(movieDatabase: MovieDatabase): FetchMovieListUseCase = FetchMovieListUseCase(movieDatabase)
 
     @Provides
-    fun countMoviesByType(movieDatabase: MovieDatabase): CountMoviesByTypeUseCase = CountMoviesByTypeUseCase(movieDatabase)
+    fun countMoviesByType(movieDatabase: MovieDatabase): CountMoviesByTypeUseCase =
+        CountMoviesByTypeUseCase(movieDatabase)
 
     @Provides
     fun saveMovieToDb(movieDatabase: MovieDatabase): SaveMovieToDatabase = SaveMovieToDatabase(movieDatabase)
+
+    @Provides
+    fun updateMovieData(movieDatabase: MovieDatabase): UpdateMovieDataUseCase = UpdateMovieDataUseCase(movieDatabase)
 }
