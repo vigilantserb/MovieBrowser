@@ -1,12 +1,14 @@
 package com.stameni.com.whatshouldiwatch.screens.singleMovie
 
 import androidx.lifecycle.ViewModel
+import com.stameni.com.whatshouldiwatch.data.models.movie.MovieDetails
 import com.stameni.com.whatshouldiwatch.data.retrofit.networkData.movies.singleMovie.cast.FetchSingleMovieActors
 import com.stameni.com.whatshouldiwatch.data.retrofit.networkData.movies.singleMovie.certification.FetchSingleMovieCertification
 import com.stameni.com.whatshouldiwatch.data.retrofit.networkData.movies.singleMovie.details.FetchSingleMovieDetails
 import com.stameni.com.whatshouldiwatch.data.retrofit.networkData.movies.singleMovie.images.FetchSingleMovieImages
 import com.stameni.com.whatshouldiwatch.data.retrofit.networkData.movies.singleMovie.recommendations.FetchSingleMovieRecommendations
 import com.stameni.com.whatshouldiwatch.data.retrofit.networkData.movies.singleMovie.trailer.FetchSingleMovieTrailer
+import com.stameni.com.whatshouldiwatch.data.room.localData.SaveMovieToDatabase
 import io.reactivex.disposables.CompositeDisposable
 
 class SingleMovieViewModel(
@@ -15,7 +17,8 @@ class SingleMovieViewModel(
     private val fetchSingleMovieRecommendations: FetchSingleMovieRecommendations,
     private val fetchSingleMovieDetails: FetchSingleMovieDetails,
     private val fetchSingleMovieCertification: FetchSingleMovieCertification,
-    private val fetchSingleMovieTrailer: FetchSingleMovieTrailer
+    private val fetchSingleMovieTrailer: FetchSingleMovieTrailer,
+    private val saveMovieToDatabase: SaveMovieToDatabase
 ) : ViewModel() {
 
     val disposables = CompositeDisposable()
@@ -37,6 +40,14 @@ class SingleMovieViewModel(
 
     val fetchedTrailerUrl
         get() = fetchSingleMovieTrailer.fetchedTrailerUrl
+
+    val saveMovieMessage= saveMovieToDatabase.successMessage
+
+    fun saveMovieToDatabase(movieDetails: MovieDetails, listType: String){
+        disposables.add(
+            saveMovieToDatabase.addMovieToDatabase(movieDetails, listType)
+        )
+    }
 
     fun fetchSingleMovieImages(movieId: Int) {
         disposables.add(

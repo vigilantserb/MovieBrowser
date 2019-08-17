@@ -1,6 +1,5 @@
 package com.stameni.com.whatshouldiwatch.screens.singleMovie
 
-import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.content.DialogInterface
 import android.content.Intent
@@ -17,14 +16,9 @@ import com.stameni.com.whatshouldiwatch.common.*
 import com.stameni.com.whatshouldiwatch.common.baseClasses.BaseActivity
 import com.stameni.com.whatshouldiwatch.data.models.movie.MovieDetails
 import com.stameni.com.whatshouldiwatch.data.room.MovieDatabase
-import com.stameni.com.whatshouldiwatch.data.room.roomModels.Movie
 import com.stameni.com.whatshouldiwatch.screens.news.NewsWebViewActivity
 import com.stameni.com.whatshouldiwatch.screens.singlePerson.SinglePersonActivity
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.Disposable
-import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_single_movie.*
-import timber.log.Timber
 import javax.inject.Inject
 
 class SingleMovieActivity : BaseActivity() {
@@ -117,6 +111,10 @@ class SingleMovieActivity : BaseActivity() {
             viewModel.fetchedDetails.observe(this, Observer {
                 addMovieDetailsToScreen(it)
             })
+
+            viewModel.saveMovieMessage.observe(this, Observer {
+                Toast.makeText(this, it, Toast.LENGTH_SHORT).show()
+            })
         }
     }
 
@@ -168,7 +166,22 @@ class SingleMovieActivity : BaseActivity() {
         }
 
         watch_later_button.setOnClickListener {
-            saveMovieToLocalDatabase(details)
+            val dialogClickListener = DialogInterface.OnClickListener { dialog, which ->
+                when (which) {
+                    DialogInterface.BUTTON_POSITIVE -> {
+                        viewModel.saveMovieToDatabase(details, "watched")
+                    }
+
+                    DialogInterface.BUTTON_NEGATIVE -> {
+                        viewModel.saveMovieToDatabase(details, "toWatch")
+                    }
+                }
+            }
+
+            val builder = AlertDialog.Builder(this)
+            builder.setMessage("Which list would you like to add ${details.movieTitle} to?")
+                .setPositiveButton("Watched", dialogClickListener)
+                .setNegativeButton("Watch later", dialogClickListener).show()
         }
     }
 
@@ -181,87 +194,12 @@ class SingleMovieActivity : BaseActivity() {
         startActivity(intent)
     }
 
-    @SuppressLint("CheckResult")
-    private fun saveMovieToLocalDatabase(movieDetails: MovieDetails) {
-        movieRoomDatabase.movieDao()
-            .getMovies()
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe({ movies ->
-                checkIfMovieIsAlreadyInLocalDatabase(movies, movieDetails)
-            }, { e -> Timber.d(e) })
-    }
-
-    @SuppressLint("CheckResult")
-    private fun checkIfMovieIsAlreadyInLocalDatabase(movies: List<Movie>?, movieDetails: MovieDetails) {
-        val movieId = movieDetails.movieId
-        val movie: Movie? = movies!!.find { it.movieId == movieId }
-        if (movie == null) {
-            val dialogClickListener = DialogInterface.OnClickListener { dialog, which ->
-                when (which) {
-                    DialogInterface.BUTTON_POSITIVE -> {
-                        addMovieToListBasedOnType("watched", movieDetails)
-                    }
-
-                    DialogInterface.BUTTON_NEGATIVE -> {
-                        addMovieToListBasedOnType("toWatch", movieDetails)
-                    }
-                }
-            }
-
-            val builder = AlertDialog.Builder(this)
-            builder.setMessage("Which list would you like to add ${movieDetails.movieTitle} to?")
-                .setPositiveButton("Watched", dialogClickListener)
-                .setNegativeButton("Watch later", dialogClickListener).show()
-        } else {
-            if (movie.listType == "watched") {
-                updateMovieListType("toWatch", movieDetails)
-            } else {
-                updateMovieListType("watched", movieDetails)
-            }
-        }
-    }
-
-    private fun addMovieToListBasedOnType(listType: String, movieDetails: MovieDetails): Disposable {
-        val listName = if (listType == "toWatch") "watch" else "watched"
-        return movieRoomDatabase.movieDao()
-            .insertMovie(
-                Movie(
-                    movieDetails.movieTitle,
-                    movieDetails.releaseDate,
-                    movieDetails.genres,
-                    movieDetails.posterPath,
-                    movieDetails.movieId,
-                    listType
-                )
-            )
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe({
-                Toast.makeText(this, "${movieDetails.movieTitle} added to $listName list. Click again to change.", Toast.LENGTH_LONG).show()
-            }, { e -> Timber.d(e) })
-    }
-
-    private fun updateMovieListType(listType: String, movieDetails: MovieDetails): Disposable {
-        val listName = if (listType == "toWatch") "watch" else "watched"
-        return movieRoomDatabase.movieDao()
-            .updateMovie(
-                listType,
-                movieDetails.movieId
-            )
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe({
-                Toast.makeText(this, "${movieDetails.movieTitle} added to $listName list", Toast.LENGTH_LONG).show()
-            }, { e -> Timber.d(e) })
-    }
-
     private fun createShareMovieMessage(movieDetails: MovieDetails) {
         startActivity(MessageGenerator.shareMovieMessageIntent(movieDetails))
     }
 
     private fun goToImdbPage(imdbId: String) {
-        val url ="https://www.imdb.com/title/$imdbId"
+        val url = "https://www.imdb.com/title/$imdbId"
         val intent = Intent(this, NewsWebViewActivity::class.java)
         intent.putExtra(Constants.SOURCE_LINK, url)
         startActivity(intent)

@@ -21,6 +21,7 @@ import com.stameni.com.whatshouldiwatch.data.retrofit.networkData.search.SearchB
 import com.stameni.com.whatshouldiwatch.data.room.localData.CountMoviesByTypeUseCase;
 import com.stameni.com.whatshouldiwatch.data.room.localData.DeleteMovieUseCase;
 import com.stameni.com.whatshouldiwatch.data.room.localData.FetchMovieListUseCase;
+import com.stameni.com.whatshouldiwatch.data.room.localData.SaveMovieToDatabase;
 import com.stameni.com.whatshouldiwatch.screens.discover.genre.GenreMoviesViewModel;
 import com.stameni.com.whatshouldiwatch.screens.discover.genre.moviegridlist.MovieGridViewModel;
 import com.stameni.com.whatshouldiwatch.screens.discover.nowPlaying.NowPlayingMoviesViewModel;
@@ -119,9 +120,10 @@ public class ViewModelModule {
             FetchSingleMovieRecommendations singleMovieRecommendations,
             FetchSingleMovieDetails fetchSingleMovieDetails,
             FetchSingleMovieCertification fetchSingleMovieCertification,
-            FetchSingleMovieTrailer fetchSingleMovieTrailer) {
+            FetchSingleMovieTrailer fetchSingleMovieTrailer,
+            SaveMovieToDatabase saveMovieToDatabase) {
         return new SingleMovieViewModel(fetchSingleMovieImages, fetchSingleMovieActors, singleMovieRecommendations,
-                fetchSingleMovieDetails, fetchSingleMovieCertification, fetchSingleMovieTrailer);
+                fetchSingleMovieDetails, fetchSingleMovieCertification, fetchSingleMovieTrailer, saveMovieToDatabase);
     }
 
     @Provides

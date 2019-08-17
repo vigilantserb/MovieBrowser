@@ -6,6 +6,7 @@ import com.stameni.com.whatshouldiwatch.data.room.dao.MovieDao
 import com.stameni.com.whatshouldiwatch.data.room.localData.CountMoviesByTypeUseCase
 import com.stameni.com.whatshouldiwatch.data.room.localData.DeleteMovieUseCase
 import com.stameni.com.whatshouldiwatch.data.room.localData.FetchMovieListUseCase
+import com.stameni.com.whatshouldiwatch.data.room.localData.SaveMovieToDatabase
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
@@ -31,4 +32,7 @@ class RoomModule {
 
     @Provides
     fun countMoviesByType(movieDatabase: MovieDatabase): CountMoviesByTypeUseCase = CountMoviesByTypeUseCase(movieDatabase)
+
+    @Provides
+    fun saveMovieToDb(movieDatabase: MovieDatabase): SaveMovieToDatabase = SaveMovieToDatabase(movieDatabase)
 }
