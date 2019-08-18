@@ -24,8 +24,8 @@ class FetchSingleDirectorMoviesImpl(
     override val fetchError: LiveData<Exception>
         get() = _fetchError
 
-    override fun fetchSingleDirectorMovies(crewId: Int): Disposable {
-        return movieApi.getSingleDirectorMovies(crewId)
+    override fun fetchSingleDirectorMovies(crewId: Int, page: Int): Disposable {
+        return movieApi.getSingleDirectorMovies(crewId, page)
             .subscribeOn(Schedulers.io())
             .map {
                 formatResponse(it)

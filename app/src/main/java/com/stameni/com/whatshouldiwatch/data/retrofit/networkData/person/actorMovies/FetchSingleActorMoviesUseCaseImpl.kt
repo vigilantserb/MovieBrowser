@@ -24,8 +24,8 @@ class FetchSingleActorMoviesUseCaseImpl(
     override val fetchError: LiveData<Exception>
         get() = _fetchError
 
-    override fun fetchSingleActorMovies(castId: Int): Disposable {
-        return movieApi.getSingleActorMovies(castId)
+    override fun fetchSingleActorMovies(castId: Int, page: Int): Disposable {
+        return movieApi.getSingleActorMovies(castId, page)
             .subscribeOn(Schedulers.io())
             .map {
                 formatResponse(it)

@@ -16,11 +16,11 @@ class SinglePersonAppearancesViewModel(
 
     val disposables = CompositeDisposable()
 
-    fun getActorMovies(id: Int) {
-        disposables.add(fetchSingleActorMoviesUseCase.fetchSingleActorMovies(id))
+    fun getActorMovies(id: Int, page: Int) {
+        disposables.add(fetchSingleActorMoviesUseCase.fetchSingleActorMovies(id, page))
     }
 
-    fun getDirectorMovies(id: Int) {
-        disposables.add(fetchSingleDirectorMovies.fetchSingleDirectorMovies(id))
+    fun getDirectorMovies(id: Int, page: Int) {
+        disposables.add(fetchSingleDirectorMovies.fetchSingleDirectorMovies(id, page))
     }
 }

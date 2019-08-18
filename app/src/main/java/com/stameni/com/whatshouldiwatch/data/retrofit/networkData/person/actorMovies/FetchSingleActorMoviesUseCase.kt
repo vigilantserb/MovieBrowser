@@ -10,5 +10,5 @@ interface FetchSingleActorMoviesUseCase {
 
     val fetchError: LiveData<Exception>
 
-    fun fetchSingleActorMovies(castId: Int): Disposable
+    fun fetchSingleActorMovies(castId: Int, page: Int): Disposable
 }

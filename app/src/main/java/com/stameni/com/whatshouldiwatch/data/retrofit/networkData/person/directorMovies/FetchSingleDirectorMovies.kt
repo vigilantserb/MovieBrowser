@@ -10,5 +10,5 @@ interface FetchSingleDirectorMovies {
 
     val fetchError: LiveData<Exception>
 
-    fun fetchSingleDirectorMovies(crewId: Int): Disposable
+    fun fetchSingleDirectorMovies(crewId: Int, page: Int): Disposable
 }

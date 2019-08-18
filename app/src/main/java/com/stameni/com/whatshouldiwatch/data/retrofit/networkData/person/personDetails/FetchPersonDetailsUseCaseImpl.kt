@@ -79,14 +79,14 @@ class FetchPersonDetailsUseCaseImpl(
                 } else if (type.contains(Constants.DIRECTOR_TYPE)) {
                     if (details.combinedCredits.crew != null) {
                         details.combinedCredits.crew.forEach {
-                            if(it.department == "Writing")
+                            if(it.department == "Writing" || it.department == "Directing" || it.department == "Production")
                                 numberOfMovies++
                         }
                     }
                 }else{
                     if (details.combinedCredits.crew != null) {
                         details.combinedCredits.crew.forEach {
-                            if(it.department == "Writing")
+                            if(it.department == "Writing" || it.department == "Directing"  || it.department == "Production")
                                 numberOfMovies++
                         }
                     }
