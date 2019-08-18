@@ -83,6 +83,16 @@ class FetchPersonDetailsUseCaseImpl(
                                 numberOfMovies++
                         }
                     }
+                }else{
+                    if (details.combinedCredits.crew != null) {
+                        details.combinedCredits.crew.forEach {
+                            if(it.department == "Writing")
+                                numberOfMovies++
+                        }
+                    }
+                    if (details.combinedCredits.cast != null) {
+                        numberOfMovies += details.combinedCredits.cast.size
+                    }
                 }
             }
 

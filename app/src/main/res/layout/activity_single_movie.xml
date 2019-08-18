@@ -47,12 +47,12 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/buttons_group"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 app:layout_constraintTop_toBottomOf="@id/poster_image"
                 app:layout_constraintBottom_toTopOf="@id/imdb_placeholder"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toStartOf="parent">
+                app:layout_constraintStart_toEndOf="@id/guideline2"
+                app:layout_constraintEnd_toStartOf="@id/guideline3">
 
             <Button
                     android:id="@+id/trailer_button"
@@ -64,7 +64,8 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toStartOf="@+id/watch_later_button"
                     app:layout_constraintTop_toTopOf="@id/buttons_group"
-                    app:layout_constraintBottom_toBottomOf="@id/buttons_group"/>
+                    app:layout_constraintBottom_toBottomOf="@id/buttons_group"
+                    app:layout_constraintHorizontal_chainStyle="spread_inside"/>
 
             <Button
                     android:id="@+id/watch_later_button"
@@ -357,6 +358,7 @@
                 app:layout_constraintStart_toStartOf="@id/guideline2"/>
 
         <androidx.constraintlayout.widget.ConstraintLayout
+                android:foreground="?android:attr/selectableItemBackground"
                 android:id="@+id/directors_data"
                 android:background="@color/dark_gray"
                 android:layout_width="0dp"

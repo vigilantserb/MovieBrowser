@@ -32,6 +32,7 @@ class SearchAdapter(
                 parent.context.startActivity(intent)
             } else if (item.type == Constants.PEOPLE_TYPE){
                 val intent = Intent(parent.context, SinglePersonActivity::class.java)
+                intent.putExtra(Constants.PERSON_TYPE, item.type)
                 intent.putExtra(Constants.PERSON_NAME, item.title)
                 intent.putExtra(Constants.PERSON_ID, item.id)
                 intent.putExtra(Constants.PERSON_IMAGE_URL, item.url)
