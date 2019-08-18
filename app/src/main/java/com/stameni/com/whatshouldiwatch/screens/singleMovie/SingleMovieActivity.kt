@@ -15,7 +15,6 @@ import com.stameni.com.whatshouldiwatch.R
 import com.stameni.com.whatshouldiwatch.common.*
 import com.stameni.com.whatshouldiwatch.common.baseClasses.BaseActivity
 import com.stameni.com.whatshouldiwatch.data.models.movie.MovieDetails
-import com.stameni.com.whatshouldiwatch.data.room.MovieDatabase
 import com.stameni.com.whatshouldiwatch.screens.news.NewsWebViewActivity
 import com.stameni.com.whatshouldiwatch.screens.singlePerson.SinglePersonActivity
 import kotlinx.android.synthetic.main.activity_single_movie.*
@@ -30,9 +29,6 @@ class SingleMovieActivity : BaseActivity() {
 
     @Inject
     lateinit var imageLoader: ImageLoader
-
-    @Inject
-    lateinit var movieRoomDatabase: MovieDatabase
 
     var imdbId = ""
     var youtubeVideoKey = ""

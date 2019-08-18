@@ -70,16 +70,17 @@ class FetchListMoviesUseCaseImpl(
 
             val genres = genreString.joinToString(", ")
 
-            formattedMovies.add(
-                Movie(
-                    movie.id,
-                    movie.title,
-                    movie.releaseDate,
-                    genres,
-                    movie.posterPath,
-                    movie.voteAverage
+            if (movie.title != null)
+                formattedMovies.add(
+                    Movie(
+                        movie.id,
+                        movie.title,
+                        movie.releaseDate,
+                        genres,
+                        movie.posterPath,
+                        movie.voteAverage
+                    )
                 )
-            )
         }
         return formattedMovies
     }
