@@ -49,8 +49,14 @@ class SinglePersonAppearancesFragment : BaseFragment() {
 
             viewModel = ViewModelProviders.of(this, viewModelFactory).get(SinglePersonAppearancesViewModel::class.java)
 
-            if(personType.contains(Constants.ACTOR_TYPE)) viewModel.getActorMovies(personId)
-            else viewModel.getDirectorMovies(personId)
+            when {
+                personType.contains(Constants.ACTOR_TYPE) -> viewModel.getActorMovies(personId)
+                personType.contains(Constants.DIRECTOR_TYPE) -> viewModel.getDirectorMovies(personId)
+                else -> {
+                    viewModel.getActorMovies(personId)
+                    viewModel.getDirectorMovies(personId)
+                }
+            }
 
             viewModel.fetchedActorMovies.observe(this, Observer {
                 if (it != null) {
