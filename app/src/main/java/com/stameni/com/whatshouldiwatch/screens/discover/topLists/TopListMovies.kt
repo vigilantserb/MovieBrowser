@@ -1,13 +1,11 @@
 package com.stameni.com.whatshouldiwatch.screens.discover.topLists
 
-import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
-
 import com.stameni.com.whatshouldiwatch.R
 import com.stameni.com.whatshouldiwatch.common.ImageLoader
 import com.stameni.com.whatshouldiwatch.common.baseClasses.BaseFragment
@@ -82,6 +80,63 @@ class TopListMovies : BaseFragment() {
                 "Disney Classic Collection",
                 "/jxWA2lDLidicmmDymnxlz53zAb9.jpg",
                 "338"
+            )
+        )
+        //NEW
+        listItems.add(
+            ListItem(
+                "Oscar - best picture winners",
+                "/pzmrKXQgL7GEZvigD6W1bUEzXJN.jpg",
+                "113560"
+            )
+        )
+        listItems.add(
+            ListItem(
+                "24 Great Psychedelic Movies That Are Worth Your Time",
+                "/tdgsBYmNCZAkxYQZuUVwVl56Yv1.jpg",
+                "119015"
+            )
+        )
+        listItems.add(
+            ListItem(
+                "The Golden Globes - Best Picture Winners",
+                "/6xKCYgH16UuwEGAyroLU6p8HLIn.jpg",
+                "102340"
+            )
+        )
+        listItems.add(
+            ListItem(
+                "Best Psychological Thrillers",
+                "/s2bT29y0ngXxxu2IA8AOzzXTRhd.jpg",
+                "34805"
+            )
+        )
+        listItems.add(
+            ListItem(
+                "The best horror films of all time",
+                "/dfNrZ82poQ8blHWJreIv6JZQ9JA.jpg",
+                "8775"
+            )
+        )
+        listItems.add(
+            ListItem(
+                "Most Mind-bending Movies",
+                "/mMZRKb3NVo5ZeSPEIaNW9buLWQ0.jpg",
+                "34806"
+            )
+        )
+        listItems.add(
+            ListItem(
+                "30 Movies With A 100% Rating On Rotten Tomatoes",
+                "/2OgxK3jTzi72EebK8V3bWiymaIW.jpg",
+                "119018"
+            )
+        )
+        listItems.add(
+            ListItem(
+                "The 10 Best Movies About Humanity's Relationship With Technology",
+                "/pckdZ29bHj11hBsV3SbVVfmCB6C.jpg",
+                "119017"
             )
         )
 
