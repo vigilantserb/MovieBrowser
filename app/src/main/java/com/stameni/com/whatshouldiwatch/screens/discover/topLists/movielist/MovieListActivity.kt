@@ -1,11 +1,11 @@
 package com.stameni.com.whatshouldiwatch.screens.discover.topLists.movielist
 
 import android.os.Bundle
+import android.view.View
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
 import com.stameni.com.whatshouldiwatch.R
 import com.stameni.com.whatshouldiwatch.common.ImageLoader
 import com.stameni.com.whatshouldiwatch.common.ViewModelFactory
@@ -47,6 +47,7 @@ class MovieListActivity : BaseActivity() {
             viewModel.getListMovies(id.toString())
             viewModel.fetchedGenres.observe(this, Observer {
                 if (it != null) {
+                    progress_bar.visibility = View.GONE
                     adapter.addAll(it)
                 }
             })
