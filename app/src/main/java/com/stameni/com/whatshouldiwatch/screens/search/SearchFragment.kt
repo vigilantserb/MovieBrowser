@@ -1,10 +1,12 @@
 package com.stameni.com.whatshouldiwatch.screens.search
 
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -48,6 +50,10 @@ class SearchFragment : BaseFragment() {
         controllerComponent.inject(this)
         viewModel = ViewModelProviders.of(this, viewModelFactory).get(SearchViewModel::class.java)
 
+        input_search.requestFocus()
+        val mgr = activity!!.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        mgr.showSoftInput(input_search, InputMethodManager.SHOW_IMPLICIT)
+
         movieSearchAdapter = SearchAdapter(ArrayList(), imageLoader)
         tvShowSearchAdapter = SearchAdapter(ArrayList(), imageLoader)
         peopleSearchAdapter = SearchAdapter(ArrayList(), imageLoader)
@@ -83,26 +89,32 @@ class SearchFragment : BaseFragment() {
 
         viewModel.fetchedData.observe(this, Observer { response ->
             progress_layout.visibility = View.GONE
-
-            movies_placeholder.visibility = View.VISIBLE
-            tv_show_placeholder.visibility = View.VISIBLE
-            people_placeholder.visibility = View.VISIBLE
-
-            movie_recycler_view.visibility = View.VISIBLE
-            tv_show_recycler_view.visibility = View.VISIBLE
-            people_recycler_view.visibility = View.VISIBLE
-
             response?.forEach {
                 when {
-                    it.type == "Movie" -> movieSearchAdapter.add(it)
-                    it.type == "People" -> peopleSearchAdapter.add(it)
-                    else -> tvShowSearchAdapter.add(it)
+                    it.type == "Movie" -> {
+                        movie_recycler_view.visibility = View.VISIBLE
+                        movies_placeholder.visibility = View.VISIBLE
+                        movieSearchAdapter.add(it)
+                    }
+                    it.type == "People" -> {
+                        people_recycler_view.visibility = View.VISIBLE
+                        people_placeholder.visibility = View.VISIBLE
+                        peopleSearchAdapter.add(it)
+                    }
+                    else -> {
+                        tv_show_recycler_view.visibility = View.VISIBLE
+                        tv_show_placeholder.visibility = View.VISIBLE
+                        tvShowSearchAdapter.add(it)
+                    }
                 }
             }
         })
     }
 
     private fun searchQuery(it: String) {
+        movies_placeholder.visibility = View.GONE
+        people_placeholder.visibility = View.GONE
+        tv_show_placeholder.visibility = View.GONE
         progress_layout.visibility = View.VISIBLE
         movieSearchAdapter.removeAll()
         peopleSearchAdapter.removeAll()
