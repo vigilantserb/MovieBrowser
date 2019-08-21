@@ -20,6 +20,8 @@ class WatchedListAdapter(
     val viewModel: WatchedViewModel
 ) : RecyclerView.Adapter<WatchedListAdapter.ViewHolder>() {
 
+    private val oldItems = ArrayList<Movie>()
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val v = LayoutInflater.from(parent.context).inflate(R.layout.my_watched_movie_item, parent, false)
         return ViewHolder(v, parent)
@@ -31,6 +33,7 @@ class WatchedListAdapter(
 
     fun add(response: Movie) {
         items.add(response)
+        oldItems.add(response)
         notifyItemInserted(items.size - 1)
     }
 
@@ -38,6 +41,25 @@ class WatchedListAdapter(
         for (response in postItems) {
             add(response)
         }
+    }
+
+    fun searchListWithTerm(term: String) {
+        val searchedItems = ArrayList<Movie>()
+        items.clear()
+        items.addAll(oldItems)
+        if (term.isNotBlank()) {
+            items.forEach {
+                if (it.movieTitle!!.toLowerCase().contains(term.toLowerCase())) {
+                    searchedItems.add(it)
+                }
+            }
+            items.clear()
+            items.addAll(searchedItems)
+        } else {
+            items.clear()
+            items.addAll(oldItems)
+        }
+        notifyDataSetChanged()
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
