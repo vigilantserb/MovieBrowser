@@ -58,7 +58,7 @@ class SaveMovieToDatabase(
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
-                    successMessage.value = "${movieDetails.movieTitle} added to $listName list."
+                    successMessage.value = "${movieDetails.movieTitle} moved to $listName list."
                 }, { e -> Timber.d(e) })
         }
     }
