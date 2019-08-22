@@ -9,6 +9,7 @@ import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentManager
 import com.stameni.com.whatshouldiwatch.common.ImageLoader
 import com.stameni.com.whatshouldiwatch.data.room.MovieDatabase
+import com.stameni.com.whatshouldiwatch.data.room.localData.ImportMovieListFromCsvUseCase
 import com.stameni.com.whatshouldiwatch.screens.settings.useCases.ClearPhoneCashUseCase
 import com.stameni.com.whatshouldiwatch.screens.settings.useCases.CreateCsvFileUseCase
 import com.stameni.com.whatshouldiwatch.screens.settings.useCases.RequestPermissionUseCase
@@ -44,9 +45,13 @@ class ControllerModule(private val mActivity: FragmentActivity) {
         RequestPermissionUseCase(activity)
 
     @Provides
-    internal fun getCreateCsvFile(movieDatabase: MovieDatabase) =
-        CreateCsvFileUseCase(movieDatabase)
+    internal fun getCreateCsvFile(movieDatabase: MovieDatabase, requestPermission: RequestPermissionUseCase) =
+        CreateCsvFileUseCase(movieDatabase, requestPermission)
 
     @Provides
     internal fun clearPhoneCash(activity: Activity) = ClearPhoneCashUseCase(activity)
+
+    @Provides
+    internal fun importMoviesFromCsv(movieDatabase: MovieDatabase, requestPermission: RequestPermissionUseCase) =
+        ImportMovieListFromCsvUseCase(movieDatabase, requestPermission)
 }

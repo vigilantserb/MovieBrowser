@@ -1,31 +1,29 @@
 package com.stameni.com.whatshouldiwatch.screens.settings
 
 import androidx.lifecycle.ViewModel
+import com.stameni.com.whatshouldiwatch.data.room.localData.ImportMovieListFromCsvUseCase
 import com.stameni.com.whatshouldiwatch.screens.settings.useCases.ClearPhoneCashUseCase
 import com.stameni.com.whatshouldiwatch.screens.settings.useCases.CreateCsvFileUseCase
-import com.stameni.com.whatshouldiwatch.screens.settings.useCases.RequestPermissionUseCase
 
 class SettingsViewModel(
-    private val requestPermissions: RequestPermissionUseCase,
     private val writeMoviesToCsv: CreateCsvFileUseCase,
-    private val clearPhoneCash: ClearPhoneCashUseCase
+    private val clearPhoneCash: ClearPhoneCashUseCase,
+    private val importMovieListFromCsv: ImportMovieListFromCsvUseCase
 ) : ViewModel() {
-
-    val writeCsvFilePermission = requestPermissions.permissionApproved
 
     val csvFileWriteSuccessful = writeMoviesToCsv.writeSuccessful
 
-    fun requestPermissions(
-        list: ArrayList<String>,
-        deniedText: String
-    ) =
-        requestPermissions.requestPermissions(list, deniedText)
+    val csvReadFileSuccessful = importMovieListFromCsv.successMessage
 
-    fun writeMoviesToCsvFile(){
-        writeMoviesToCsv.createCsvFile()
+    fun writeMoviesToCsvFile() {
+        writeMoviesToCsv.requestCsvFileWrite()
     }
 
-    fun clearPhoneCash(){
+    fun clearPhoneCash() {
         clearPhoneCash.handleImageCache()
+    }
+
+    fun importMovieListFromCsv(){
+        importMovieListFromCsv.requestCsvFileRead()
     }
 }

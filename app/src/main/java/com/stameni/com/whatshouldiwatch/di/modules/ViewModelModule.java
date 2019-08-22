@@ -32,7 +32,6 @@ import com.stameni.com.whatshouldiwatch.screens.search.SearchViewModel;
 import com.stameni.com.whatshouldiwatch.screens.settings.SettingsViewModel;
 import com.stameni.com.whatshouldiwatch.screens.settings.useCases.ClearPhoneCashUseCase;
 import com.stameni.com.whatshouldiwatch.screens.settings.useCases.CreateCsvFileUseCase;
-import com.stameni.com.whatshouldiwatch.screens.settings.useCases.RequestPermissionUseCase;
 import com.stameni.com.whatshouldiwatch.screens.singleMovie.SingleMovieViewModel;
 import com.stameni.com.whatshouldiwatch.screens.singlePerson.SinglePersonActivityViewModel;
 import com.stameni.com.whatshouldiwatch.screens.singlePerson.appearances.SinglePersonAppearancesViewModel;
@@ -185,9 +184,9 @@ public class ViewModelModule {
     @IntoMap
     @ViewModelKey(SettingsViewModel.class)
     ViewModel SettingsViewModel(
-            RequestPermissionUseCase requestPermissionUseCase,
             CreateCsvFileUseCase createCsvFileUseCase,
-            ClearPhoneCashUseCase clearPhoneCashUseCase) {
-        return new SettingsViewModel(requestPermissionUseCase, createCsvFileUseCase, clearPhoneCashUseCase);
+            ClearPhoneCashUseCase clearPhoneCashUseCase,
+            ImportMovieListFromCsvUseCase importMovieListFromCsv) {
+        return new SettingsViewModel(createCsvFileUseCase, clearPhoneCashUseCase, importMovieListFromCsv);
     }
 }

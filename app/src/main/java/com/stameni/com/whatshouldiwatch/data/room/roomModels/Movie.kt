@@ -3,8 +3,11 @@ package com.stameni.com.whatshouldiwatch.data.room.roomModels
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import androidx.room.TypeConverters
+import com.stameni.com.whatshouldiwatch.data.room.DataTypeConverter
 
 @Entity(tableName = "movie")
+@TypeConverters(DataTypeConverter::class)
 class Movie(
     @ColumnInfo(name = "movieTitle")
     val movieTitle: String?,

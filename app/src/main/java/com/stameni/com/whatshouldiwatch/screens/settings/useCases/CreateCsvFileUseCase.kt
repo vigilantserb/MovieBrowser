@@ -1,5 +1,6 @@
 package com.stameni.com.whatshouldiwatch.screens.settings.useCases
 
+import android.Manifest
 import android.os.Environment
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -15,14 +16,28 @@ import java.io.FileWriter
 import java.io.IOException
 
 class CreateCsvFileUseCase(
-    private val movieDatabase: MovieDatabase
+    private val movieDatabase: MovieDatabase,
+    private val requestPermission: RequestPermissionUseCase
 ) {
+    init {
+        requestPermission.permissionApproved.observeForever {
+            if (it == Constants.SUCCESS) {
+                createCsvFile()
+            }
+        }
+    }
 
     private val _writeSuccessful = MutableLiveData<Int>()
     val writeSuccessful: LiveData<Int>
         get() = _writeSuccessful
 
-    fun createCsvFile(): Disposable {
+    fun requestCsvFileWrite() {
+        val permissionsArray = ArrayList<String>()
+        permissionsArray.add(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+        requestPermission.requestPermissions(permissionsArray, "Permission denied - CSV file not created")
+    }
+
+    private fun createCsvFile(): Disposable {
         val exportDir = File(Environment.getExternalStorageDirectory().path)
         if (!exportDir.exists()) {
             exportDir.mkdirs()
@@ -40,7 +55,7 @@ class CreateCsvFileUseCase(
         val column = arrayOf("movieTitle", "releaseDate", "movieGenres", "movieImageUrl", "movieId", "listType")
         csvWrite.writeNext(column)
 
-       return movieDatabase.movieDao()
+        return movieDatabase.movieDao()
             .getMovies()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())

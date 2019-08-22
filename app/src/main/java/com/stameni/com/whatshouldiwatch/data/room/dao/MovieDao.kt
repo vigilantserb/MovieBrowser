@@ -16,6 +16,9 @@ interface MovieDao {
     @Insert
     fun insertMovie(movie: Movie): Completable
 
+    @Insert
+    fun insertMovieList(movies: List<Movie>): Completable
+
     @Delete
     fun deleteMovie(movie: Movie): Completable
 
