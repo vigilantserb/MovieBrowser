@@ -6,6 +6,7 @@ class Constants {
     companion object {
         //GLOBAL
         const val SUCCESS = 1
+        const val UNSUCCESSFUL = -1
 
         const val MOVIE_TYPE = "Movie"
         const val TV_SHOW_TYPE = "TV Show"

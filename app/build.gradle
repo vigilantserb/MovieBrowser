@@ -107,4 +107,7 @@ dependencies {
 
     //Dexter
     implementation 'com.karumi:dexter:5.0.0'
+
+    //CSV
+    implementation "com.opencsv:opencsv:4.0"
 }

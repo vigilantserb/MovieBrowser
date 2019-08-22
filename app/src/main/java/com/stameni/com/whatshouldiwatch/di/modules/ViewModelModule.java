@@ -29,6 +29,9 @@ import com.stameni.com.whatshouldiwatch.screens.mylist.toWatch.ToWatchViewModel;
 import com.stameni.com.whatshouldiwatch.screens.mylist.watched.WatchedViewModel;
 import com.stameni.com.whatshouldiwatch.screens.news.NewsViewModel;
 import com.stameni.com.whatshouldiwatch.screens.search.SearchViewModel;
+import com.stameni.com.whatshouldiwatch.screens.settings.CreateCsvFileUseCase;
+import com.stameni.com.whatshouldiwatch.screens.settings.RequestPermissionUseCase;
+import com.stameni.com.whatshouldiwatch.screens.settings.SettingsViewModel;
 import com.stameni.com.whatshouldiwatch.screens.singleMovie.SingleMovieViewModel;
 import com.stameni.com.whatshouldiwatch.screens.singlePerson.SinglePersonActivityViewModel;
 import com.stameni.com.whatshouldiwatch.screens.singlePerson.appearances.SinglePersonAppearancesViewModel;
@@ -175,5 +178,14 @@ public class ViewModelModule {
             FetchMovieListUseCase fetchMovieListUseCase,
             UpdateMovieDataUseCase updateMovieDataUseCase) {
         return new WatchedViewModel(deleteMovieUseCase, fetchMovieListUseCase, updateMovieDataUseCase);
+    }
+
+    @Provides
+    @IntoMap
+    @ViewModelKey(SettingsViewModel.class)
+    ViewModel SettingsViewModel(
+            RequestPermissionUseCase requestPermissionUseCase,
+            CreateCsvFileUseCase createCsvFileUseCase) {
+        return new SettingsViewModel(requestPermissionUseCase, createCsvFileUseCase);
     }
 }
