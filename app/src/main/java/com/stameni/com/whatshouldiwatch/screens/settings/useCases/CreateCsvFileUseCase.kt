@@ -1,4 +1,4 @@
-package com.stameni.com.whatshouldiwatch.screens.settings
+package com.stameni.com.whatshouldiwatch.screens.settings.useCases
 
 import android.os.Environment
 import androidx.lifecycle.LiveData

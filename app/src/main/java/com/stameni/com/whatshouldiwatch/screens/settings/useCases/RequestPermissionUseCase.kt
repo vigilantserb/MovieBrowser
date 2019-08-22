@@ -1,4 +1,4 @@
-package com.stameni.com.whatshouldiwatch.screens.settings
+package com.stameni.com.whatshouldiwatch.screens.settings.useCases
 
 import android.app.Activity
 import android.widget.Toast
