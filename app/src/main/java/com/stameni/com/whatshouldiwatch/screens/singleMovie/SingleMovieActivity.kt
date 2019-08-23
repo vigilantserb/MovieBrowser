@@ -4,7 +4,10 @@ import android.app.AlertDialog
 import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
+import android.util.DisplayMetrics
+import android.util.TypedValue
 import android.widget.Toast
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -75,7 +78,25 @@ class SingleMovieActivity : BaseActivity() {
 
             supportActionBar!!.title = movieName
 
-            imageLoader.loadPosterImageFitCenter(moviePosterUrl, poster_image, Constants.LARGE_IMAGE_SIZE)
+            val displayMetrics = DisplayMetrics()
+            windowManager.defaultDisplay.getMetrics(displayMetrics)
+            val height = (displayMetrics.heightPixels / displayMetrics.density).toInt()
+            val width = (displayMetrics.widthPixels / displayMetrics.density).toInt()
+
+            // Calculate ActionBar height
+            val tv = TypedValue()
+            var actionBarHeight = 0
+            if (theme.resolveAttribute(android.R.attr.actionBarSize, tv, true)) {
+                actionBarHeight = TypedValue.complexToDimensionPixelSize(tv.data, resources.displayMetrics)
+            }
+
+            val param = ConstraintLayout.LayoutParams(
+                displayMetrics.widthPixels,
+                displayMetrics.heightPixels - actionBarHeight - getStatusBarHeight() + 16
+            )
+            poster_image.layoutParams = param
+
+            imageLoader.loadPosterImageCenterCrop(moviePosterUrl, poster_image, Constants.LARGE_IMAGE_SIZE)
 
             viewModel.fetchSingleMovieImages(movieId)
             viewModel.fetchSingleMovieActors(movieId)
@@ -112,6 +133,15 @@ class SingleMovieActivity : BaseActivity() {
                 Toast.makeText(this, it, Toast.LENGTH_SHORT).show()
             })
         }
+    }
+
+    fun getStatusBarHeight(): Int {
+        var result = 0
+        val resourceId = resources.getIdentifier("status_bar_height", "dimen", "android")
+        if (resourceId > 0) {
+            result = resources.getDimensionPixelSize(resourceId)
+        }
+        return result
     }
 
     private fun prepareMovieTrailer(youtubeVideoKey: String) {
