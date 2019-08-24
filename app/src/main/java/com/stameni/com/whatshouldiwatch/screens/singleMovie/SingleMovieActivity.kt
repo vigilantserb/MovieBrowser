@@ -92,7 +92,7 @@ class SingleMovieActivity : BaseActivity() {
 
             val param = ConstraintLayout.LayoutParams(
                 displayMetrics.widthPixels,
-                displayMetrics.heightPixels - actionBarHeight - getStatusBarHeight() + 16
+                displayMetrics.heightPixels - actionBarHeight - getStatusBarHeight() + 28
             )
             poster_image.layoutParams = param
 
