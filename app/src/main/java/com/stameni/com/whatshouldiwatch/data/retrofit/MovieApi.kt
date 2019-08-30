@@ -97,7 +97,7 @@ interface MovieApi {
     @GET("/3/movie/{movie_id}")
     fun getSingleMovieDetails(
         @Path("movie_id") movieId: Int,
-        @Query("append_to_response") append: String = "credits"
+        @Query("append_to_response") append: String = "images,credits,release_dates,videos,recommendations"
     ): Observable<Response<SingleMovieDetailsSchema>>
 
     @GET("/3/person/{person_id}")

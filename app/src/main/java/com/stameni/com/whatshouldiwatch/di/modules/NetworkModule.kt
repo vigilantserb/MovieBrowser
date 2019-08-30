@@ -67,27 +67,32 @@ class NetworkModule {
         FetchEntertainmentNewsUseCaseImpl(newsApi)
 
     @Provides
-    fun getSingleMovieImages(movieApi: MovieApi): FetchSingleMovieImages =
-        FetchSingleMovieImagesImpl(
-            movieApi
-        )
+    fun getSingleMovieImages(): FetchSingleMovieImages = FetchSingleMovieImagesImpl()
 
     @Provides
-    fun getSingleMovieActors(movieApi: MovieApi): FetchSingleMovieActors =
-        FetchSingleMovieActorsImpl(
-            movieApi
-        )
+    fun getSingleMovieActors(): FetchSingleMovieActors =
+        FetchSingleMovieActorsImpl()
 
     @Provides
-    fun getSingleMovieRecommendations(movieApi: MovieApi): FetchSingleMovieRecommendations =
-        FetchSingleMovieRecommendationsImpl(
-            movieApi
-        )
+    fun getSingleMovieRecommendations(): FetchSingleMovieRecommendations =
+        FetchSingleMovieRecommendationsImpl()
 
     @Provides
-    fun getSingleMoviesDetails(movieApi: MovieApi): FetchSingleMovieDetails =
+    fun getSingleMoviesDetails(
+        movieApi: MovieApi,
+        fetchSingleMovieImages: FetchSingleMovieImages,
+        fetchSingleMovieActors: FetchSingleMovieActors,
+        fetchSingleMovieRecommendations: FetchSingleMovieRecommendations,
+        fetchSingleMovieTrailer: FetchSingleMovieTrailer,
+        fetchSingleMovieCertification: FetchSingleMovieCertification
+    ): FetchSingleMovieDetails =
         FetchSingleMovieDetailsImpl(
-            movieApi
+            movieApi,
+            fetchSingleMovieImages,
+            fetchSingleMovieActors,
+            fetchSingleMovieRecommendations,
+            fetchSingleMovieTrailer,
+            fetchSingleMovieCertification
         )
 
     @Provides
@@ -103,16 +108,11 @@ class NetworkModule {
         )
 
     @Provides
-    fun getSingleMovieCerfitication(movieApi: MovieApi): FetchSingleMovieCertification =
-        FetchSingleMovieCertificationImpl(
-            movieApi
-        )
+    fun getSingleMovieCerfitication(): FetchSingleMovieCertification =
+        FetchSingleMovieCertificationImpl()
 
     @Provides
-    fun getSingleMovieTrailer(movieApi: MovieApi): FetchSingleMovieTrailer =
-        FetchSingleMovieTrailerImpl(
-            movieApi
-        )
+    fun getSingleMovieTrailer(): FetchSingleMovieTrailer = FetchSingleMovieTrailerImpl()
 
     @Provides
     fun getSingleDirectorMovies(movieApi: MovieApi): FetchSingleDirectorMovies =

@@ -1,13 +1,7 @@
 package com.stameni.com.whatshouldiwatch.data.retrofit.networkData.movies.singleMovie.certification
 
-import androidx.lifecycle.LiveData
-import io.reactivex.disposables.Disposable
+import com.stameni.com.whatshouldiwatch.data.retrofit.schemas.movie.details.ReleaseDatesResults
 
 interface FetchSingleMovieCertification {
-
-    val fetchedCertification: LiveData<String>
-
-    val fetchError: LiveData<Exception>
-
-    fun getSingleMovieCertification(movieId: Int): Disposable
+    fun onActorsFetched(response: List<ReleaseDatesResults>): String
 }

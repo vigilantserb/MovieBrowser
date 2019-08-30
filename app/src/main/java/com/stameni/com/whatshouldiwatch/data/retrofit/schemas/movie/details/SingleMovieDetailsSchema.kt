@@ -8,8 +8,6 @@ data class SingleMovieDetailsSchema(
     val adult: Boolean,
     @SerializedName("backdrop_path")
     val backdropPath: String,
-    @SerializedName("belongs_to_collection")
-    val belongsToCollection: Any,
     @SerializedName("budget")
     val budget: Int,
     @SerializedName("credits")
@@ -17,9 +15,11 @@ data class SingleMovieDetailsSchema(
     @SerializedName("genres")
     val genres: List<Genre>,
     @SerializedName("homepage")
-    val homepage: Any,
+    val homepage: String,
     @SerializedName("id")
     val id: Int,
+    @SerializedName("images")
+    val images: Images?,
     @SerializedName("imdb_id")
     val imdbId: String,
     @SerializedName("original_language")
@@ -36,8 +36,12 @@ data class SingleMovieDetailsSchema(
     val productionCompanies: List<ProductionCompany>,
     @SerializedName("production_countries")
     val productionCountries: List<ProductionCountry>,
+    @SerializedName("recommendations")
+    val recommendations: Recommendations?,
     @SerializedName("release_date")
     val releaseDate: String,
+    @SerializedName("release_dates")
+    val releaseDates: ReleaseDates,
     @SerializedName("revenue")
     val revenue: Int,
     @SerializedName("runtime")
@@ -52,6 +56,8 @@ data class SingleMovieDetailsSchema(
     val title: String,
     @SerializedName("video")
     val video: Boolean,
+    @SerializedName("videos")
+    val videos: Videos,
     @SerializedName("vote_average")
     val voteAverage: Double,
     @SerializedName("vote_count")

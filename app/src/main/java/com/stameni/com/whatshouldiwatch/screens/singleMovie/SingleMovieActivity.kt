@@ -98,12 +98,7 @@ class SingleMovieActivity : BaseActivity() {
 
             imageLoader.loadPosterImageCenterCrop(moviePosterUrl, poster_image, Constants.LARGE_IMAGE_SIZE)
 
-            viewModel.fetchSingleMovieImages(movieId)
-            viewModel.fetchSingleMovieActors(movieId)
-            viewModel.fetchSingleMovieRecommendations(movieId)
             viewModel.fetchSingleMovieDetails(movieId)
-            viewModel.fetchSingleMovieCertification(movieId)
-            viewModel.fetchSingleMovieTrailer(movieId)
 
             viewModel.fetchedImages.observe(this, Observer {
                 imagesAdapter!!.addAll(it)

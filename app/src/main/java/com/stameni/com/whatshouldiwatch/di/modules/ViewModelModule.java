@@ -1,24 +1,25 @@
 package com.stameni.com.whatshouldiwatch.di.modules;
 
 import androidx.lifecycle.ViewModel;
+
 import com.stameni.com.whatshouldiwatch.common.ViewModelFactory;
 import com.stameni.com.whatshouldiwatch.data.retrofit.networkData.lists.FetchGenreListUseCase;
 import com.stameni.com.whatshouldiwatch.data.retrofit.networkData.lists.FetchListMoviesUseCase;
 import com.stameni.com.whatshouldiwatch.data.retrofit.networkData.movies.FetchMoviesByGenreUseCase;
 import com.stameni.com.whatshouldiwatch.data.retrofit.networkData.movies.FetchNowPlayingMovies;
 import com.stameni.com.whatshouldiwatch.data.retrofit.networkData.movies.FetchUpcomingMovies;
-import com.stameni.com.whatshouldiwatch.data.retrofit.networkData.movies.singleMovie.cast.FetchSingleMovieActors;
-import com.stameni.com.whatshouldiwatch.data.retrofit.networkData.movies.singleMovie.certification.FetchSingleMovieCertification;
 import com.stameni.com.whatshouldiwatch.data.retrofit.networkData.movies.singleMovie.details.FetchSingleMovieDetails;
-import com.stameni.com.whatshouldiwatch.data.retrofit.networkData.movies.singleMovie.images.FetchSingleMovieImages;
-import com.stameni.com.whatshouldiwatch.data.retrofit.networkData.movies.singleMovie.recommendations.FetchSingleMovieRecommendations;
-import com.stameni.com.whatshouldiwatch.data.retrofit.networkData.movies.singleMovie.trailer.FetchSingleMovieTrailer;
 import com.stameni.com.whatshouldiwatch.data.retrofit.networkData.news.FetchEntertainmentNewsUseCase;
 import com.stameni.com.whatshouldiwatch.data.retrofit.networkData.person.actorMovies.FetchSingleActorMoviesUseCase;
 import com.stameni.com.whatshouldiwatch.data.retrofit.networkData.person.directorMovies.FetchSingleDirectorMovies;
 import com.stameni.com.whatshouldiwatch.data.retrofit.networkData.person.personDetails.FetchPersonDetailsUseCase;
 import com.stameni.com.whatshouldiwatch.data.retrofit.networkData.search.SearchByTermUseCase;
-import com.stameni.com.whatshouldiwatch.data.room.localData.*;
+import com.stameni.com.whatshouldiwatch.data.room.localData.CountMoviesByTypeUseCase;
+import com.stameni.com.whatshouldiwatch.data.room.localData.DeleteMovieUseCase;
+import com.stameni.com.whatshouldiwatch.data.room.localData.FetchMovieListUseCase;
+import com.stameni.com.whatshouldiwatch.data.room.localData.ImportMovieListFromCsvUseCase;
+import com.stameni.com.whatshouldiwatch.data.room.localData.SaveMovieToDatabase;
+import com.stameni.com.whatshouldiwatch.data.room.localData.UpdateMovieDataUseCase;
 import com.stameni.com.whatshouldiwatch.screens.discover.genre.GenreMoviesViewModel;
 import com.stameni.com.whatshouldiwatch.screens.discover.genre.moviegridlist.MovieGridViewModel;
 import com.stameni.com.whatshouldiwatch.screens.discover.nowPlaying.NowPlayingMoviesViewModel;
@@ -36,17 +37,19 @@ import com.stameni.com.whatshouldiwatch.screens.singleMovie.SingleMovieViewModel
 import com.stameni.com.whatshouldiwatch.screens.singlePerson.SinglePersonActivityViewModel;
 import com.stameni.com.whatshouldiwatch.screens.singlePerson.appearances.SinglePersonAppearancesViewModel;
 import com.stameni.com.whatshouldiwatch.screens.singlePerson.biography.SingleActorBiographyViewModel;
-import dagger.MapKey;
-import dagger.Module;
-import dagger.Provides;
-import dagger.multibindings.IntoMap;
 
-import javax.inject.Provider;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 import java.util.Map;
+
+import javax.inject.Provider;
+
+import dagger.MapKey;
+import dagger.Module;
+import dagger.Provides;
+import dagger.multibindings.IntoMap;
 
 @Module
 public class ViewModelModule {
@@ -116,15 +119,10 @@ public class ViewModelModule {
     @IntoMap
     @ViewModelKey(SingleMovieViewModel.class)
     ViewModel singleMovieViewModel(
-            FetchSingleMovieImages fetchSingleMovieImages,
-            FetchSingleMovieActors fetchSingleMovieActors,
-            FetchSingleMovieRecommendations singleMovieRecommendations,
             FetchSingleMovieDetails fetchSingleMovieDetails,
-            FetchSingleMovieCertification fetchSingleMovieCertification,
-            FetchSingleMovieTrailer fetchSingleMovieTrailer,
             SaveMovieToDatabase saveMovieToDatabase) {
-        return new SingleMovieViewModel(fetchSingleMovieImages, fetchSingleMovieActors, singleMovieRecommendations,
-                fetchSingleMovieDetails, fetchSingleMovieCertification, fetchSingleMovieTrailer, saveMovieToDatabase);
+        return new SingleMovieViewModel(
+                fetchSingleMovieDetails, saveMovieToDatabase);
     }
 
     @Provides
