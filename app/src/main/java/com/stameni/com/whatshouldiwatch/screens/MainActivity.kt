@@ -15,7 +15,7 @@ class MainActivity : BaseActivity() {
         setContentView(R.layout.main_activity)
 
         val navController = Navigation.findNavController(this, R.id.nav_host_fragment)
-
+ 
         setupBottomNavMenu(navController)
     }
 
