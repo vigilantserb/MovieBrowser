@@ -11,6 +11,6 @@
             android:height="200dp">
         <bitmap
                 android:gravity="fill_horizontal|fill_vertical"
-                android:src="@drawable/binoculars"/>
+                android:src="@drawable/film"/>
     </item>
 </layer-list>

@@ -1,81 +1,75 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="com.stameni.com.whatshouldiwatch">
+    package="com.stameni.com.whatshouldiwatch">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_INTERNAL_STORAGE" />
 
     <application
-            android:name=".common.baseClasses.BaseApplication"
-            android:allowBackup="true"
-            android:icon="@mipmap/ic_new_launcer"
-            android:label="@string/app_name"
-            android:roundIcon="@mipmap/ic_launcher_round"
-            android:supportsRtl="true"
-            android:theme="@style/AppTheme">
-        <activity android:name=".screens.mylist.watched.WatchedActivity"
-                  android:theme="@style/AppTheme.NoActionBar">
-        </activity>
-        <activity android:name=".screens.mylist.toWatch.ToWatchActivity"
-                  android:theme="@style/AppTheme.NoActionBar">
-        </activity>
+        android:name=".common.baseClasses.BaseApplication"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
         <activity
-                android:name=".screens.settings.about.AboutUsActivity"
-                android:label="@string/title_activity_about_us"
-                android:theme="@style/AppTheme.NoActionBar">
-        </activity>
+            android:name=".screens.mylist.watched.WatchedActivity"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity
-                android:name=".screens.splash.SplashScreenActivity"
-                android:theme="@style/SplashScreenTheme">
+            android:name=".screens.mylist.toWatch.ToWatchActivity"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
+            android:name=".screens.settings.about.AboutUsActivity"
+            android:label="@string/title_activity_about_us"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
+            android:name=".screens.splash.SplashScreenActivity"
+            android:theme="@style/SplashScreenTheme">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
+                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER"/>
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
-                android:name=".screens.singlePerson.SinglePersonActivity"
-                android:configChanges="orientation"
-                android:screenOrientation="portrait"
-                android:theme="@style/AppTheme.NoActionBar">
-        </activity>
+            android:name=".screens.singlePerson.SinglePersonActivity"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity
-                android:name=".screens.singleMovie.SingleMovieActivity"
-                android:configChanges="orientation"
-                android:screenOrientation="portrait"
-                android:theme="@style/AppTheme.NoActionBar">
-        </activity>
+            android:name=".screens.singleMovie.SingleMovieActivity"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity
-                android:name=".screens.news.NewsWebViewActivity"
-                android:configChanges="orientation"
-                android:screenOrientation="portrait"
-                android:theme="@style/AppTheme.NoActionBar">
-        </activity>
+            android:name=".screens.news.NewsWebViewActivity"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity
-                android:name=".screens.discover.genre.moviegridlist.MovieGridActivity"
-                android:configChanges="orientation"
-                android:screenOrientation="portrait"
-                android:theme="@style/AppTheme.NoActionBar">
-        </activity>
+            android:name=".screens.discover.genre.moviegridlist.MovieGridActivity"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity
-                android:name=".screens.discover.topLists.movielist.MovieListActivity"
-                android:configChanges="orientation"
-                android:label="@string/title_activity_movie_list"
-                android:parentActivityName=".screens.MainActivity"
-                android:screenOrientation="portrait"
-                android:theme="@style/AppTheme.NoActionBar">
+            android:name=".screens.discover.topLists.movielist.MovieListActivity"
+            android:configChanges="orientation"
+            android:label="@string/title_activity_movie_list"
+            android:parentActivityName=".screens.MainActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar">
             <meta-data
-                    android:name="android.support.PARENT_ACTIVITY"
-                    android:value="com.stameni.com.whatshouldiwatch.screens.MainActivity"/>
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.stameni.com.whatshouldiwatch.screens.MainActivity" />
         </activity>
         <activity
-                android:name=".screens.MainActivity"
-                android:configChanges="orientation"
-                android:screenOrientation="portrait"
-                android:theme="@style/AppTheme.NoActionBar">
-        </activity>
+            android:name=".screens.MainActivity"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>
