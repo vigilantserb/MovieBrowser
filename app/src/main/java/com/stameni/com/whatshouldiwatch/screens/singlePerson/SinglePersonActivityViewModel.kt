@@ -4,7 +4,7 @@ import androidx.lifecycle.ViewModel
 import com.stameni.com.whatshouldiwatch.data.retrofit.networkData.person.personDetails.FetchPersonDetailsUseCase
 import io.reactivex.disposables.CompositeDisposable
 
-class SinglePersonActivityViewModel (
+class SinglePersonActivityViewModel(
     private val fetchPersonDetailsUseCase: FetchPersonDetailsUseCase
 ) : ViewModel() {
 
@@ -12,6 +12,9 @@ class SinglePersonActivityViewModel (
 
     val personDetails
         get() = fetchPersonDetailsUseCase.personDetails
+
+    val fetchError
+        get() = fetchPersonDetailsUseCase.fetchError
 
     fun fetchPersonDetails(actorId: Int, type: String) {
         disposables.add(

@@ -22,8 +22,8 @@ class FetchPersonDetailsUseCaseImpl(
     override val personDetails: LiveData<PersonDetail>
         get() = _personDetails
 
-    private val _fetchError = MutableLiveData<java.lang.Exception>()
-    override val fetchError: LiveData<Exception>
+    private val _fetchError = MutableLiveData<String>()
+    override val fetchError: LiveData<String>
         get() = _fetchError
 
     override fun getPersonDetails(actorId: Int, type: String): Disposable {
@@ -36,8 +36,8 @@ class FetchPersonDetailsUseCaseImpl(
             .subscribe({ onDetailsFetched(it) }, { onDetailsFetchFailed(it) })
     }
 
-    private fun onDetailsFetchFailed(exception: Throwable?) {
-        _fetchError.value = exception as java.lang.Exception?
+    private fun onDetailsFetchFailed(exception: Throwable) {
+        _fetchError.value = exception.localizedMessage
     }
 
     private fun onDetailsFetched(response: PersonDetail?) {

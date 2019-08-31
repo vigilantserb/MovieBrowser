@@ -8,7 +8,7 @@ interface SearchByTermUseCase {
 
     val fetchedData: LiveData<ArrayList<SearchItem>>
 
-    val fetchError: LiveData<Exception>
+    val fetchError: LiveData<String>
 
     fun searchByTerm(term: String): Disposable
 }

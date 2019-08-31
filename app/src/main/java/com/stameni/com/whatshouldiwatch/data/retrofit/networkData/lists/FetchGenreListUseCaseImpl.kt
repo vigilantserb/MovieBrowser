@@ -14,7 +14,7 @@ class FetchGenreListUseCaseImpl constructor(
     private val movieApi: MovieApi
 ) : FetchGenreListUseCase {
 
-    override val fetchError = MutableLiveData<Exception>()
+    override val fetchError = MutableLiveData<String>()
 
     private val _genreListLiveData: MutableLiveData<List<Genre>> = MutableLiveData()
 
@@ -40,10 +40,8 @@ class FetchGenreListUseCaseImpl constructor(
         val imageList = getGenreImages()
 
         if (response.body() != null) {
-            if (response.code() == 200) {
-                response.body()!!.genres.forEachIndexed { index, it ->
-                    genreList.add(Genre(it.name, it.id, imageList[index]))
-                }
+            response.body()!!.genres.forEachIndexed { index, it ->
+                genreList.add(Genre(it.name, it.id, imageList[index]))
             }
         }
         return genreList
@@ -78,6 +76,6 @@ class FetchGenreListUseCaseImpl constructor(
     }
 
     private fun onGenreListFetchFail(exception: Exception) {
-        fetchError.value = exception
+        fetchError.value = "An error occurred while fetching genre list - ${exception.localizedMessage}"
     }
 }

@@ -2,6 +2,7 @@ package com.stameni.com.whatshouldiwatch.screens.discover.topLists.movielist
 
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.GridLayoutManager
@@ -43,13 +44,18 @@ class MovieListActivity : BaseActivity() {
             val id = intent.extras!!.getString("id", "0")
 
             supportActionBar?.title = title
-            viewModel = ViewModelProviders.of(this, viewModelFactory).get(MovieListViewModel::class.java)
+            viewModel =
+                ViewModelProviders.of(this, viewModelFactory).get(MovieListViewModel::class.java)
             viewModel.getListMovies(id.toString())
             viewModel.fetchedGenres.observe(this, Observer {
                 if (it != null) {
                     progress_bar.visibility = View.GONE
                     adapter.addAll(it)
                 }
+            })
+
+            viewModel.fetchError.observe(this, Observer {
+                Toast.makeText(this, it, Toast.LENGTH_LONG).show()
             })
 
             imageLoader.loadPosterImageCenterCrop(url, header_image_view, "w500")

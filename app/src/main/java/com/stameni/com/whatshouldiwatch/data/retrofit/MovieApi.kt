@@ -1,14 +1,11 @@
 package com.stameni.com.whatshouldiwatch.data.retrofit
 
 import com.stameni.com.whatshouldiwatch.common.interceptors.ConnectivityInterceptor
+import com.stameni.com.whatshouldiwatch.data.TmdbException
 import com.stameni.com.whatshouldiwatch.data.retrofit.schemas.genre.GenreListSchema
 import com.stameni.com.whatshouldiwatch.data.retrofit.schemas.movie.MovieListSchema
 import com.stameni.com.whatshouldiwatch.data.retrofit.schemas.movie.SearchSchema
-import com.stameni.com.whatshouldiwatch.data.retrofit.schemas.movie.cast.SingleMovieCastSchema
-import com.stameni.com.whatshouldiwatch.data.retrofit.schemas.movie.certification.CertificationResults
 import com.stameni.com.whatshouldiwatch.data.retrofit.schemas.movie.details.SingleMovieDetailsSchema
-import com.stameni.com.whatshouldiwatch.data.retrofit.schemas.movie.images.SingleMovieImagesSchema
-import com.stameni.com.whatshouldiwatch.data.retrofit.schemas.movie.trailer.SingleMovieVideosSchema
 import com.stameni.com.whatshouldiwatch.data.retrofit.schemas.person.PeopleSearchSchema
 import com.stameni.com.whatshouldiwatch.data.retrofit.schemas.person.singlePerson.SinglePersonSchema
 import com.stameni.com.whatshouldiwatch.data.retrofit.schemas.tvShow.TvShowSearchSchema
@@ -16,6 +13,7 @@ import io.reactivex.Observable
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
+import org.json.JSONObject
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
@@ -23,6 +21,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
+
 
 const val API_KEY = "5e35bda1500b7f696342a3ab91d79e52"
 const val BASE_URL = "https://api.themoviedb.org/"
@@ -69,31 +68,6 @@ interface MovieApi {
         @Query("query") query: String
     ): Observable<Response<PeopleSearchSchema>>
 
-    @GET("/3/movie/{movie_id}/images")
-    fun getSingleMovieImages(
-        @Path("movie_id") movieId: Int
-    ): Observable<Response<SingleMovieImagesSchema>>
-
-    @GET("/3/movie/{movie_id}/credits")
-    fun getSingleMovieActors(
-        @Path("movie_id") movieId: Int
-    ): Observable<Response<SingleMovieCastSchema>>
-
-    @GET("/3/movie/{movie_id}/release_dates")
-    fun getSingleMovieCertification(
-        @Path("movie_id") movieId: Int
-    ): Observable<Response<CertificationResults>>
-
-    @GET("/3/movie/{movie_id}/videos")
-    fun getSingleMovieTrailer(
-        @Path("movie_id") movieId: Int
-    ): Observable<Response<SingleMovieVideosSchema>>
-
-    @GET("/3/movie/{movie_id}/recommendations")
-    fun getSingleMovieRecommendations(
-        @Path("movie_id") movieId: Int
-    ): Observable<Response<SearchSchema>>
-
     @GET("/3/movie/{movie_id}")
     fun getSingleMovieDetails(
         @Path("movie_id") movieId: Int,
@@ -133,10 +107,24 @@ interface MovieApi {
                 return@Interceptor chain.proceed(request)
             }
 
+            val errorInterceptor = Interceptor { chain ->
+                val request = chain.request()
+                val response = chain.proceed(request)
+
+                if (response.code() > 201) {
+                    val jObjError = JSONObject(response.body()!!.string())
+                    val x = jObjError.getString("status_message")
+                    val y = jObjError.getString("status_code")
+                    throw TmdbException("Server message: $x     HTTP code: ${response.code()}. Status code:$y")
+                }
+                response
+            }
+
             val logging = HttpLoggingInterceptor()
             logging.level = HttpLoggingInterceptor.Level.BODY
 
             val okHttpClient = OkHttpClient.Builder()
+                .addInterceptor(errorInterceptor)
                 .addInterceptor(logging)
                 .addInterceptor(requestInterceptor)
                 .addInterceptor(connectivityInterceptor)

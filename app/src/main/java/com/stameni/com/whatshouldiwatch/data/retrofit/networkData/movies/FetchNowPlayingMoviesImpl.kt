@@ -24,9 +24,9 @@ class FetchNowPlayingMoviesImpl(
     override val totalPages: LiveData<Int>
         get() = _totalPages
 
-    private val _fetchError = MutableLiveData<Exception>()
+    private val _fetchError = MutableLiveData<String>()
 
-    override val fetchError: LiveData<Exception>
+    override val fetchError: LiveData<String>
         get() = _fetchError
 
     override fun getNowPlayingMovies(page: Int): Disposable {
@@ -49,7 +49,7 @@ class FetchNowPlayingMoviesImpl(
     }
 
     private fun onNowPlayingMoviesFetchFail(exception: Throwable) {
-        _fetchError.value = exception as java.lang.Exception
+        _fetchError.value = exception.localizedMessage
     }
 
     private fun onNowPlayingMoviesFetch(movies: ArrayList<Movie>) {

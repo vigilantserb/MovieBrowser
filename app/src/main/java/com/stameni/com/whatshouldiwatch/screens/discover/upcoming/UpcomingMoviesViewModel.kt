@@ -18,7 +18,7 @@ class UpcomingMoviesViewModel(private val fetchUpcomingMovies: FetchUpcomingMovi
             return fetchUpcomingMovies.totalPages
         }
 
-    val fetchError: LiveData<Exception>
+    val fetchError: LiveData<String>
         get() {
             return fetchUpcomingMovies.fetchError
         }

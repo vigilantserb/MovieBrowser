@@ -3,5 +3,5 @@ package com.stameni.com.whatshouldiwatch.data.retrofit.networkData.movies.single
 import com.stameni.com.whatshouldiwatch.data.retrofit.schemas.movie.details.ReleaseDatesResults
 
 interface FetchSingleMovieCertification {
-    fun onActorsFetched(response: List<ReleaseDatesResults>): String
+    fun onCertificationFetched(response: List<ReleaseDatesResults>): String
 }

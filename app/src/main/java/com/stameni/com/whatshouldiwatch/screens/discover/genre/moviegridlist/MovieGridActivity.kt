@@ -1,8 +1,8 @@
 package com.stameni.com.whatshouldiwatch.screens.discover.genre.moviegridlist
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
+import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.GridLayoutManager
@@ -86,7 +86,7 @@ class MovieGridActivity : BaseActivity() {
             })
 
             viewModel.fetchError.observe(this, Observer {
-                Log.e("Error", Log.getStackTraceString(it))
+                Toast.makeText(this, it, Toast.LENGTH_LONG).show()
             })
         }
     }

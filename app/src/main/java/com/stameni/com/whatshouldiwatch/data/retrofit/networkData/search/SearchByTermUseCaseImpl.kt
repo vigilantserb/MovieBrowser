@@ -24,9 +24,9 @@ class SearchByTermUseCaseImpl(
     override val fetchedData: LiveData<ArrayList<SearchItem>>
         get() = _fetchedData
 
-    val _fetchError = MutableLiveData<java.lang.Exception>()
+    val _fetchError = MutableLiveData<String>()
 
-    override val fetchError: LiveData<Exception>
+    override val fetchError: LiveData<String>
         get() = _fetchError
 
     override fun searchByTerm(term: String): Disposable {
@@ -55,7 +55,7 @@ class SearchByTermUseCaseImpl(
     }
 
     private fun onSearchDataFetchFail(exception: Exception) {
-        _fetchError.value = exception
+        _fetchError.value = exception.localizedMessage
     }
 
     private fun onSearchDataFetch(response: List<SearchItem>) {

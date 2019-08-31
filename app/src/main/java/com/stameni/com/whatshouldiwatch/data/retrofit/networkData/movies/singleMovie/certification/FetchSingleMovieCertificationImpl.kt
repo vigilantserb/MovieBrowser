@@ -4,7 +4,7 @@ import com.stameni.com.whatshouldiwatch.data.retrofit.schemas.movie.details.Rele
 
 class FetchSingleMovieCertificationImpl : FetchSingleMovieCertification {
 
-    override fun onActorsFetched(response: List<ReleaseDatesResults>): String {
+    override fun onCertificationFetched(response: List<ReleaseDatesResults>): String {
         var result = ""
         response.forEach {
             if (it.releaseDates != null) {

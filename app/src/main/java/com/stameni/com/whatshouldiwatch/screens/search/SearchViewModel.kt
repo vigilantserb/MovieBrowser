@@ -17,7 +17,7 @@ class SearchViewModel(
             return searchByTermUseCase.fetchedData
         }
 
-    val fetchError: LiveData<Exception>
+    val fetchError: LiveData<String>
         get() {
             return searchByTermUseCase.fetchError
         }

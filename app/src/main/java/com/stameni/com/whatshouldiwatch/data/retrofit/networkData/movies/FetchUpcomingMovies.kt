@@ -10,7 +10,7 @@ interface FetchUpcomingMovies {
 
     val totalPages: LiveData<Int>
 
-    val fetchError: LiveData<Exception>
+    val fetchError: LiveData<String>
 
     fun getUpcomingMovies(page: Int): Disposable
 }

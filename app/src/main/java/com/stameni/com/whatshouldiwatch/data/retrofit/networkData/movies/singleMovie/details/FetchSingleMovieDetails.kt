@@ -11,7 +11,7 @@ interface FetchSingleMovieDetails {
 
     val movieDetails: LiveData<MovieDetails>
 
-    val fetchError: LiveData<Exception>
+    val fetchError: LiveData<String>
 
     fun getSingleMovieDetails(movieId: Int): Disposable
     val fetchedImages: LiveData<ArrayList<MovieImage>>

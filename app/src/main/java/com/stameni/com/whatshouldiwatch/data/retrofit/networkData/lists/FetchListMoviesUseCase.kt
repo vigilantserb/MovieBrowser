@@ -8,7 +8,7 @@ interface FetchListMoviesUseCase {
 
     val fetchedMovies: LiveData<ArrayList<Movie>>
 
-    val fetchError: LiveData<Exception>
+    val fetchError: LiveData<String>
 
     fun getListMovies(listId: String): Disposable
 }

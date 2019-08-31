@@ -2,11 +2,11 @@ package com.stameni.com.whatshouldiwatch.screens.search
 
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
+import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -84,7 +84,7 @@ class SearchFragment : BaseFragment() {
 
         viewModel.fetchError.observe(this, Observer {
             progress_layout.visibility = View.GONE
-            Log.e("Error", Log.getStackTraceString(it))
+            Toast.makeText(context, it, Toast.LENGTH_LONG).show()
         })
 
         viewModel.fetchedData.observe(this, Observer { response ->

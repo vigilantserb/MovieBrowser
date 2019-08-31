@@ -13,7 +13,7 @@ class GenreMoviesViewModel(private val fetchGenreListUseCase: FetchGenreListUseC
             return fetchGenreListUseCase.genreListLiveData
         }
 
-    val fetchError: LiveData<Exception>
+    val fetchError: LiveData<String>
         get() {
             return fetchGenreListUseCase.fetchError
         }

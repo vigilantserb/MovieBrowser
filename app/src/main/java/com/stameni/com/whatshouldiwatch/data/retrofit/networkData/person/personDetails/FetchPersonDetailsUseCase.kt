@@ -8,7 +8,7 @@ interface FetchPersonDetailsUseCase {
 
     val personDetails: LiveData<PersonDetail>
 
-    val fetchError: LiveData<Exception>
+    val fetchError: LiveData<String>
 
     fun getPersonDetails(actorId: Int, type: String): Disposable
 }

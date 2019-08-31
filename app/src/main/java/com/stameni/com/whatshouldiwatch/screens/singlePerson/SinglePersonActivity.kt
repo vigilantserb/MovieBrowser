@@ -1,6 +1,7 @@
 package com.stameni.com.whatshouldiwatch.screens.singlePerson
 
 import android.os.Bundle
+import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.stameni.com.whatshouldiwatch.R
@@ -52,6 +53,10 @@ class SinglePersonActivity : BaseActivity() {
                 if (it.movieCount == 1) person_movies.text = "${it.movieCount} movie"
                 else person_movies.text = "${it.movieCount} movies"
 
+            })
+
+            viewModel.fetchError.observe(this, Observer {
+                Toast.makeText(this, it, Toast.LENGTH_LONG).show()
             })
         }
     }

@@ -5,5 +5,6 @@ data class SearchItem(
     val url: String?,
     val type: String?,
     val year: String,
-    val id: Int
+    val id: Int,
+    val totalResults: Int = 0
 )

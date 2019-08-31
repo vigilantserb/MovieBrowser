@@ -8,7 +8,7 @@ interface FetchMoviesByGenreUseCase {
 
     val fetchedMovies: LiveData<ArrayList<Movie>>
 
-    val fetchError: LiveData<Exception>
+    val fetchError: LiveData<String>
 
     val totalPages: LiveData<Int>
 

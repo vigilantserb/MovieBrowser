@@ -21,7 +21,7 @@ class NowPlayingMoviesViewModel(
             return fetchNowPlayingMovies.totalPages
         }
 
-    val fetchError: LiveData<Exception>
+    val fetchError: LiveData<String>
         get() {
             return fetchNowPlayingMovies.fetchError
         }

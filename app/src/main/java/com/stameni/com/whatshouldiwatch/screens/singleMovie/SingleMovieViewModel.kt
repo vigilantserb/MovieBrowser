@@ -13,6 +13,9 @@ class SingleMovieViewModel(
 
     val disposables = CompositeDisposable()
 
+    val fetchError
+        get() = fetchSingleMovieDetails.fetchError
+
     val fetchedImages
         get() = fetchSingleMovieDetails.fetchedImages
 
@@ -31,9 +34,9 @@ class SingleMovieViewModel(
     val fetchedTrailerUrl
         get() = fetchSingleMovieDetails.fetchedTrailerUrl
 
-    val saveMovieMessage= saveMovieToDatabase.successMessage
+    val saveMovieMessage = saveMovieToDatabase.successMessage
 
-    fun saveMovieToDatabase(movieDetails: MovieDetails, listType: String){
+    fun saveMovieToDatabase(movieDetails: MovieDetails, listType: String) {
         disposables.add(
             saveMovieToDatabase.addMovieToDatabase(movieDetails, listType)
         )

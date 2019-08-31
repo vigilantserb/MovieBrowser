@@ -1,10 +1,10 @@
 package com.stameni.com.whatshouldiwatch.screens.discover.upcoming
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.GridLayoutManager
@@ -87,7 +87,7 @@ class UpcomingMovies : BaseFragment() {
         })
 
         viewModel.fetchError.observe(this, Observer {
-            Log.e("Error", Log.getStackTraceString(it))
+            Toast.makeText(context, it, Toast.LENGTH_LONG).show()
         })
     }
 }

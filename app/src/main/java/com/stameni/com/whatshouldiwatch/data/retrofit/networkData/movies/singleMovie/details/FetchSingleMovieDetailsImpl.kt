@@ -27,8 +27,8 @@ class FetchSingleMovieDetailsImpl(
     private val fetchSingleMovieCertification: FetchSingleMovieCertification
 ) : FetchSingleMovieDetails {
 
-    private val _fetchError = MutableLiveData<java.lang.Exception>()
-    override val fetchError: LiveData<Exception>
+    private val _fetchError = MutableLiveData<String>()
+    override val fetchError: LiveData<String>
         get() = _fetchError
 
     private val _movieDetails = MutableLiveData<MovieDetails>()
@@ -67,8 +67,8 @@ class FetchSingleMovieDetailsImpl(
             .subscribe({ onDetailsFetched(it) }, { onDetailsFetchFailed(it) })
     }
 
-    private fun onDetailsFetchFailed(it: Throwable?) {
-        _fetchError.value = it as java.lang.Exception?
+    private fun onDetailsFetchFailed(it: Throwable) {
+        _fetchError.value = "An error occurred while fetching single movie data - ${it.localizedMessage}"
     }
 
     private fun onDetailsFetched(respone: MovieDetails?) {
@@ -91,7 +91,7 @@ class FetchSingleMovieDetailsImpl(
                 _fetchedTrailerUrl.postValue(fetchSingleMovieTrailer.getTrailerLink(data.videos.results))
             }
             if(data.releaseDates.results != null){
-                _fetchedCertification.postValue(fetchSingleMovieCertification.onActorsFetched(data.releaseDates.results))
+                _fetchedCertification.postValue(fetchSingleMovieCertification.onCertificationFetched(data.releaseDates.results))
             }
             val genreString = ArrayList<String>()
             data.genres.forEach { genreString.add(it.name) }

@@ -16,7 +16,7 @@ class MovieListViewModel(
             return fetchListMoviesUseCase.fetchedMovies
         }
 
-    val fetchError: LiveData<Exception>
+    val fetchError: LiveData<String>
         get() {
             return fetchListMoviesUseCase.fetchError
         }

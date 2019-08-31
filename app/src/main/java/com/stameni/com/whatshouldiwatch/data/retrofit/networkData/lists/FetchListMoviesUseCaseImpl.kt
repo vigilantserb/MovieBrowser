@@ -19,12 +19,12 @@ class FetchListMoviesUseCaseImpl(
 ) : FetchListMoviesUseCase {
 
     private var _fetchedMovies = MutableLiveData<ArrayList<Movie>>()
-    private var _fetchError = MutableLiveData<Exception>()
+    private var _fetchError = MutableLiveData<String>()
 
     override val fetchedMovies: LiveData<ArrayList<Movie>>
         get() = _fetchedMovies
 
-    override val fetchError: LiveData<Exception>
+    override val fetchError: LiveData<String>
         get() = _fetchError
 
     override fun getListMovies(listId: String): Disposable {
@@ -86,7 +86,7 @@ class FetchListMoviesUseCaseImpl(
     }
 
     private fun onListMovieFetchFail(exception: Exception) {
-        _fetchError.value = exception
+        _fetchError.value = exception.localizedMessage
     }
 
     private fun onListMovieFetch(response: ArrayList<Movie>) {
