@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<com.stameni.com.whatshouldiwatch.common.libraries.SwipeRevealLayout
+<com.stameni.com.moviebrowser.common.libraries.SwipeRevealLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="100dp"
@@ -138,4 +138,4 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
     </FrameLayout>
 
-</com.stameni.com.whatshouldiwatch.common.libraries.SwipeRevealLayout>
+</com.stameni.com.moviebrowser.common.libraries.SwipeRevealLayout>
