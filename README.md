@@ -21,14 +21,20 @@ Former repository name was WhatShouldIWatch, for all you people reading my non u
 
 #### 2. My lists holds two types of lists, watched and to be watched lists. Locally hosted on users phone. 
 
-<img src="https://imgur.com/lUr7Fbu.jpg" width="350"><img src="https://imgur.com/YfBqnYt.jpg" width="350"><img src="https://imgur.com/SAEu4AH.jpg" width="350">
+<img src="https://imgur.com/lUr7Fbu.jpg" width="300"><img src="https://imgur.com/YfBqnYt.jpg" width="300"><img src="https://imgur.com/SAEu4AH.jpg" width="300">
 
 #### 3. Search fragment has the ability to show 20 results for Movie/TV Show and People at the same time. 
-https://imgur.com/kPjQpxM
+
+<img src="https://imgur.com/kPjQpxM.jpg" width="350">
+
 #### 4. News uses the NewsAPI and displays articles about popular movies, releases and popular actors. 
-https://imgur.com/RncER0p
+
+<img src="https://imgur.com/RncER0p.jpg" width="350">
+
 #### 5. Settings has a number of functionalities
-https://imgur.com/bmmGwL0
+
+<img src="https://imgur.com/bmmGwL0.jpg" width="350">
+
   5.1 - "Load Images" gives the user the ability to choose if he/she wishes to download the images in the application
   
   5.2 - "Image Cache" deletes phone cache withing the application
@@ -40,9 +46,11 @@ https://imgur.com/bmmGwL0
   5.5 & 5.6 - "About" and "Contact us" are self explanatory
   
 #### 6. Single movie activity
-https://imgur.com/E6mtkg1
+
+<img src="https://imgur.com/E6mtkg1.jpg" width="350">
 
 #### 7. Single actor/director activity
-https://imgur.com/9rn3pcl
+
+<img src="https://imgur.com/9rn3pcl.jpg" width="350">
 
 #### 8. Single top list activity
