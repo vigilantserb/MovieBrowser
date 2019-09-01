@@ -21,9 +21,7 @@ Former repository name was WhatShouldIWatch, for all you people reading my non u
 
 #### 2. My lists holds two types of lists, watched and to be watched lists. Locally hosted on users phone. 
 
-<img src="https://imgur.com/lUr7Fbu.jpg" width="350">
-<img src="https://imgur.com/YfBqnYt.jpg" width="350">
-<img src="https://imgur.com/SAEu4AH.jpg" width="350">
+<img src="https://imgur.com/lUr7Fbu.jpg" width="350"><img src="https://imgur.com/YfBqnYt.jpg" width="350"><img src="https://imgur.com/SAEu4AH.jpg" width="350">
 
 #### 3. Search fragment has the ability to show 20 results for Movie/TV Show and People at the same time. 
 https://imgur.com/kPjQpxM
