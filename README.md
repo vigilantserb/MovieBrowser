@@ -19,7 +19,7 @@ Former repository name was WhatShouldIWatch, for all you people reading my non u
   
 <img src="https://imgur.com/XGBGM1v.jpg" width="350">
 
-#### 2. My lists holds two types of lists, watched and to be watched lists. Locally hosted on users phone. 
+#### 2. My lists holds two types of lists, watched and to be watched lists. Locally hosted on users phone. Each can be swiped left to reveal additional options such as moving the movie to the other list and deleting
 
 <img src="https://imgur.com/lUr7Fbu.jpg" width="250"><img src="https://imgur.com/YfBqnYt.jpg" width="250"><img src="https://imgur.com/SAEu4AH.jpg" width="250">
 
