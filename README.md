@@ -1,9 +1,10 @@
 # Movie Browser
 Former repository name was WhatShouldIWatch, for all you people reading my non updated CV letter
-
+![alt text](http://url/to/img.png)
 #### 1. Discover holds a 4 fragment ViewPager, which, in order present
 
-  1.1 - User created movie lists
+  1.1 - User created movie lists from TMDB
+![alt text](https://imgur.com/2NccFzt)
   
   1.2 - Movies sorted by genres
   
