@@ -20,9 +20,11 @@ Former repository name was WhatShouldIWatch, for all you people reading my non u
 <img src="https://imgur.com/XGBGM1v.jpg" width="350">
 
 #### 2. My lists holds two types of lists, watched and to be watched lists. Locally hosted on users phone. 
-https://imgur.com/lUr7Fbu
-https://imgur.com/YfBqnYt
-https://imgur.com/SAEu4AH
+
+<img src="https://imgur.com/lUr7Fbu.jpg" width="350">
+<img src="https://imgur.com/YfBqnYt.jpg" width="350">
+<img src="https://imgur.com/SAEu4AH.jpg" width="350">
+
 #### 3. Search fragment has the ability to show 20 results for Movie/TV Show and People at the same time. 
 https://imgur.com/kPjQpxM
 #### 4. News uses the NewsAPI and displays articles about popular movies, releases and popular actors. 
