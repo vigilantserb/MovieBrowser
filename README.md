@@ -4,7 +4,7 @@ Former repository name was WhatShouldIWatch, for all you people reading my non u
 #### 1. Discover holds a 4 fragment ViewPager, which, in order present
 
   1.1 - Top movie lists created by users from TMDB
-![alt text](https://imgur.com/2NccFzt.jpg | width=100)
+<img src="https://imgur.com/2NccFzt.jpg" width="250">
   
   1.2 - Movies sorted by genres
   https://imgur.com/eplvgRo
