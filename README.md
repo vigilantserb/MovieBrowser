@@ -1,6 +1,6 @@
 # Movie Browser
 Former repository name was WhatShouldIWatch, for all you people reading my non updated CV letter
-![alt text](http://url/to/img.png)
+<img src="" width="350">
 #### 1. Discover holds a 4 fragment ViewPager, which, in order present
 
   1.1 - Top movie lists created by users from TMDB
@@ -8,11 +8,16 @@ Former repository name was WhatShouldIWatch, for all you people reading my non u
 <img src="https://imgur.com/2NccFzt.jpg" width="350">
   
   1.2 - Movies sorted by genres
-  https://imgur.com/eplvgRo
+  
+<img src="https://imgur.com/eplvgRo.jpg" width="350">
+ 
   1.3 - Movies currently played in theatres
-  https://imgur.com/vtAaeXs
+  
+<img src="https://imgur.com/vtAaeXs.jpg" width="350">
+
   1.4 - Upcoming movies
-  https://imgur.com/XGBGM1v
+  
+<img src="https://imgur.com/XGBGM1v.jpg" width="350">
 
 #### 2. My lists holds two types of lists, watched and to be watched lists. Locally hosted on users phone. 
 https://imgur.com/lUr7Fbu
