@@ -1,4 +1,7 @@
 # Movie Browser
+
+Google Play Store link - https://play.google.com/store/apps/details?id=com.stameni.com.whatshouldiwatch
+
 Former repository name was WhatShouldIWatch, for all you people reading my non updated CV letter
 <img src="" width="350">
 #### 1. Discover holds a 4 fragment ViewPager, which, in order present
