@@ -11,8 +11,6 @@
 
     <EditText
             android:id="@+id/input_search"
-            android:focusable="true"
-            android:focusableInTouchMode="true"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Search To Watch List"
@@ -27,9 +25,7 @@
             android:paddingBottom="20dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-        <requestFocus/>
-    </EditText>
+            app:layout_constraintTop_toTopOf="parent"/>
 
     <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/movies_rv"
