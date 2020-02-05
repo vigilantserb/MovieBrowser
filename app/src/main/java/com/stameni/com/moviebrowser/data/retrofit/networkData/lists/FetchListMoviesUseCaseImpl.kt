@@ -58,7 +58,16 @@ class FetchListMoviesUseCaseImpl(
         movies: Response<MovieListSchema>
     ): ArrayList<Movie> {
         val formattedMovies = ArrayList<Movie>()
-        movies.body()!!.items.forEach { movie ->
+
+        if(movies.body() == null){
+            _fetchError.postValue("Movie body is empty.")
+        }
+
+        if(movies.body()?.items == null){
+            _fetchError.postValue("No movies available.")
+        }
+
+        movies.body()?.items?.forEach { movie ->
             val genreString = ArrayList<String>()
             movie.genreIds.forEach { genreId ->
                 genreResponse.body()!!.genres.forEach {
