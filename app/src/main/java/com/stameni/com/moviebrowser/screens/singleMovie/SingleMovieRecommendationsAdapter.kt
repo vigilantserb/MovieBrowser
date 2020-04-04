@@ -49,7 +49,7 @@ class SingleMovieRecommendationsAdapter(
         val url = listItem.moviePosterUrl
         holder.movieNameTxtView.text = listItem.movieTitle
 
-        imageLoader.loadImageFromTmdb(url, holder.moviePoster, holder.progressBar, "w500")
+        url?.let { imageLoader.loadImageFromTmdb(it, holder.moviePoster, holder.progressBar, "w500") }
         holder.setFadeAnimation(holder.itemView)
     }
 
