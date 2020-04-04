@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "55302145336",
+    "firebase_url": "https://moviebrowser-b1776.firebaseio.com",
+    "project_id": "moviebrowser-b1776",
+    "storage_bucket": "moviebrowser-b1776.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:55302145336:android:c2920226997cc20890adcd",
+        "android_client_info": {
+          "package_name": "com.stameni.com.whatshouldiwatch"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "55302145336-mq4rtrcd6kk18ndjku5mgnaq753nvtsq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD0B8ZHAUoyTPR_QtvTa7uefrA146vK9ok"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "55302145336-mq4rtrcd6kk18ndjku5mgnaq753nvtsq.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
