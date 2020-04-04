@@ -64,6 +64,14 @@ class SingleMovieActivity : BaseActivity() {
             val movieId = intent.extras!!.getInt(Constants.MOVIE_ID, 0)
             val movieName = intent.extras!!.getString(Constants.MOVIE_NAME, "")
 
+            Toast.makeText(this, "Scroll down to see more about $movieName", Toast.LENGTH_SHORT).show()
+
+            watch_for_free_btn.text = "CLICK HERE TO WATCH ${movieName.toUpperCase()} FOR FREE"
+
+            watch_for_free_btn.setOnClickListener {
+                generateGoogleNowQuery("Watch $movieName online for free")
+            }
+
             imdb_rating.setOnClickListener {
                 if (imdbId.isNotEmpty()) {
                     goToImdbPage(imdbId)
@@ -78,25 +86,7 @@ class SingleMovieActivity : BaseActivity() {
 
             supportActionBar!!.title = movieName
 
-            val displayMetrics = DisplayMetrics()
-            windowManager.defaultDisplay.getMetrics(displayMetrics)
-            val height = (displayMetrics.heightPixels / displayMetrics.density).toInt()
-            val width = (displayMetrics.widthPixels / displayMetrics.density).toInt()
-
-            // Calculate ActionBar height
-            val tv = TypedValue()
-            var actionBarHeight = 0
-            if (theme.resolveAttribute(android.R.attr.actionBarSize, tv, true)) {
-                actionBarHeight = TypedValue.complexToDimensionPixelSize(tv.data, resources.displayMetrics)
-            }
-
-            val param = ConstraintLayout.LayoutParams(
-                displayMetrics.widthPixels,
-                displayMetrics.heightPixels - actionBarHeight - getStatusBarHeight() + 28
-            )
-            poster_image.layoutParams = param
-
-            imageLoader.loadPosterImageCenterCrop(moviePosterUrl, poster_image, Constants.LARGE_IMAGE_SIZE)
+            imageLoader.loadImageNoFormat(moviePosterUrl, poster_image, Constants.LARGE_IMAGE_SIZE)
 
             viewModel.fetchSingleMovieDetails(movieId)
 
@@ -134,17 +124,12 @@ class SingleMovieActivity : BaseActivity() {
         }
     }
 
-    fun getStatusBarHeight(): Int {
-        var result = 0
-        val resourceId = resources.getIdentifier("status_bar_height", "dimen", "android")
-        if (resourceId > 0) {
-            result = resources.getDimensionPixelSize(resourceId)
-        }
-        return result
-    }
-
     private fun prepareMovieTrailer(youtubeVideoKey: String) {
         startActivity(LinkGenerator.generateYoutubeTrailerIntent(youtubeVideoKey))
+    }
+
+    private fun generateGoogleNowQuery(query: String){
+        startActivity(LinkGenerator.generateGoogleNowIntent(query))
     }
 
     private fun initializeRecyclerViews() {

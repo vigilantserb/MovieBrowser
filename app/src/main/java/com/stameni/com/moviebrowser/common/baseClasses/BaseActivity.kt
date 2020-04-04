@@ -10,7 +10,6 @@ import com.stameni.com.moviebrowser.di.modules.ViewModelModule
 
 abstract class BaseActivity : AppCompatActivity() {
 
-
     private var mIsInjectorUsed: Boolean = false
 
     @UiThread

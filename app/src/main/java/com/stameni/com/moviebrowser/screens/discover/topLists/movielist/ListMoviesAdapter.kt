@@ -53,7 +53,7 @@ class ListMoviesAdapter(
         holder.movieTitle.text = listItem.movieTitle
         val url = listItem.moviePosterUrl
 
-        imageLoader.loadPosterImageCenterCrop(url, holder.moviePoster, "w92")
+        url?.let { imageLoader.loadPosterImageCenterCrop(it, holder.moviePoster, "w92") }
         holder.setFadeAnimation(holder.itemView)
     }
 
