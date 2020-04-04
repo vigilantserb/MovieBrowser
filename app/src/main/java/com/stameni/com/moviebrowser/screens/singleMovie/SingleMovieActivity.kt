@@ -86,7 +86,7 @@ class SingleMovieActivity : BaseActivity() {
 
             supportActionBar!!.title = movieName
 
-            imageLoader.loadListImageCenterCrop(moviePosterUrl, poster_image, Constants.LARGE_IMAGE_SIZE)
+            imageLoader.loadImageNoFormat(moviePosterUrl, poster_image, Constants.LARGE_IMAGE_SIZE)
 
             viewModel.fetchSingleMovieDetails(movieId)
 

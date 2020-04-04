@@ -33,7 +33,7 @@ class TopListMovies : BaseFragment() {
 
         movie_recycler_view.setHasFixedSize(true)
         movie_recycler_view.layoutManager = LinearLayoutManager(context)
-        val listItems = getLists()
+        val listItems = getLists().shuffled()
         movie_recycler_view.adapter = TopListAdapter(listItems, imageLoader)
     }
 
