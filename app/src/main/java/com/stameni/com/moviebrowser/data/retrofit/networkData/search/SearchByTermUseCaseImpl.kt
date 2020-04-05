@@ -62,23 +62,23 @@ class SearchByTermUseCaseImpl(
         _fetchedData.value = ArrayList(response)
     }
 
-    private fun formatSearchData(movieData: Response<SearchSchema>?, peopleData: Response<PeopleSearchSchema>, tvShowData: Response<TvShowSearchSchema>): ArrayList<SearchItem> {
+    private fun formatSearchData(movieData: Response<SearchSchema>, peopleData: Response<PeopleSearchSchema>, tvShowData: Response<TvShowSearchSchema>): ArrayList<SearchItem> {
         val searchData = ArrayList<SearchItem>()
 
-        if(tvShowData.body() != null){
-            tvShowData.body()!!.results.forEach {
+        tvShowData.body()?.results?.let { tvData ->
+            tvData.forEach {
                 searchData.add(SearchItem(it.name, it.posterPath, Constants.TV_SHOW_TYPE, it.firstAirDate, it.id))
             }
         }
 
-        if(movieData?.body() != null){
-            movieData.body()!!.results.forEach {
+        movieData.body()?.results?.let { movieData ->
+            movieData.forEach {
                 searchData.add(SearchItem(it.title, it.posterPath, Constants.MOVIE_TYPE, it.releaseDate, it.id))
             }
         }
 
-        if(peopleData.body() != null){
-            peopleData.body()!!.results.forEach {
+        peopleData.body()?.results?.let { peopleData ->
+            peopleData.forEach {
                 searchData.add(SearchItem(it.name, it.profilePath, Constants.PEOPLE_TYPE, "", it.id))
             }
         }

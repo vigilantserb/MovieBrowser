@@ -7,7 +7,7 @@ data class TvShowSchema(
     @SerializedName("backdrop_path")
     val backdropPath: Any,
     @SerializedName("first_air_date")
-    val firstAirDate: String,
+    val firstAirDate: String?,
     @SerializedName("genre_ids")
     val genreIds: List<Any>,
     @SerializedName("id")

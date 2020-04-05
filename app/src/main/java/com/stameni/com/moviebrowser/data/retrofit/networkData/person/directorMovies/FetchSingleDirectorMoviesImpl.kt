@@ -44,16 +44,19 @@ class FetchSingleDirectorMoviesImpl(
 
     private fun formatResponse(response: Response<SearchSchema>): ArrayList<SearchItem> {
         val formattedData = ArrayList<SearchItem>()
-
-        if (response.isSuccessful) {
-            if (response.body() != null) {
-                val details = response.body()
-                details!!.results.forEach {
-                    formattedData.add(SearchItem(it.title, it.posterPath, "Movie", it.releaseDate, it.id))
-                }
+        response.body()?.results?.let {
+            it.forEach {
+                formattedData.add(
+                    SearchItem(
+                        it.title,
+                        it.posterPath,
+                        "Movie",
+                        it.releaseDate,
+                        it.id
+                    )
+                )
             }
         }
-
         return formattedData
     }
 }

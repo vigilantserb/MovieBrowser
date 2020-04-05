@@ -27,9 +27,7 @@ class FetchSingleActorMoviesUseCaseImpl(
     override fun fetchSingleActorMovies(castId: Int, page: Int): Disposable {
         return movieApi.getSingleActorMovies(castId, page)
             .subscribeOn(Schedulers.io())
-            .map {
-                formatResponse(it)
-            }
+            .map { formatResponse(it) }
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({ onDetailsFetched(it) }, { onDetailsFetchFailed(it) })
     }
@@ -44,16 +42,19 @@ class FetchSingleActorMoviesUseCaseImpl(
 
     private fun formatResponse(response: Response<SearchSchema>): ArrayList<SearchItem> {
         val formattedData = ArrayList<SearchItem>()
-
-        if (response.isSuccessful) {
-            if (response.body() != null) {
-                val details = response.body()
-                details!!.results.forEach {
-                    formattedData.add(SearchItem(it.title, it.posterPath, "Movie", it.releaseDate, it.id))
-                }
+        response.body()?.results?.let {
+            it.forEach {
+                formattedData.add(
+                    SearchItem(
+                        it.title,
+                        it.posterPath,
+                        "Movie",
+                        it.releaseDate,
+                        it.id
+                    )
+                )
             }
         }
-
         return formattedData
     }
 }

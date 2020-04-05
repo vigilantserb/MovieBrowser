@@ -40,12 +40,10 @@ class FetchEntertainmentNewsUseCaseImpl(
             .subscribe({ onNewsFetch(it) }, { onNewsFetchFail(it as java.lang.Exception) })
     }
 
-    private fun getTotalPages(response: Response<NewsSearchSchema>): Response<NewsSearchSchema> {
-        if(response.body() != null){
-            _totalPages.postValue((response.body()!!.totalResults / resultsPerPage))
+    private fun getTotalPages(response: Response<NewsSearchSchema>): NewsSearchSchema? =
+        response.body()?.also {
+            _totalPages.postValue(it.totalResults / resultsPerPage)
         }
-        return response
-    }
 
     private fun onNewsFetchFail(exception: java.lang.Exception) {
         _fetchError.value = exception
@@ -55,13 +53,11 @@ class FetchEntertainmentNewsUseCaseImpl(
         _fetchedNews.value = response
     }
 
-    private fun formatResponseData(response: Response<NewsSearchSchema>): ArrayList<NewsItem> {
+    private fun formatResponseData(response: NewsSearchSchema?): ArrayList<NewsItem> {
         val newsData = ArrayList<NewsItem>()
 
-        if(response.body() != null){
-            response.body()!!.articles.forEach {
-                newsData.add(NewsItem(it.title, it.description, it.publishedAt, it.source.name, it.urlToImage, it.url))
-            }
+        response?.articles?.forEach {
+            newsData.add(NewsItem(it.title, it.description, it.publishedAt, it.source.name, it.urlToImage, it.url))
         }
 
         return newsData

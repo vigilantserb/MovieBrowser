@@ -7,8 +7,8 @@ class FetchSingleMovieCertificationImpl : FetchSingleMovieCertification {
     override fun onCertificationFetched(response: List<ReleaseDatesResults>): String {
         var result = ""
         response.forEach {
-            if (it.releaseDates != null) {
-                it.releaseDates.forEach {
+            it.releaseDates?.let { releaseDates ->
+                releaseDates.forEach {
                     if (it.releaseDate == "US")
                         result = it.certification
                 }
