@@ -27,11 +27,16 @@ class FetchListMoviesUseCaseImpl(
     override val fetchError: LiveData<String>
         get() = _fetchError
 
+    /**
+     * Based on list ID that's passed in, corresponding movies with their genres will be returned
+     * This method uses BiFunction to handle two calls to the server asynchronously, and only after
+     * they're both done, the data is propagated to the UI
+     * */
     override fun getListMovies(listId: String): Disposable {
-        var getGenreList = movieApi.getDbGenres()
+        val getGenreList = movieApi.getDbGenres()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-        var getListMovies = movieApi.getListMovies(listId)
+        val getListMovies = movieApi.getListMovies(listId)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
 
@@ -48,7 +53,7 @@ class FetchListMoviesUseCaseImpl(
     }
 
     private fun orderByRating(movies: ArrayList<Movie>): ArrayList<Movie> {
-        var sortedMovies: List<Movie>?
+        val sortedMovies: List<Movie>?
         sortedMovies = movies.sortedWith(compareByDescending { it.movieRating })
         return ArrayList((sortedMovies))
     }
@@ -59,37 +64,30 @@ class FetchListMoviesUseCaseImpl(
     ): ArrayList<Movie> {
         val formattedMovies = ArrayList<Movie>()
 
-        if(movies.body() == null){
-            _fetchError.postValue("Movie body is empty.")
-        }
+        movies.body()?.items?.let {
+            it.forEach {movie ->
+                val genreStringArray = ArrayList<String>()
+                movie.genreIds.forEach { genreId ->
+                    genreResponse.body()?.genres
+                        ?.find { it.id == genreId }?.name
+                        ?.let { genreName -> genreStringArray.add(genreName) }
+                }
 
-        if(movies.body()?.items == null){
-            _fetchError.postValue("No movies available.")
-        }
+                val genres = genreStringArray.joinToString(", ")
 
-        movies.body()?.items?.forEach { movie ->
-            val genreString = ArrayList<String>()
-            movie.genreIds.forEach { genreId ->
-                genreResponse.body()!!.genres.forEach {
-                    if (it.id == genreId) {
-                        genreString.add(it.name)
-                    }
+                movie.title?.let {
+                    formattedMovies.add(
+                        Movie(
+                            movie.id,
+                            movie.title,
+                            movie.releaseDate,
+                            genres,
+                            movie.posterPath,
+                            movie.voteAverage
+                        )
+                    )
                 }
             }
-
-            val genres = genreString.joinToString(", ")
-
-            if (movie.title != null)
-                formattedMovies.add(
-                    Movie(
-                        movie.id,
-                        movie.title,
-                        movie.releaseDate,
-                        genres,
-                        movie.posterPath,
-                        movie.voteAverage
-                    )
-                )
         }
         return formattedMovies
     }
@@ -99,7 +97,6 @@ class FetchListMoviesUseCaseImpl(
     }
 
     private fun onListMovieFetch(response: ArrayList<Movie>) {
-        println("Movies fetched")
         _fetchedMovies.value = response
     }
 }

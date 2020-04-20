@@ -8,17 +8,16 @@ class FetchSingleMovieRecommendationsImpl : FetchSingleMovieRecommendations {
     override fun formatSingleMovieRecommendationsData(response: List<RecommendationsMovieResults>): ArrayList<Movie> {
         val formattedData = ArrayList<Movie>()
         response.forEach {
-            if (it.posterPath != null)
-                formattedData.add(
-                    Movie(
-                        it.id,
-                        it.title,
-                        it.releaseDate,
-                        "",
-                        it.posterPath,
-                        it.voteAverage
-                    )
+            formattedData.add(
+                Movie(
+                    it.id,
+                    it.title,
+                    it.releaseDate,
+                    "",
+                    it.posterPath ?: "",
+                    it.voteAverage
                 )
+            )
         }
 
 

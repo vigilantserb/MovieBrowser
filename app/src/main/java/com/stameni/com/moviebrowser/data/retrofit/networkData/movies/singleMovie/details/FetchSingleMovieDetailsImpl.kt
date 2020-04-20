@@ -75,31 +75,29 @@ class FetchSingleMovieDetailsImpl(
         _movieDetails.value = respone
     }
 
-    private fun formatResponse(it: Response<SingleMovieDetailsSchema>): MovieDetails? {
-        if (it.isSuccessful) {
-            val data = it.body()!!
-            if(data.images != null){
-                _fetchedImages.postValue(fetchSingleMovieImages.formatMovieImagesDataFromResponse(data.images))
-            }
-            if(data.credits.cast != null){
-                _fetchedActors.postValue(fetchSingleMovieActors.formatSingleMovieActorsResponse(data.credits.cast))
-            }
-            if(data.recommendations != null){
-                _fetchedRecommendations.postValue(fetchSingleMovieRecommendations.formatSingleMovieRecommendationsData(data.recommendations.results))
-            }
-            if(data.videos.results != null){
-                _fetchedTrailerUrl.postValue(fetchSingleMovieTrailer.getTrailerLink(data.videos.results))
-            }
-            if(data.releaseDates.results != null){
-                _fetchedCertification.postValue(fetchSingleMovieCertification.onCertificationFetched(data.releaseDates.results))
-            }
+    private fun formatResponse(response: Response<SingleMovieDetailsSchema>): MovieDetails? {
+        if (response.isSuccessful) {
+            //In case of empty response body return null
+            val data = response.body() ?: return null
+            data.images?.let { _fetchedImages.postValue(fetchSingleMovieImages.formatMovieImagesDataFromResponse(it)) }
+
+            data.credits?.cast?.let { _fetchedActors.postValue(fetchSingleMovieActors.formatSingleMovieActorsResponse(it)) }
+
+            data.recommendations?.results?.let { _fetchedRecommendations.postValue(fetchSingleMovieRecommendations.formatSingleMovieRecommendationsData(it)) }
+
+            data.videos?.results?.let { _fetchedTrailerUrl.postValue(fetchSingleMovieTrailer.getTrailerLink(it)) }
+
+            data.releaseDates?.results?.let { _fetchedCertification.postValue(fetchSingleMovieCertification.onCertificationFetched(it)) }
+
             val genreString = ArrayList<String>()
             data.genres.forEach { genreString.add(it.name) }
+
             val genres = genreString.joinToString(", ")
             var directorName = ""
             var directorImageUrl = ""
             var directorId = 0
-            data.credits.crew.forEach {
+
+            data.credits?.crew?.forEach {
                 if (it.job == "Director") {
                     directorName = it.name
                     directorImageUrl = it.profilePath

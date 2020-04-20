@@ -11,7 +11,7 @@ data class SingleMovieDetailsSchema(
     @SerializedName("budget")
     val budget: Int,
     @SerializedName("credits")
-    val credits: Credits,
+    val credits: Credits?,
     @SerializedName("genres")
     val genres: List<Genre>,
     @SerializedName("homepage")
@@ -41,7 +41,7 @@ data class SingleMovieDetailsSchema(
     @SerializedName("release_date")
     val releaseDate: String,
     @SerializedName("release_dates")
-    val releaseDates: ReleaseDates,
+    val releaseDates: ReleaseDates?,
     @SerializedName("revenue")
     val revenue: Int,
     @SerializedName("runtime")
@@ -57,7 +57,7 @@ data class SingleMovieDetailsSchema(
     @SerializedName("video")
     val video: Boolean,
     @SerializedName("videos")
-    val videos: Videos,
+    val videos: Videos?,
     @SerializedName("vote_average")
     val voteAverage: Double,
     @SerializedName("vote_count")

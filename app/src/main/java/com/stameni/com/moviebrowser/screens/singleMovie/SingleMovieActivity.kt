@@ -4,10 +4,7 @@ import android.app.AlertDialog
 import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
-import android.util.DisplayMetrics
-import android.util.TypedValue
 import android.widget.Toast
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -21,6 +18,7 @@ import com.stameni.com.moviebrowser.data.models.movie.MovieDetails
 import com.stameni.com.moviebrowser.screens.news.NewsWebViewActivity
 import com.stameni.com.moviebrowser.screens.singlePerson.SinglePersonActivity
 import kotlinx.android.synthetic.main.activity_single_movie.*
+import java.lang.Exception
 import javax.inject.Inject
 
 class SingleMovieActivity : BaseActivity() {
@@ -58,13 +56,15 @@ class SingleMovieActivity : BaseActivity() {
         initializeRecyclerViews()
 
         if (intent.extras != null) {
-            viewModel = ViewModelProviders.of(this, viewModelFactory).get(SingleMovieViewModel::class.java)
+            viewModel =
+                ViewModelProviders.of(this, viewModelFactory).get(SingleMovieViewModel::class.java)
 
             val moviePosterUrl = intent.extras!!.getString(Constants.POSTER_URL, "")
             val movieId = intent.extras!!.getInt(Constants.MOVIE_ID, 0)
             val movieName = intent.extras!!.getString(Constants.MOVIE_NAME, "")
 
-            Toast.makeText(this, "Scroll down to see more about $movieName", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "Scroll down to see more about $movieName", Toast.LENGTH_SHORT)
+                .show()
 
             watch_for_free_btn.text = "CLICK HERE TO WATCH ${movieName.toUpperCase()} FOR FREE"
 
@@ -125,11 +125,19 @@ class SingleMovieActivity : BaseActivity() {
     }
 
     private fun prepareMovieTrailer(youtubeVideoKey: String) {
-        startActivity(LinkGenerator.generateYoutubeTrailerIntent(youtubeVideoKey))
+        try {
+            startActivity(IntentGenerator.generateYoutubeTrailerIntent(youtubeVideoKey))
+        } catch (ex: Exception) {
+            Toast.makeText(
+                this,
+                "Trailer cannot be played. Do you have YouTube installed?",
+                Toast.LENGTH_SHORT
+            ).show()
+        }
     }
 
-    private fun generateGoogleNowQuery(query: String){
-        startActivity(LinkGenerator.generateGoogleNowIntent(query))
+    private fun generateGoogleNowQuery(query: String) {
+        startActivity(IntentGenerator.generateGoogleNowIntent(query))
     }
 
     private fun initializeRecyclerViews() {

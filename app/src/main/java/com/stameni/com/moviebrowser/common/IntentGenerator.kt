@@ -4,7 +4,7 @@ import android.app.SearchManager
 import android.content.Intent
 import android.net.Uri
 
-class LinkGenerator {
+class IntentGenerator {
     companion object {
         fun generateYoutubeTrailerIntent(youtubeKey: String): Intent {
             val url = "https://www.youtube.com/watch?v=$youtubeKey"

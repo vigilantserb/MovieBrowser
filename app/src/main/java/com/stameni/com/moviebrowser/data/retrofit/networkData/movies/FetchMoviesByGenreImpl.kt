@@ -29,6 +29,11 @@ class FetchMoviesByGenreImpl(
     override val fetchedMovies: LiveData<ArrayList<Movie>>
         get() = _fetchedMovies
 
+    /**
+     * Fetches movies based on genre.
+     * Returns total pages found
+     * Formats the data to be displayed on the UI
+     * */
     override fun getMoviesWithGenre(genreId: Int, page: Int): Disposable {
         return movieApi.getGenreMovies(genreId, page)
             .subscribeOn(Schedulers.io())
@@ -42,27 +47,25 @@ class FetchMoviesByGenreImpl(
             .subscribe({ onGenreMoviesFetch(it) }, { onGenreMovieFetchFail(it) })
     }
 
-    private fun emitTotalPages(response: Response<SearchSchema>): Response<SearchSchema> {
-        if (response.body() != null)
-            _totalPages.postValue(response.body()!!.totalPages)
-        return response
-    }
+    private fun emitTotalPages(response: Response<SearchSchema>): SearchSchema? =
+        response.body()?.also {
+            _totalPages.postValue(it.totalPages)
+        }
 
-    private fun formatResponseData(response: Response<SearchSchema>): ArrayList<Movie> {
+    private fun formatResponseData(response: SearchSchema?): ArrayList<Movie> {
         val movieData = ArrayList<Movie>()
-        if (response.body() != null) {
-            response.body()!!.results.forEach {
-                if (it.posterPath != null)
+
+        response?.results?.let { movies ->
+            movies.forEach {
+                it.let {
                     movieData.add(
                         Movie(
-                            it.id,
-                            it.title,
-                            "",
-                            "",
-                            it.posterPath,
-                            0.0
+                            movieId = it.id,
+                            movieTitle = it.title,
+                            moviePosterUrl = it.posterPath ?: ""
                         )
                     )
+                }
             }
         }
         return movieData

@@ -100,6 +100,7 @@
             android:id="@+id/watch_for_free_btn"
             android:layout_width="0dp"
             android:layout_height="48dp"
+            android:padding="8dp"
             android:background="@drawable/btn_rounded"
             android:textColor="@color/color_text"
             android:layout_marginTop="16dp"

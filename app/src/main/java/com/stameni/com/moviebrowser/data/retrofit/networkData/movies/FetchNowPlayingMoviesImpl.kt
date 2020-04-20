@@ -29,6 +29,11 @@ class FetchNowPlayingMoviesImpl(
     override val fetchError: LiveData<String>
         get() = _fetchError
 
+    /**
+     * Fetches movies that are currently being played.
+     * Returns total pages found
+     * Formats the data to be displayed on the UI
+     * */
     override fun getNowPlayingMovies(page: Int): Disposable {
         return movieApi.getNowPlayingMovies(page)
             .subscribeOn(Schedulers.io())
@@ -42,11 +47,10 @@ class FetchNowPlayingMoviesImpl(
             .subscribe({ onNowPlayingMoviesFetch(it) }, { onNowPlayingMoviesFetchFail(it) })
     }
 
-    private fun getTotalpages(response: Response<SearchSchema>): Response<SearchSchema> {
-        if (response.body() != null)
-            _totalPages.postValue(response.body()!!.totalPages)
-        return response
-    }
+    private fun getTotalpages(response: Response<SearchSchema>): SearchSchema? =
+        response.body()?.also {
+            _totalPages.postValue(it.totalPages)
+        }
 
     private fun onNowPlayingMoviesFetchFail(exception: Throwable) {
         _fetchError.value = exception.localizedMessage
@@ -56,25 +60,22 @@ class FetchNowPlayingMoviesImpl(
         _fetchedMovies.value = movies
     }
 
-    private fun formatResponseData(response: Response<SearchSchema>): ArrayList<Movie> {
+    private fun formatResponseData(response: SearchSchema?): ArrayList<Movie> {
         val movieData = ArrayList<Movie>()
 
-        if (response.body() != null) {
-            response.body()!!.results.forEach {
-                if (it.posterPath != null)
+        response?.results?.let { movies ->
+            movies.forEach {
+                it.let {
                     movieData.add(
                         Movie(
-                            it.id,
-                            it.title,
-                            "",
-                            "",
-                            it.posterPath,
-                            0.0
+                            movieId = it.id,
+                            movieTitle = it.title,
+                            moviePosterUrl = it.posterPath ?: ""
                         )
                     )
+                }
             }
         }
-
         return movieData
     }
 }

@@ -29,9 +29,7 @@ class FetchPersonDetailsUseCaseImpl(
     override fun getPersonDetails(actorId: Int, type: String): Disposable {
         return movieApi.getPersonDetails(actorId)
             .subscribeOn(Schedulers.io())
-            .map {
-                formatResponse(it, type)
-            }
+            .map { formatResponse(it, type) }
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({ onDetailsFetched(it) }, { onDetailsFetchFailed(it) })
     }
@@ -41,8 +39,7 @@ class FetchPersonDetailsUseCaseImpl(
     }
 
     private fun onDetailsFetched(response: PersonDetail?) {
-        if (response != null)
-            _personDetails.value = response
+        response?.let { _personDetails.value = it }
     }
 
     private fun formatResponse(
@@ -54,7 +51,11 @@ class FetchPersonDetailsUseCaseImpl(
 
             var birthdayString = details!!.birthday.split("-")
             val birthdayDate =
-                LocalDate.of(birthdayString[0].toInt(), birthdayString[1].toInt(), birthdayString[2].toInt())
+                LocalDate.of(
+                    birthdayString[0].toInt(),
+                    birthdayString[1].toInt(),
+                    birthdayString[2].toInt()
+                )
 
             val deathdayString = details.deathday
 
@@ -79,14 +80,14 @@ class FetchPersonDetailsUseCaseImpl(
                 } else if (type.contains(Constants.DIRECTOR_TYPE)) {
                     if (details.combinedCredits.crew != null) {
                         details.combinedCredits.crew.forEach {
-                            if(it.department == "Writing" || it.department == "Directing" || it.department == "Production")
+                            if (it.department == "Writing" || it.department == "Directing" || it.department == "Production")
                                 numberOfMovies++
                         }
                     }
-                }else{
+                } else {
                     if (details.combinedCredits.crew != null) {
                         details.combinedCredits.crew.forEach {
-                            if(it.department == "Writing" || it.department == "Directing"  || it.department == "Production")
+                            if (it.department == "Writing" || it.department == "Directing" || it.department == "Production")
                                 numberOfMovies++
                         }
                     }

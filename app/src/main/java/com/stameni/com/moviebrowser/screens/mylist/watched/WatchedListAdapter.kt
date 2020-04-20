@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.view.animation.AlphaAnimation
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
+import com.chauthai.swipereveallayout.ViewBinderHelper
 import com.stameni.com.moviebrowser.R
 import com.stameni.com.moviebrowser.common.Constants
 import com.stameni.com.moviebrowser.common.ImageLoader
@@ -19,6 +20,8 @@ class WatchedListAdapter(
     private val imageLoader: ImageLoader,
     val viewModel: WatchedViewModel
 ) : RecyclerView.Adapter<WatchedListAdapter.ViewHolder>() {
+    // This object helps you save/restore the open/close state of each view
+    private val viewBinderHelper = ViewBinderHelper()
 
     private val oldItems = ArrayList<Movie>()
 
@@ -64,6 +67,7 @@ class WatchedListAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val listItem = items[position]
+        viewBinderHelper.bind(holder.swipeRevealLayout, listItem.id.toString())
         holder.movieTitle.text = listItem.movieTitle
         holder.movieGenres.text = listItem.movieGenres
         holder.movieYear.text = listItem.releaseDate
@@ -109,6 +113,7 @@ class WatchedListAdapter(
     }
 
     class ViewHolder(itemView: View, parent: ViewGroup) : RecyclerView.ViewHolder(itemView) {
+        var swipeRevealLayout = itemView.swipe_reveal_layout
         var movieTitle = itemView.movie_title
         var moviePoster = itemView.movie_poster
         var movieYear = itemView.year_text_view

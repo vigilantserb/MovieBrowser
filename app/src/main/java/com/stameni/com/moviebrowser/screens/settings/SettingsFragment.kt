@@ -1,5 +1,6 @@
 package com.stameni.com.moviebrowser.screens.settings
 
+import android.content.ActivityNotFoundException
 import android.content.Intent
 import android.content.SharedPreferences
 import android.net.Uri
@@ -88,6 +89,21 @@ class SettingsFragment : BaseFragment() {
 
         import_backup_placeholder.setOnClickListener {
             viewModel.importMovieListFromCsv()
+        }
+
+        github_logo.setOnClickListener {
+            val urlString = "https://github.com/vigilantserb/MovieBrowser"
+            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(urlString))
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+            intent.setPackage("com.android.chrome")
+            try {
+                context?.startActivity(intent)
+            } catch (ex: ActivityNotFoundException) {
+                // Chrome browser presumably not installed so allow user to choose instead
+                intent.setPackage(null)
+                context?.startActivity(intent)
+            }
+
         }
     }
 }

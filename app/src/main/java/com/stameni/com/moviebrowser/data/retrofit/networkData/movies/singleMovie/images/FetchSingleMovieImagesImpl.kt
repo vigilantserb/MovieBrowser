@@ -8,8 +8,8 @@ class FetchSingleMovieImagesImpl : FetchSingleMovieImages {
     override fun formatMovieImagesDataFromResponse(response: Images): ArrayList<MovieImage> {
         var formattedData = ArrayList<MovieImage>()
 
-        if (response.backdrops != null) {
-            response.backdrops.forEach {
+        response.backdrops?.let { images ->
+            images.forEach {
                 formattedData.add(
                     MovieImage(
                         it.filePath,
