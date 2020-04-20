@@ -4,13 +4,12 @@ import android.os.Bundle
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.navigation.ui.NavigationUI
-import androidx.work.Data
-import androidx.work.OneTimeWorkRequestBuilder
-import androidx.work.WorkManager
+import androidx.work.*
 import com.stameni.com.moviebrowser.R
 import com.stameni.com.moviebrowser.common.baseClasses.BaseActivity
 import com.stameni.com.moviebrowser.common.workers.NotificationWorker
 import kotlinx.android.synthetic.main.main_activity.*
+import java.util.concurrent.TimeUnit
 
 class MainActivity : BaseActivity() {
     private val workManager = WorkManager.getInstance(application)
@@ -28,7 +27,7 @@ class MainActivity : BaseActivity() {
     }
 
     private fun setupGreetingNotificationWorker(workManager: WorkManager) {
-        val blurRequest = OneTimeWorkRequestBuilder<NotificationWorker>()
+        val blurRequest = PeriodicWorkRequestBuilder<NotificationWorker>(24, TimeUnit.HOURS)
             .setInputData(
                 createInputDataMessage(
                     "Hello! Glad to see you're using Movie Browser. " +
@@ -39,7 +38,7 @@ class MainActivity : BaseActivity() {
             )
             .build()
 
-        workManager.enqueue(blurRequest)
+        workManager.enqueueUniquePeriodicWork("greeting notification", ExistingPeriodicWorkPolicy.KEEP, blurRequest)
     }
 
     private fun createInputDataMessage(message: String, title: String): Data =
