@@ -142,4 +142,6 @@ dependencies {
 
     //WorkManager
     implementation "androidx.work:work-runtime-ktx:2.3.4"
+
+    implementation 'org.glassfish:javax.annotation:10.0-b28'
 }
