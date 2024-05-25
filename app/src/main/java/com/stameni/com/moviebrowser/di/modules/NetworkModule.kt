@@ -1,5 +1,6 @@
 package com.stameni.com.moviebrowser.di.modules
 
+import com.stameni.com.moviebrowser.data.local.FetchListOfTopMoviesUseCase
 import com.stameni.com.moviebrowser.data.retrofit.MovieApi
 import com.stameni.com.moviebrowser.data.retrofit.NewsApi
 import com.stameni.com.moviebrowser.data.retrofit.networkData.lists.FetchGenreListUseCase
@@ -76,6 +77,10 @@ class NetworkModule {
     @Provides
     fun getSingleMovieRecommendations(): FetchSingleMovieRecommendations =
         FetchSingleMovieRecommendationsImpl()
+
+    @Provides
+    fun fetchTopListOfMovies(): FetchListOfTopMoviesUseCase =
+        FetchListOfTopMoviesUseCase()
 
     @Provides
     fun getSingleMoviesDetails(
