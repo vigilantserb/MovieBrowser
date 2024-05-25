@@ -2,6 +2,8 @@ package com.stameni.com.moviebrowser.di.modules
 
 import android.app.Application
 import android.content.Context
+import com.stameni.com.moviebrowser.common.IntentGenerator
+import com.stameni.com.moviebrowser.common.MessageGenerator
 import com.stameni.com.moviebrowser.common.interceptors.ConnectivityInterceptor
 import com.stameni.com.moviebrowser.common.interceptors.ConnectivityInterceptorImpl
 import com.stameni.com.moviebrowser.data.retrofit.BASE_URL
@@ -45,5 +47,15 @@ class ApplicationModule(private val mApplication: Application) {
     @Provides
     internal fun getNewsApi(connectivityInterceptor: ConnectivityInterceptor): NewsApi =
         NewsApi.invoke(connectivityInterceptor)
+
+    @Singleton
+    @Provides
+    internal fun getIntentGenerator(): IntentGenerator =
+        IntentGenerator()
+
+    @Singleton
+    @Provides
+    internal fun getTxtMessageGenerator(intentGenerator: IntentGenerator): MessageGenerator =
+        MessageGenerator(intentGenerator)
 
 }

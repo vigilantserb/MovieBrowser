@@ -31,6 +31,12 @@ class SingleMovieActivity : BaseActivity() {
     @Inject
     lateinit var imageLoader: ImageLoader
 
+    @Inject
+    lateinit var messageGenerator: MessageGenerator
+
+    @Inject
+    lateinit var intentGenerator: IntentGenerator
+
     var imdbId = ""
     var youtubeVideoKey = ""
 
@@ -126,7 +132,7 @@ class SingleMovieActivity : BaseActivity() {
 
     private fun prepareMovieTrailer(youtubeVideoKey: String) {
         try {
-            startActivity(IntentGenerator.generateYoutubeTrailerIntent(youtubeVideoKey))
+            startActivity(intentGenerator.generateYoutubeTrailerIntent(youtubeVideoKey))
         } catch (ex: Exception) {
             Toast.makeText(
                 this,
@@ -137,7 +143,7 @@ class SingleMovieActivity : BaseActivity() {
     }
 
     private fun generateGoogleNowQuery(query: String) {
-        startActivity(IntentGenerator.generateGoogleNowIntent(query))
+        startActivity(intentGenerator.generateGoogleNowIntent(query))
     }
 
     private fun initializeRecyclerViews() {
@@ -213,7 +219,7 @@ class SingleMovieActivity : BaseActivity() {
     }
 
     private fun createShareMovieMessage(movieDetails: MovieDetails) {
-        startActivity(MessageGenerator.shareMovieMessageIntent(movieDetails))
+        startActivity(messageGenerator.shareMovieMessageIntent(movieDetails))
     }
 
     private fun goToImdbPage(imdbId: String) {
