@@ -15,130 +15,93 @@ class ImageLoader(
     private val context: Context
 ) {
 
-    fun loadImageFromTmdb(url: String, view: ImageView, progressBar: DualProgressView?, size: String) {
-        val loadImage = preferences.getBoolean("loadImage", true)
-        val url = "https://image.tmdb.org/t/p/$size/$url"
-
-        if (loadImage) {
-            if (view.visibility == View.GONE)
-                view.visibility = View.VISIBLE
-            Glide.with(context)
-                .load(url)
-                .centerCrop()
-                .into(view)
-        } else {
-            if (progressBar != null) progressBar.visibility = View.GONE
+    fun loadImageFromTmdb(
+        url: String,
+        view: ImageView,
+        progressBar: DualProgressView?,
+        size: String
+    ) {
+        if (!shouldLoadImage()) {
+            progressBar?.visibility = View.GONE
+            return
         }
-    }
-    fun loadImageFromTmdbNoFormat(url: String, view: ImageView, progressBar: DualProgressView?, size: String) {
-        val loadImage = preferences.getBoolean("loadImage", true)
 
-        if (loadImage) {
-            if (view.visibility == View.GONE) view.visibility = View.VISIBLE
-            Glide.with(context)
-                .load("https://image.tmdb.org/t/p/$size/$url")
-                .into(view)
-        } else {
-            if (progressBar != null) progressBar.visibility = View.GONE
-        }
+        showView(view)
+        loadImageIntoView(buildTmdbUrl(url, size), view, centerCrop = true)
     }
 
     fun loadListImageCenterCrop(url: String, view: ImageView, size: String) {
-        val loadImage = preferences.getBoolean("loadImage", true)
-        val url = "https://image.tmdb.org/t/p/$size/$url"
-
-        if (loadImage) {
-            Glide.with(context)
-                .load(url)
-                .centerCrop()
-                .into(view)
-        }else{
-            Glide.with(context)
-                .load(R.drawable.poster_placeholder)
-                .centerCrop()
-                .into(view)
+        if (!shouldLoadImage()) {
+            loadPlaceholderIntoView(view)
+            return
         }
+
+        loadImageIntoView(buildTmdbUrl(url, size), view, centerCrop = true)
     }
 
     fun loadNewsImageCenterCrop(url: String, view: ImageView) {
-        val loadImage = preferences.getBoolean("loadImage", true)
-
-        if (loadImage) {
-            Glide.with(context)
-                .load(url)
-                .centerCrop()
-                .into(view)
-        }else{
-            Glide.with(context)
-                .load(R.drawable.list_placeholder)
-                .centerCrop()
-                .into(view)
+        if (!shouldLoadImage()) {
+            loadPlaceholderIntoView(view)
+            return
         }
+
+        loadImageIntoView(url, view, centerCrop = true)
     }
 
     fun loadPosterImageCenterCrop(url: String, view: ImageView, size: String) {
-        val loadImage = preferences.getBoolean("loadImage", true)
-        val url = "https://image.tmdb.org/t/p/$size/$url"
-
-        if (loadImage) {
-            Glide.with(context)
-                .load(url)
-                .centerCrop()
-                .into(view)
-        }else{
-            Glide.with(context)
-                .load(R.drawable.poster_placeholder)
-                .centerCrop()
-                .into(view)
+        if (!shouldLoadImage()) {
+            loadPlaceholderIntoView(view)
+            return
         }
-    }
 
-    fun loadPosterImageFitCenter(url: String, view: ImageView, size: String) {
-        val loadImage = preferences.getBoolean("loadImage", true)
-        val url = "https://image.tmdb.org/t/p/$size/$url"
-
-        if (loadImage) {
-            Glide.with(context)
-                .load(url)
-                .fitCenter()
-                .into(view)
-        }else{
-            Glide.with(context)
-                .load(R.drawable.poster_placeholder)
-                .fitCenter()
-                .into(view)
-        }
+        loadImageIntoView(buildTmdbUrl(url, size), view, centerCrop = true)
     }
 
     fun loadImageNoFormat(url: String, view: ImageView, size: String) {
-        val loadImage = preferences.getBoolean("loadImage", true)
-        val url = "https://image.tmdb.org/t/p/$size/$url"
-
-        if (loadImage) {
-            Glide.with(context)
-                .load(url)
-                .into(view)
-        }else{
-            Glide.with(context)
-                .load(R.drawable.list_placeholder)
-                .into(view)
+        if (!shouldLoadImage()) {
+            loadPlaceholderIntoView(view, R.drawable.list_placeholder)
+            return
         }
+
+        loadImageIntoView(buildTmdbUrl(url, size), view, centerCrop = false)
     }
 
     fun loadImageBlurCenterCrop(url: String, view: ImageView, size: String) {
-        val loadImage = preferences.getBoolean("loadImage", true)
-        val url = "https://image.tmdb.org/t/p/$size/$url"
-
-        if (loadImage) {
-            Glide.with(context)
-                .load(url)
-                .apply(bitmapTransform(BlurTransformation(50)))
-                .into(view)
-        }else{
-            Glide.with(context)
-                .load(R.drawable.list_placeholder)
-                .apply(bitmapTransform(BlurTransformation(50)))
-                .into(view)
+        if (!shouldLoadImage()) {
+            loadPlaceholderIntoView(view, R.drawable.list_placeholder, blur = true)
+            return
         }
+
+        loadImageIntoView(buildTmdbUrl(url, size), view, centerCrop = true, blur = true)
+    }
+
+    private fun buildTmdbUrl(url: String, size: String) = "https://image.tmdb.org/t/p/$size/$url"
+
+    private fun shouldLoadImage() = preferences.getBoolean("loadImage", true)
+
+    private fun showView(view: ImageView) {
+        if (view.visibility == View.GONE) view.visibility = View.VISIBLE
+    }
+
+    private fun loadImageIntoView(
+        url: String,
+        view: ImageView,
+        centerCrop: Boolean = false,
+        blur: Boolean = false
+    ) {
+        val glideRequest = Glide.with(context).load(url)
+        if (centerCrop) glideRequest.centerCrop()
+        if (blur) glideRequest.apply(bitmapTransform(BlurTransformation(50)))
+        glideRequest.into(view)
+    }
+
+    private fun loadPlaceholderIntoView(
+        view: ImageView,
+        placeholderResId: Int = R.drawable.poster_placeholder,
+        blur: Boolean = false
+    ) {
+        val glideRequest = Glide.with(context).load(placeholderResId)
+        if (blur) glideRequest.apply(bitmapTransform(BlurTransformation(50)))
+        glideRequest.centerCrop().into(view)
     }
 }
