@@ -173,7 +173,7 @@ class SingleMovieActivity : BaseActivity() {
             )
         if (!details.imdbId.isNullOrEmpty()) imdbId = details.imdbId
         director_name.text = details.directorName
-        tmdb_rating.text = "${details.tmdbRating.toString()} / 10"
+        tmdb_rating.text = "%.1f / 10".format(details.tmdbRating)
         movie_description.text = details.movieDescription
         release_date.text = details.releaseDate
         runtime.text = "${details.runtime.toString()} min"
