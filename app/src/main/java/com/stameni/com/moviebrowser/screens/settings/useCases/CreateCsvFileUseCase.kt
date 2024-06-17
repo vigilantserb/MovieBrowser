@@ -1,6 +1,7 @@
 package com.stameni.com.moviebrowser.screens.settings.useCases
 
 import android.Manifest
+import android.content.Context
 import android.os.Environment
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -16,6 +17,7 @@ import java.io.FileWriter
 import java.io.IOException
 
 class CreateCsvFileUseCase(
+    private val context: Context,
     private val movieDatabase: MovieDatabase,
     private val requestPermission: RequestPermissionUseCase
 ) {
@@ -38,7 +40,7 @@ class CreateCsvFileUseCase(
     }
 
     private fun createCsvFile(): Disposable {
-        val exportDir = File(Environment.getExternalStorageDirectory().path)
+        val exportDir = File(context.filesDir.path)
         if (!exportDir.exists()) {
             exportDir.mkdirs()
         }
