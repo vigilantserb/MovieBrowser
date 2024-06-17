@@ -45,8 +45,8 @@ class ControllerModule(private val mActivity: FragmentActivity) {
         RequestPermissionUseCase(activity)
 
     @Provides
-    internal fun getCreateCsvFile(movieDatabase: MovieDatabase, requestPermission: RequestPermissionUseCase) =
-        CreateCsvFileUseCase(movieDatabase, requestPermission)
+    internal fun getCreateCsvFile(context: Context, movieDatabase: MovieDatabase, requestPermission: RequestPermissionUseCase) =
+        CreateCsvFileUseCase(context, movieDatabase, requestPermission)
 
     @Provides
     internal fun clearPhoneCash(activity: Activity) = ClearPhoneCashUseCase(activity)
