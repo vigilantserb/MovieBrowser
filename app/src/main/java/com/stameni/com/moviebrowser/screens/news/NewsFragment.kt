@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ProgressBar
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -13,10 +14,11 @@ import com.stameni.com.moviebrowser.common.ImageLoader
 import com.stameni.com.moviebrowser.common.ViewModelFactory
 import com.stameni.com.moviebrowser.common.baseClasses.BaseFragment
 import com.stameni.com.moviebrowser.common.libraries.CustomSnackbar
-import kotlinx.android.synthetic.main.news_fragment.*
+import com.stameni.com.moviebrowser.databinding.NewsFragmentBinding
 import javax.inject.Inject
 
-class NewsFragment : BaseFragment() {
+class NewsFragment : BaseFragment<NewsFragmentBinding>(NewsFragmentBinding::inflate) {
+
     private lateinit var viewModel: NewsViewModel
 
     @Inject
@@ -28,11 +30,11 @@ class NewsFragment : BaseFragment() {
     private var currentPage = 1
     private var totalPages = 0
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.news_fragment, container, false)
+    private lateinit var news_recycler_view: RecyclerView
+    private lateinit var gif_progress_bar: ProgressBar
+
+    override fun setupViews() {
+
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

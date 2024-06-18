@@ -1,23 +1,23 @@
 package com.stameni.com.moviebrowser.screens.mylist.toWatch
 
 import android.os.Bundle
+import android.widget.EditText
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.jakewharton.rxbinding3.widget.textChangeEvents
-import com.stameni.com.moviebrowser.R
 import com.stameni.com.moviebrowser.common.ImageLoader
 import com.stameni.com.moviebrowser.common.ViewModelFactory
 import com.stameni.com.moviebrowser.common.baseClasses.BaseActivity
+import com.stameni.com.moviebrowser.databinding.ActivityToWatchBinding
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
-import kotlinx.android.synthetic.main.activity_to_watch.*
 import javax.inject.Inject
 
-class ToWatchActivity : BaseActivity() {
+class ToWatchActivity : BaseActivity<ActivityToWatchBinding>(ActivityToWatchBinding::inflate) {
 
     @Inject
     lateinit var imageLoader: ImageLoader
@@ -27,10 +27,17 @@ class ToWatchActivity : BaseActivity() {
 
     private val compositeDisposable = CompositeDisposable()
 
+    private lateinit var input_search: EditText
+    private lateinit var movies_rv: RecyclerView
+
+    override fun setupViews() {
+        movies_rv = binding.moviesRv
+        input_search = binding.inputSearch
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         getControllerComponent().inject(this)
-        setContentView(R.layout.activity_to_watch)
         val viewModel = ViewModelProviders.of(this, viewModelFactory).get(ToWatchViewModel::class.java)
         val layoutManager = GridLayoutManager(this, 1, RecyclerView.VERTICAL, false)
         val adapter = ToWatchListAdapter(

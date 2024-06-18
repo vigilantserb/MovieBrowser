@@ -2,21 +2,19 @@ package com.stameni.com.moviebrowser.screens.mylist
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
+import android.widget.TextView
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import com.stameni.com.moviebrowser.R
 import com.stameni.com.moviebrowser.common.ImageLoader
 import com.stameni.com.moviebrowser.common.ViewModelFactory
 import com.stameni.com.moviebrowser.common.baseClasses.BaseFragment
+import com.stameni.com.moviebrowser.databinding.MyListFragmentBinding
 import com.stameni.com.moviebrowser.screens.mylist.toWatch.ToWatchActivity
 import com.stameni.com.moviebrowser.screens.mylist.watched.WatchedActivity
-import kotlinx.android.synthetic.main.my_list_fragment.*
 import javax.inject.Inject
 
-class MyListFragment : BaseFragment() {
+class MyListFragment : BaseFragment<MyListFragmentBinding>(MyListFragmentBinding::inflate) {
 
     @Inject
     lateinit var imageLoader: ImageLoader
@@ -26,11 +24,16 @@ class MyListFragment : BaseFragment() {
 
     private lateinit var viewModel: MyListViewModel
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.my_list_fragment, container, false)
+    private lateinit var toWatchPlaceholder: TextView
+    private lateinit var watchedPlaceholder: TextView
+    private lateinit var toWatchCount: TextView
+    private lateinit var watchedCount: TextView
+
+    override fun setupViews() {
+        toWatchPlaceholder = binding.toWatchPlaceholder
+        watchedPlaceholder = binding.watchedPlaceholder
+        toWatchCount = binding.toWatchCount
+        watchedCount = binding.watchedCount
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -40,19 +43,19 @@ class MyListFragment : BaseFragment() {
 
         viewModel.countMoviesByType()
 
-        to_watch_placeholder.setOnClickListener {
+        toWatchPlaceholder.setOnClickListener {
             startActivity(Intent(context, ToWatchActivity::class.java))
         }
-        watched_placeholder.setOnClickListener {
+        watchedPlaceholder.setOnClickListener {
             startActivity(Intent(context, WatchedActivity::class.java))
         }
 
         viewModel.toWatchCount.observe(this, Observer {
-            to_watch_count.text = it.toString()
+            toWatchCount.text = it.toString()
         })
 
         viewModel.watchedCount.observe(this, Observer {
-            watched_count.text = it.toString()
+            watchedCount.text = it.toString()
         })
     }
 
