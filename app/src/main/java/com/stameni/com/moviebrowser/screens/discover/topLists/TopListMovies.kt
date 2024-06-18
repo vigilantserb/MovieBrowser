@@ -6,14 +6,15 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.stameni.com.moviebrowser.R
 import com.stameni.com.moviebrowser.common.ImageLoader
 import com.stameni.com.moviebrowser.common.baseClasses.BaseFragment
 import com.stameni.com.moviebrowser.data.local.FetchListOfTopMoviesUseCase
-import kotlinx.android.synthetic.main.top_list_movies_fragment.*
+import com.stameni.com.moviebrowser.databinding.TopListMoviesFragmentBinding
 import javax.inject.Inject
 
-class TopListMovies : BaseFragment() {
+class TopListMovies : BaseFragment<TopListMoviesFragmentBinding>(TopListMoviesFragmentBinding::inflate) {
 
     @Inject
     lateinit var imageLoader: ImageLoader
@@ -21,11 +22,17 @@ class TopListMovies : BaseFragment() {
     @Inject
     lateinit var fetchListOfTopMovies: FetchListOfTopMoviesUseCase
 
+    private lateinit var movie_recycler_view: RecyclerView
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         return inflater.inflate(R.layout.top_list_movies_fragment, container, false)
+    }
+
+    override fun setupViews() {
+        movie_recycler_view = binding.movieRecyclerView
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

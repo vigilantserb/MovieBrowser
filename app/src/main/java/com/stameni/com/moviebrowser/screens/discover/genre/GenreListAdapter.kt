@@ -10,7 +10,6 @@ import com.stameni.com.moviebrowser.common.ImageLoader
 import com.stameni.com.moviebrowser.common.listen
 import com.stameni.com.moviebrowser.data.models.Genre
 import com.stameni.com.moviebrowser.screens.discover.genre.moviegridlist.MovieGridActivity
-import kotlinx.android.synthetic.main.list_item.view.*
 
 class GenreListAdapter(
     private val items: ArrayList<Genre>,

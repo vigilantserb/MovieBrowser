@@ -4,24 +4,28 @@ import android.app.AlertDialog
 import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
+import android.widget.Button
+import android.widget.ImageView
+import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.widget.Toolbar
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.stameni.com.moviebrowser.R
 import com.stameni.com.moviebrowser.common.*
 import com.stameni.com.moviebrowser.common.baseClasses.BaseActivity
 import com.stameni.com.moviebrowser.data.models.movie.MovieDetails
+import com.stameni.com.moviebrowser.databinding.ActivitySingleMovieBinding
 import com.stameni.com.moviebrowser.screens.news.NewsWebViewActivity
 import com.stameni.com.moviebrowser.screens.singlePerson.SinglePersonActivity
-import kotlinx.android.synthetic.main.activity_single_movie.*
 import java.lang.Exception
 import javax.inject.Inject
 
-class SingleMovieActivity : BaseActivity() {
+class SingleMovieActivity : BaseActivity<ActivitySingleMovieBinding>(ActivitySingleMovieBinding::inflate) {
 
     private lateinit var viewModel: SingleMovieViewModel
 
@@ -37,20 +41,39 @@ class SingleMovieActivity : BaseActivity() {
     @Inject
     lateinit var intentGenerator: IntentGenerator
 
-    var imdbId = ""
-    var youtubeVideoKey = ""
+    private var imdbId = ""
+    private var youtubeVideoKey = ""
 
-    var imagesAdapter: SingleMovieImagesAdapter? = null
-    var actorsAdapter: SingleMovieActorsAdapter? = null
-    var recommendationsAdapter: SingleMovieRecommendationsAdapter? = null
+    private var imagesAdapter: SingleMovieImagesAdapter? = null
+    private var actorsAdapter: SingleMovieActorsAdapter? = null
+    private var recommendationsAdapter: SingleMovieRecommendationsAdapter? = null
 
-    val imagesManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
-    val actorsManager = GridLayoutManager(this, 1, RecyclerView.HORIZONTAL, false)
-    val movieRecommendations = GridLayoutManager(this, 1, RecyclerView.HORIZONTAL, false)
+    private val imagesManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+    private val actorsManager = GridLayoutManager(this, 1, RecyclerView.HORIZONTAL, false)
+    private val movieRecommendations = GridLayoutManager(this, 1, RecyclerView.HORIZONTAL, false)
+
+    private lateinit var toolbar: Toolbar
+    private lateinit var watch_for_free_btn: Button
+    private lateinit var imdb_rating: ImageView
+    private lateinit var trailer_button: Button
+    private lateinit var poster_image: ImageView
+    private lateinit var rating: TextView
+    private lateinit var movieImagesRv: RecyclerView
+    private lateinit var movieActorsRv: RecyclerView
+    private lateinit var movieRecommendationsRv: RecyclerView
+    private lateinit var releaseDate: TextView
+    private lateinit var movieDescription: TextView
+    private lateinit var tmdbRating: TextView
+    private lateinit var directorName: TextView
+    private lateinit var genres: TextView
+    private lateinit var runtime: TextView
+    private lateinit var directorImage: ImageView
+    private lateinit var directorsData: ConstraintLayout
+    private lateinit var shareMovieButton: Button
+    private lateinit var watchLaterButton: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_single_movie)
         getControllerComponent().inject(this)
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
@@ -130,6 +153,27 @@ class SingleMovieActivity : BaseActivity() {
         }
     }
 
+    override fun setupViews() {
+        toolbar = binding.toolbar
+        watch_for_free_btn = binding.watchForFreeBtn
+        imdb_rating = binding.imdbRating
+        trailer_button = binding.trailerButton
+        poster_image = binding.posterImage
+        rating = binding.rating
+        movieImagesRv = binding.movieImagesRv
+        movieActorsRv = binding.movieActorsRv
+        movieRecommendationsRv = binding.movieRecommendationsRv
+        directorName = binding.directorName
+        tmdbRating = binding.tmdbRating
+        movieDescription = binding.movieDescription
+        releaseDate = binding.releaseDate
+        runtime = binding.runtime
+        genres = binding.genres
+        directorsData = binding.directorsData
+        shareMovieButton = binding.shareMovieButton
+        watchLaterButton = binding.watchLaterButton
+    }
+
     private fun prepareMovieTrailer(youtubeVideoKey: String) {
         try {
             startActivity(intentGenerator.generateYoutubeTrailerIntent(youtubeVideoKey))
@@ -147,15 +191,15 @@ class SingleMovieActivity : BaseActivity() {
     }
 
     private fun initializeRecyclerViews() {
-        movie_images_rv.adapter = imagesAdapter
-        movie_images_rv.layoutManager = imagesManager
+        movieImagesRv.adapter = imagesAdapter
+        movieImagesRv.layoutManager = imagesManager
 
-        movie_actors_rv.layoutManager = actorsManager
-        movie_actors_rv.adapter = actorsAdapter
-        movie_actors_rv.addItemDecoration(DividerItemDecoration(this, RecyclerView.HORIZONTAL))
+        movieActorsRv.layoutManager = actorsManager
+        movieActorsRv.adapter = actorsAdapter
+        movieActorsRv.addItemDecoration(DividerItemDecoration(this, RecyclerView.HORIZONTAL))
 
-        movie_recommendations_rv.layoutManager = movieRecommendations
-        movie_recommendations_rv.adapter = recommendationsAdapter
+        movieRecommendationsRv.layoutManager = movieRecommendations
+        movieRecommendationsRv.adapter = recommendationsAdapter
     }
 
     override fun onSupportNavigateUp(): Boolean {
@@ -167,29 +211,29 @@ class SingleMovieActivity : BaseActivity() {
         if (details.directorImageUrl != null)
             imageLoader.loadImageFromTmdb(
                 details.directorImageUrl,
-                director_image,
+                directorImage,
                 null,
                 Constants.LARGE_IMAGE_SIZE
             )
         if (!details.imdbId.isNullOrEmpty()) imdbId = details.imdbId
-        director_name.text = details.directorName
-        tmdb_rating.text = "%.1f / 10".format(details.tmdbRating)
-        movie_description.text = details.movieDescription
-        release_date.text = details.releaseDate
+        directorName.text = details.directorName
+        tmdbRating.text = "%.1f / 10".format(details.tmdbRating)
+        movieDescription.text = details.movieDescription
+        releaseDate.text = details.releaseDate
         runtime.text = "${details.runtime.toString()} min"
         genres.text = details.genres
 
-        directors_data.setOnClickListener {
+        directorsData.setOnClickListener {
             if (details.directorId != 0) {
                 goToSingleDirectorPage(details)
             }
         }
 
-        share_movie_button.setOnClickListener {
+        shareMovieButton.setOnClickListener {
             createShareMovieMessage(details)
         }
 
-        watch_later_button.setOnClickListener {
+        watchLaterButton.setOnClickListener {
             val dialogClickListener = DialogInterface.OnClickListener { dialog, which ->
                 when (which) {
                     DialogInterface.BUTTON_POSITIVE -> {

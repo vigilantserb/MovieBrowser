@@ -9,16 +9,18 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.pollux.widget.DualProgressView
 import com.stameni.com.moviebrowser.R
 import com.stameni.com.moviebrowser.common.ImageLoader
 import com.stameni.com.moviebrowser.common.ViewModelFactory
 import com.stameni.com.moviebrowser.common.baseClasses.BaseFragment
 import com.stameni.com.moviebrowser.common.libraries.CustomSnackbar
+import com.stameni.com.moviebrowser.databinding.UpcomingMoviesFragmentBinding
 import com.stameni.com.moviebrowser.screens.discover.genre.moviegridlist.MovieGridAdapter
-import kotlinx.android.synthetic.main.upcoming_movies_fragment.*
 import javax.inject.Inject
 
-class UpcomingMovies : BaseFragment() {
+class UpcomingMovies :
+    BaseFragment<UpcomingMoviesFragmentBinding>(UpcomingMoviesFragmentBinding::inflate) {
 
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
@@ -27,6 +29,9 @@ class UpcomingMovies : BaseFragment() {
     lateinit var imageLoader: ImageLoader
 
     private lateinit var viewModel: UpcomingMoviesViewModel
+
+    private lateinit var movieRecyclerView: RecyclerView
+    private lateinit var gifProgressBar: DualProgressView
 
     private var currentPage = 1
 
@@ -39,30 +44,37 @@ class UpcomingMovies : BaseFragment() {
         return inflater.inflate(R.layout.upcoming_movies_fragment, container, false)
     }
 
+    override fun setupViews() {
+        movieRecyclerView = binding.movieRecyclerView
+        gifProgressBar = binding.gifProgressBar
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         controllerComponent.inject(this)
         currentPage = 1
 
-        viewModel = ViewModelProviders.of(this, viewModelFactory).get(UpcomingMoviesViewModel::class.java)
+        viewModel =
+            ViewModelProviders.of(this, viewModelFactory).get(UpcomingMoviesViewModel::class.java)
 
         val gridLayoutManager = GridLayoutManager(view.context, 3, RecyclerView.VERTICAL, false)
         val adapter = MovieGridAdapter(ArrayList(), imageLoader)
 
-        movie_recycler_view.layoutManager = gridLayoutManager
-        movie_recycler_view.adapter = adapter
+        movieRecyclerView.layoutManager = gridLayoutManager
+        movieRecyclerView.adapter = adapter
 
-        viewModel = ViewModelProviders.of(this, viewModelFactory).get(UpcomingMoviesViewModel::class.java)
+        viewModel =
+            ViewModelProviders.of(this, viewModelFactory).get(UpcomingMoviesViewModel::class.java)
 
         viewModel.getUpcomingMovies(1)
 
         var snackbar = CustomSnackbar.make(view)
         snackbar.duration = 1000
 
-        movie_recycler_view.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+        movieRecyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 if (gridLayoutManager.findLastVisibleItemPosition() == gridLayoutManager.itemCount - 1) {
-                    if(currentPage <= totalPages){
+                    if (currentPage <= totalPages) {
                         currentPage++
                         viewModel.getUpcomingMovies(currentPage)
                         if (!snackbar.isShown) {
@@ -81,7 +93,8 @@ class UpcomingMovies : BaseFragment() {
 
         viewModel.fetchedMovies.observe(this, Observer {
             if (it != null) {
-                if(gif_progress_bar.visibility == View.VISIBLE) gif_progress_bar.visibility = View.GONE
+                if (gifProgressBar.visibility == View.VISIBLE) gifProgressBar.visibility =
+                    View.GONE
                 adapter.addAll(it)
             }
         })

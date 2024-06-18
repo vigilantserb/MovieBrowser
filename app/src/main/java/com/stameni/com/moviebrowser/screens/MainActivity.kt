@@ -5,16 +5,19 @@ import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.navigation.ui.NavigationUI
 import androidx.work.*
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.stameni.com.moviebrowser.R
 import com.stameni.com.moviebrowser.common.baseClasses.BaseActivity
 import com.stameni.com.moviebrowser.common.workers.NotificationWorker
-import kotlinx.android.synthetic.main.main_activity.*
+import com.stameni.com.moviebrowser.databinding.MainActivityBinding
 import java.util.concurrent.TimeUnit
 
-class MainActivity : BaseActivity() {
+class MainActivity : BaseActivity<MainActivityBinding>(MainActivityBinding::inflate) {
     private val workManager = WorkManager.getInstance(application)
     val KEY_NOTIFICATION_MESSAGE = "MESSAGE"
     val KEY_NOTIFICATION_TITLE = "TITLE"
+
+    private lateinit var bottomNav : BottomNavigationView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,6 +27,10 @@ class MainActivity : BaseActivity() {
 
         setupBottomNavMenu(navController)
         setupGreetingNotificationWorker(workManager)
+    }
+
+    override fun setupViews() {
+        bottomNav = binding.bottomNav
     }
 
     private fun setupGreetingNotificationWorker(workManager: WorkManager) {
@@ -48,7 +55,7 @@ class MainActivity : BaseActivity() {
             .build()
 
     private fun setupBottomNavMenu(navController: NavController) {
-        bottom_nav?.let {
+        bottomNav?.let {
             NavigationUI.setupWithNavController(it, navController)
         }
     }

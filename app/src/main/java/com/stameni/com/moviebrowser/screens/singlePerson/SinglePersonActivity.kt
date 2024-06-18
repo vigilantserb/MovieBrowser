@@ -1,18 +1,24 @@
 package com.stameni.com.moviebrowser.screens.singlePerson
 
 import android.os.Bundle
+import android.widget.ImageView
+import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.widget.Toolbar
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import com.stameni.com.moviebrowser.R
+import androidx.viewpager.widget.ViewPager
+import com.google.android.material.tabs.TabLayout
 import com.stameni.com.moviebrowser.common.Constants
 import com.stameni.com.moviebrowser.common.ImageLoader
 import com.stameni.com.moviebrowser.common.ViewModelFactory
 import com.stameni.com.moviebrowser.common.baseClasses.BaseActivity
-import kotlinx.android.synthetic.main.activity_single_person.*
+import com.stameni.com.moviebrowser.databinding.ActivitySinglePersonBinding
+import de.hdodenhof.circleimageview.CircleImageView
 import javax.inject.Inject
 
-class SinglePersonActivity : BaseActivity() {
+class SinglePersonActivity :
+    BaseActivity<ActivitySinglePersonBinding>(ActivitySinglePersonBinding::inflate) {
 
     @Inject
     lateinit var imageLoader: ImageLoader
@@ -22,17 +28,27 @@ class SinglePersonActivity : BaseActivity() {
 
     private lateinit var viewModel: SinglePersonActivityViewModel
 
+    private lateinit var toolbar: Toolbar
+    private lateinit var viewpagerMain: ViewPager
+    private lateinit var tabs: TabLayout
+    private lateinit var personProfileBlurred: ImageView
+    private lateinit var personProfile: CircleImageView
+    private lateinit var personAge: TextView
+    private lateinit var personName: TextView
+    private lateinit var personPob: TextView
+    private lateinit var personMovies: TextView
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         getControllerComponent().inject(this)
-        setContentView(R.layout.activity_single_person)
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        viewpager_main.adapter = SinglePersonViewPagerAdapter(supportFragmentManager)
-        tabs.setupWithViewPager(viewpager_main)
+        viewpagerMain.adapter = SinglePersonViewPagerAdapter(supportFragmentManager)
+        tabs.setupWithViewPager(viewpagerMain)
 
         if (intent.extras != null) {
-            viewModel = ViewModelProviders.of(this, viewModelFactory).get(SinglePersonActivityViewModel::class.java)
+            viewModel = ViewModelProviders.of(this, viewModelFactory)
+                .get(SinglePersonActivityViewModel::class.java)
 
             val type = intent.extras!!.getString(Constants.PERSON_TYPE, "")
             val name = intent.extras!!.getString(Constants.PERSON_NAME, "")
@@ -41,17 +57,21 @@ class SinglePersonActivity : BaseActivity() {
 
             supportActionBar!!.title = name
 
-            imageLoader.loadImageBlurCenterCrop(url, person_profile_blurred, Constants.LARGE_IMAGE_SIZE)
-            imageLoader.loadImageNoFormat(url, person_profile, Constants.LARGE_IMAGE_SIZE)
+            imageLoader.loadImageBlurCenterCrop(
+                url,
+                personProfileBlurred,
+                Constants.LARGE_IMAGE_SIZE
+            )
+            imageLoader.loadImageNoFormat(url, personProfile, Constants.LARGE_IMAGE_SIZE)
 
             viewModel.fetchPersonDetails(id, type)
 
             viewModel.personDetails.observe(this, Observer {
-                person_age.text = "${it.age} years old"
-                person_name.text = it.name
-                person_pob.text = it.birthplace
-                if (it.movieCount == 1) person_movies.text = "${it.movieCount} movie"
-                else person_movies.text = "${it.movieCount} movies"
+                personAge.text = "${it.age} years old"
+                personName.text = it.name
+                personPob.text = it.birthplace
+                if (it.movieCount == 1) personMovies.text = "${it.movieCount} movie"
+                else personMovies.text = "${it.movieCount} movies"
 
             })
 
@@ -59,6 +79,18 @@ class SinglePersonActivity : BaseActivity() {
                 Toast.makeText(this, it, Toast.LENGTH_LONG).show()
             })
         }
+    }
+
+    override fun setupViews() {
+        toolbar = binding.toolbar
+        viewpagerMain = binding.viewpagerMain
+        tabs = binding.tabs
+        personProfile = binding.personProfile
+        personProfileBlurred = binding.personProfileBlurred
+        personAge = binding.personAge
+        personMovies = binding.personMovies
+        personPob = binding.personPob
+        personName = binding.personName
     }
 
     override fun onSupportNavigateUp(): Boolean {
