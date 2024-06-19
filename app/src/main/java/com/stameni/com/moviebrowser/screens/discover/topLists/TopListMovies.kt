@@ -14,22 +14,16 @@ import com.stameni.com.moviebrowser.data.local.FetchListOfTopMoviesUseCase
 import com.stameni.com.moviebrowser.databinding.TopListMoviesFragmentBinding
 import javax.inject.Inject
 
-class TopListMovies : BaseFragment<TopListMoviesFragmentBinding>(TopListMoviesFragmentBinding::inflate) {
+class TopListMovies :
+    BaseFragment<TopListMoviesFragmentBinding>(TopListMoviesFragmentBinding::inflate) {
 
     @Inject
     lateinit var imageLoader: ImageLoader
-    
+
     @Inject
     lateinit var fetchListOfTopMovies: FetchListOfTopMoviesUseCase
 
     private lateinit var movie_recycler_view: RecyclerView
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.top_list_movies_fragment, container, false)
-    }
 
     override fun setupViews() {
         movie_recycler_view = binding.movieRecyclerView
@@ -41,6 +35,8 @@ class TopListMovies : BaseFragment<TopListMoviesFragmentBinding>(TopListMoviesFr
 
         movie_recycler_view.setHasFixedSize(true)
         movie_recycler_view.layoutManager = LinearLayoutManager(context)
-        movie_recycler_view.adapter = TopListAdapter(fetchListOfTopMovies.getData(), imageLoader)
+        movie_recycler_view.adapter = TopListAdapter(imageLoader).apply {
+            submitList(ArrayList(fetchListOfTopMovies.getData()))
+        }
     }
 }

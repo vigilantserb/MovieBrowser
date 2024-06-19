@@ -40,7 +40,7 @@ class MovieListActivity :
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         var layoutManager = GridLayoutManager(this, 1, RecyclerView.VERTICAL, false)
-        var adapter = ListMoviesAdapter(ArrayList(), imageLoader)
+        var adapter = ListMoviesAdapter(imageLoader)
 
         movie_recycler_view.adapter = adapter
         movie_recycler_view.layoutManager = layoutManager

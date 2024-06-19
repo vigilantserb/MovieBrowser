@@ -24,13 +24,6 @@ class SingleActorBiographyFragment :
 
     private lateinit var personBiography: TextView
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.single_person_biography_fragment, container, false)
-    }
-
     override fun setupViews() {
         personBiography = binding.personBiography
     }

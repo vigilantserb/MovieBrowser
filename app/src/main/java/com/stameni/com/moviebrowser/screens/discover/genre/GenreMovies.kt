@@ -30,13 +30,6 @@ class GenreMovies : BaseFragment<GenreMoviesFragmentBinding>(GenreMoviesFragment
     private lateinit var movieRecyclerView: RecyclerView
     private lateinit var gifProgressBar: ImageView
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.genre_movies_fragment, container, false)
-    }
-
     override fun setupViews() {
         movieRecyclerView = binding.movieRecyclerView
         gifProgressBar = binding.gifProgressBar
@@ -47,7 +40,7 @@ class GenreMovies : BaseFragment<GenreMoviesFragmentBinding>(GenreMoviesFragment
         controllerComponent.inject(this)
         viewModel =
             ViewModelProviders.of(this, viewModelFactory).get(GenreMoviesViewModel::class.java)
-        val adapter = GenreListAdapter(ArrayList(), imageLoader)
+        val adapter = GenreListAdapter(imageLoader)
         movieRecyclerView.adapter = adapter
 
         viewModel.getGenreList()

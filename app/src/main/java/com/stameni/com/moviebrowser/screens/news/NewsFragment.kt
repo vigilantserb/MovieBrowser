@@ -41,7 +41,7 @@ class NewsFragment : BaseFragment<NewsFragmentBinding>(NewsFragmentBinding::infl
         super.onViewCreated(view, savedInstanceState)
         controllerComponent.inject(this)
 
-        val adapter = NewsAdapter(ArrayList(), imageLoader)
+        val adapter = NewsAdapter(imageLoader)
 
         news_recycler_view.adapter = adapter
         news_recycler_view.layoutManager = LinearLayoutManager(view.context)

@@ -24,6 +24,7 @@ abstract class BaseFragment<VB : ViewBinding>(private val bindingInflater: (Layo
         savedInstanceState: Bundle?
     ): View? {
         _binding = bindingInflater.invoke(inflater, container, false)
+        setupViews()
         return binding.root
     }
 

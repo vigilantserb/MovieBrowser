@@ -42,7 +42,6 @@ class WatchedActivity : BaseActivity<ActivityWatchedBinding>(ActivityWatchedBind
         val viewModel = ViewModelProviders.of(this, viewModelFactory).get(WatchedViewModel::class.java)
         val layoutManager = GridLayoutManager(this, 1, RecyclerView.VERTICAL, false)
         val adapter = WatchedListAdapter(
-            ArrayList(),
             imageLoader,
             viewModel
         )

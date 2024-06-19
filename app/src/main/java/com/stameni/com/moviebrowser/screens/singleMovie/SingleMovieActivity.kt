@@ -78,9 +78,9 @@ class SingleMovieActivity : BaseActivity<ActivitySingleMovieBinding>(ActivitySin
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        imagesAdapter = SingleMovieImagesAdapter(ArrayList(), imageLoader)
-        actorsAdapter = SingleMovieActorsAdapter(ArrayList(), imageLoader)
-        recommendationsAdapter = SingleMovieRecommendationsAdapter(ArrayList(), imageLoader)
+        imagesAdapter = SingleMovieImagesAdapter(imageLoader)
+        actorsAdapter = SingleMovieActorsAdapter(imageLoader)
+        recommendationsAdapter = SingleMovieRecommendationsAdapter(imageLoader)
 
         initializeRecyclerViews()
 
@@ -148,6 +148,7 @@ class SingleMovieActivity : BaseActivity<ActivitySingleMovieBinding>(ActivitySin
             })
 
             viewModel.fetchError.observe(this, Observer {
+                println("Error $it")
                 Toast.makeText(this, it, Toast.LENGTH_LONG).show()
             })
         }
@@ -172,6 +173,7 @@ class SingleMovieActivity : BaseActivity<ActivitySingleMovieBinding>(ActivitySin
         directorsData = binding.directorsData
         shareMovieButton = binding.shareMovieButton
         watchLaterButton = binding.watchLaterButton
+        directorImage = binding.directorImage
     }
 
     private fun prepareMovieTrailer(youtubeVideoKey: String) {

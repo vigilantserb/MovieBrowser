@@ -35,13 +35,6 @@ class NowPlayingMovies : BaseFragment<NowPlayingMoviesFragmentBinding>(NowPlayin
     private var currentPage = 1
     private var totalPages = 0
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.now_playing_movies_fragment, container, false)
-    }
-
     override fun setupViews() {
         movieRecyclerView = binding.movieRecyclerView
         gifProgressBar = binding.gifProgressBar
@@ -53,7 +46,7 @@ class NowPlayingMovies : BaseFragment<NowPlayingMoviesFragmentBinding>(NowPlayin
         viewModel = ViewModelProviders.of(this, viewModelFactory).get(NowPlayingMoviesViewModel::class.java)
 
         val gridLayoutManager = GridLayoutManager(view.context, 3, RecyclerView.VERTICAL, false)
-        val adapter = MovieGridAdapter(ArrayList(), imageLoader)
+        val adapter = MovieGridAdapter(imageLoader)
 
         movieRecyclerView.layoutManager = gridLayoutManager
         movieRecyclerView.adapter = adapter

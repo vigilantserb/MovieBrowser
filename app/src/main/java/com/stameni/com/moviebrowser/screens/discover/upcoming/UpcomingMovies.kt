@@ -37,13 +37,6 @@ class UpcomingMovies :
 
     private var totalPages = 0
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.upcoming_movies_fragment, container, false)
-    }
-
     override fun setupViews() {
         movieRecyclerView = binding.movieRecyclerView
         gifProgressBar = binding.gifProgressBar
@@ -58,7 +51,7 @@ class UpcomingMovies :
             ViewModelProviders.of(this, viewModelFactory).get(UpcomingMoviesViewModel::class.java)
 
         val gridLayoutManager = GridLayoutManager(view.context, 3, RecyclerView.VERTICAL, false)
-        val adapter = MovieGridAdapter(ArrayList(), imageLoader)
+        val adapter = MovieGridAdapter(imageLoader)
 
         movieRecyclerView.layoutManager = gridLayoutManager
         movieRecyclerView.adapter = adapter

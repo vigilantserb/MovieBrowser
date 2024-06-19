@@ -9,28 +9,31 @@ import androidx.recyclerview.widget.RecyclerView
 import com.stameni.com.moviebrowser.R
 import com.stameni.com.moviebrowser.common.Constants
 import com.stameni.com.moviebrowser.common.ImageLoader
+import com.stameni.com.moviebrowser.common.baseClasses.BaseAdapter
+import com.stameni.com.moviebrowser.common.baseClasses.BaseViewHolder
 import com.stameni.com.moviebrowser.common.listen
 import com.stameni.com.moviebrowser.data.models.SearchItem
+import com.stameni.com.moviebrowser.databinding.ListMovieItemBinding
 import com.stameni.com.moviebrowser.screens.singleMovie.SingleMovieActivity
 import com.stameni.com.moviebrowser.screens.singlePerson.SinglePersonActivity
-import kotlinx.android.synthetic.main.list_movie_item.view.*
 
 class SearchAdapter(
-    private val items: ArrayList<SearchItem>,
     private val imageLoader: ImageLoader
-) : RecyclerView.Adapter<SearchAdapter.ViewHolder>() {
+) : BaseAdapter<SearchItem, ListMovieItemBinding>(ListMovieItemBinding::inflate) {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val v = LayoutInflater.from(parent.context).inflate(R.layout.list_movie_item, parent, false)
-        return ViewHolder(v, parent).listen { position, type ->
+    override fun onCreateViewHolder(
+        parent: ViewGroup,
+        viewType: Int
+    ): BaseViewHolder<ListMovieItemBinding> =
+        super.onCreateViewHolder(parent, viewType).listen { position, type ->
             val item = items[position]
-            if (item.type == Constants.MOVIE_TYPE){
+            if (item.type == Constants.MOVIE_TYPE) {
                 val intent = Intent(parent.context, SingleMovieActivity::class.java)
                 intent.putExtra(Constants.POSTER_URL, item.url)
                 intent.putExtra(Constants.MOVIE_ID, item.id)
                 intent.putExtra(Constants.MOVIE_NAME, item.title)
                 parent.context.startActivity(intent)
-            } else if (item.type == Constants.PEOPLE_TYPE){
+            } else if (item.type == Constants.PEOPLE_TYPE) {
                 val intent = Intent(parent.context, SinglePersonActivity::class.java)
                 intent.putExtra(Constants.PERSON_TYPE, item.type)
                 intent.putExtra(Constants.PERSON_NAME, item.title)
@@ -39,35 +42,33 @@ class SearchAdapter(
                 parent.context.startActivity(intent)
             }
         }
+
+    override fun getItemCount(): Int = items.size
+    override fun bind(binding: ListMovieItemBinding, item: SearchItem, position: Int) {
+        binding.movieTitle.text = item.title
+        binding.genresTextView.text = item.type
+        binding.yearTextView.text = item.year
+        val url = item.url
+
+        if (binding.yearTextView.text.isEmpty()) binding.yearTextView.visibility = View.GONE
+
+        if (url != null) imageLoader.loadPosterImageCenterCrop(
+            url,
+            binding.moviePoster,
+            Constants.LARGE_IMAGE_SIZE
+        )
+        setFadeAnimation(binding.root)
     }
 
-    override fun getItemCount(): Int {
-        return items.size
-    }
-
-    fun add(response: SearchItem) {
+    override fun add(response: SearchItem) {
         items.add(response)
         notifyItemInserted(items.size - 1)
     }
 
-    fun addAll(postItems: List<SearchItem>) {
+    override fun addAll(postItems: List<SearchItem>) {
         for (response in postItems) {
             add(response)
         }
-    }
-
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        var listItem = items[position]
-        holder.movieTitle.text = listItem.title
-        holder.movieGenres.text = listItem.type
-        holder.year.text = listItem.year
-        val url = listItem.url
-
-        if (holder.year.text.isEmpty()) holder.year.visibility = View.GONE
-
-        if (url != null) imageLoader.loadPosterImageCenterCrop(url, holder.moviePoster, Constants.LARGE_IMAGE_SIZE)
-
-        holder.setFadeAnimation(holder.itemView)
     }
 
     fun removeAll() {
@@ -76,17 +77,9 @@ class SearchAdapter(
         notifyItemRangeRemoved(0, size)
     }
 
-    class ViewHolder(itemView: View, parent: ViewGroup) : RecyclerView.ViewHolder(itemView) {
-        var movieTitle = itemView.movie_title
-        var moviePoster = itemView.movie_poster
-        var movieGenres = itemView.genres_text_view
-        var year = itemView.year_text_view
-        var context = parent.context
-
-        fun setFadeAnimation(view: View) {
-            val anim = AlphaAnimation(0.0f, 1.0f)
-            anim.duration = 500
-            view.startAnimation(anim)
-        }
+    private fun setFadeAnimation(view: View) {
+        val anim = AlphaAnimation(0.0f, 1.0f)
+        anim.duration = 500
+        view.startAnimation(anim)
     }
 }

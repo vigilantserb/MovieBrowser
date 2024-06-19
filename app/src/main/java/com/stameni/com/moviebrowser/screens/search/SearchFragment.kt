@@ -68,9 +68,9 @@ class SearchFragment : BaseFragment<SearchFragmentBinding>(SearchFragmentBinding
         val mgr = requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         mgr.showSoftInput(inputSearch, InputMethodManager.SHOW_IMPLICIT)
 
-        movieSearchAdapter = SearchAdapter(ArrayList(), imageLoader)
-        tvShowSearchAdapter = SearchAdapter(ArrayList(), imageLoader)
-        peopleSearchAdapter = SearchAdapter(ArrayList(), imageLoader)
+        movieSearchAdapter = SearchAdapter(imageLoader)
+        tvShowSearchAdapter = SearchAdapter(imageLoader)
+        peopleSearchAdapter = SearchAdapter(imageLoader)
 
         movieRecyclerView.adapter = movieSearchAdapter
         movieRecyclerView.layoutManager = LinearLayoutManager(view.context)

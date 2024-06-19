@@ -44,7 +44,7 @@ class MovieGridActivity : BaseActivity<ActivityMovieGridBinding>(ActivityMovieGr
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         val gridLayoutManager = GridLayoutManager(this, 3, RecyclerView.VERTICAL, false)
-        val adapter = MovieGridAdapter(ArrayList(), imageLoader)
+        val adapter = MovieGridAdapter(imageLoader)
 
         movieRecyclerView.layoutManager = gridLayoutManager
         movieRecyclerView.adapter = adapter

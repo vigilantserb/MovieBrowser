@@ -37,13 +37,6 @@ class SinglePersonAppearancesFragment :
     private var currentPage = 1
     private var lastPage = false
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.single_person_movies_fragment, container, false)
-    }
-
     override fun setupViews() {
         actorMoviesRv = binding.actorMoviesRv
         nestedScrollView = binding.nestedScrollView
@@ -54,7 +47,7 @@ class SinglePersonAppearancesFragment :
         controllerComponent.inject(this)
 
         val layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
-        adapter = SearchAdapter(ArrayList(), imageLoader)
+        adapter = SearchAdapter(imageLoader)
 
         actorMoviesRv.adapter = adapter
         actorMoviesRv.layoutManager = layoutManager

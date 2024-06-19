@@ -143,9 +143,4 @@ dependencies {
 
     //SwipeRevealLayout
     implementation 'com.chauthai.swipereveallayout:swipe-reveal-layout:1.4.1'
-
-    //WorkManager
-    implementation "androidx.work:work-runtime-ktx:2.3.4"
-
-//    implementation 'javax.annotation:javax.annotation-api:1.3.2'
 }
