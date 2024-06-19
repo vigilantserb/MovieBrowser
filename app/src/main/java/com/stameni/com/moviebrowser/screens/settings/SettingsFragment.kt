@@ -8,7 +8,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.ImageView
+import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.widget.SwitchCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.stameni.com.moviebrowser.R
@@ -16,11 +20,11 @@ import com.stameni.com.moviebrowser.common.Constants
 import com.stameni.com.moviebrowser.common.ViewModelFactory
 import com.stameni.com.moviebrowser.common.baseClasses.BaseFragment
 import com.stameni.com.moviebrowser.data.room.MovieDatabase
+import com.stameni.com.moviebrowser.databinding.FragmentSettingsNewBinding
 import com.stameni.com.moviebrowser.screens.settings.about.AboutUsActivity
-import kotlinx.android.synthetic.main.fragment_settings_new.*
 import javax.inject.Inject
 
-class SettingsFragment : BaseFragment() {
+class SettingsFragment : BaseFragment<FragmentSettingsNewBinding>(FragmentSettingsNewBinding::inflate) {
 
     @Inject
     lateinit var prefs: SharedPreferences
@@ -33,11 +37,22 @@ class SettingsFragment : BaseFragment() {
 
     private lateinit var viewModel: SettingsViewModel
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_settings_new, container, false)
+    private lateinit var load_images_swithc: SwitchCompat
+    private lateinit var image_cache_placeholder: TextView
+    private lateinit var watched_placeholder: TextView
+    private lateinit var to_watch_placeholder: TextView
+    private lateinit var github_logo: ImageView
+    private lateinit var save_your_lists_placeholder: TextView
+    private lateinit var import_backup_placeholder: TextView
+
+    override fun setupViews() {
+        load_images_swithc = binding.loadImagesSwithc
+        image_cache_placeholder = binding.imageCachePlaceholder
+        watched_placeholder = binding.watchedPlaceholder
+        to_watch_placeholder = binding.toWatchPlaceholder
+        github_logo = binding.githubLogo
+        save_your_lists_placeholder = binding.saveYourListsPlaceholder
+        import_backup_placeholder = binding.importBackupPlaceholder
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

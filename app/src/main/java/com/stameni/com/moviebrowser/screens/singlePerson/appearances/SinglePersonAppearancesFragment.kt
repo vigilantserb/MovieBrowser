@@ -15,27 +15,31 @@ import com.stameni.com.moviebrowser.common.ImageLoader
 import com.stameni.com.moviebrowser.common.ViewModelFactory
 import com.stameni.com.moviebrowser.common.baseClasses.BaseFragment
 import com.stameni.com.moviebrowser.common.libraries.CustomSnackbar
+import com.stameni.com.moviebrowser.databinding.SinglePersonMoviesFragmentBinding
 import com.stameni.com.moviebrowser.screens.search.SearchAdapter
-import kotlinx.android.synthetic.main.single_person_movies_fragment.*
 import javax.inject.Inject
 
-class SinglePersonAppearancesFragment : BaseFragment() {
+class SinglePersonAppearancesFragment :
+    BaseFragment<SinglePersonMoviesFragmentBinding>(SinglePersonMoviesFragmentBinding::inflate) {
 
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
+
     @Inject
     lateinit var imageLoader: ImageLoader
 
     private lateinit var viewModel: SinglePersonAppearancesViewModel
     private lateinit var adapter: SearchAdapter
-    var currentPage = 1
-    var lastPage = false
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.single_person_movies_fragment, container, false)
+    private lateinit var actorMoviesRv: RecyclerView
+    private lateinit var nestedScrollView: NestedScrollView
+
+    private var currentPage = 1
+    private var lastPage = false
+
+    override fun setupViews() {
+        actorMoviesRv = binding.actorMoviesRv
+        nestedScrollView = binding.nestedScrollView
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -43,16 +47,17 @@ class SinglePersonAppearancesFragment : BaseFragment() {
         controllerComponent.inject(this)
 
         val layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
-        adapter = SearchAdapter(ArrayList(), imageLoader)
+        adapter = SearchAdapter(imageLoader)
 
-        actor_movies_rv.adapter = adapter
-        actor_movies_rv.layoutManager = layoutManager
+        actorMoviesRv.adapter = adapter
+        actorMoviesRv.layoutManager = layoutManager
 
-        if (activity!!.intent.extras != null) {
-            val personType = activity!!.intent.extras!!.getString(Constants.PERSON_TYPE, "")
-            val personId = activity!!.intent.extras!!.getInt(Constants.PERSON_ID, 0)
+        if (requireActivity().intent.extras != null) {
+            val personType = requireActivity().intent.extras!!.getString(Constants.PERSON_TYPE, "")
+            val personId = requireActivity().intent.extras!!.getInt(Constants.PERSON_ID, 0)
 
-            viewModel = ViewModelProviders.of(this, viewModelFactory).get(SinglePersonAppearancesViewModel::class.java)
+            viewModel = ViewModelProviders.of(this, viewModelFactory)
+                .get(SinglePersonAppearancesViewModel::class.java)
 
             fetchMoviesBasedOnPersonType(personType, personId, 1)
 
@@ -69,7 +74,7 @@ class SinglePersonAppearancesFragment : BaseFragment() {
 
         val snackbar = CustomSnackbar.make(view!!)
         snackbar.duration = 1000
-        nested_scroll_view.setOnScrollChangeListener { v: NestedScrollView?, scrollX: Int, scrollY: Int, oldScrollX: Int, oldScrollY: Int ->
+        nestedScrollView.setOnScrollChangeListener { v: NestedScrollView?, scrollX: Int, scrollY: Int, oldScrollX: Int, oldScrollY: Int ->
             if (v!!.getChildAt(v.childCount - 1) != null) {
                 if (scrollY >= v.getChildAt(v.childCount - 1).measuredHeight - v.measuredHeight && scrollY > oldScrollY) {
                     currentPage++
@@ -99,7 +104,11 @@ class SinglePersonAppearancesFragment : BaseFragment() {
     private fun fetchMoviesBasedOnPersonType(personType: String, personId: Int, page: Int) {
         when {
             personType.contains(Constants.ACTOR_TYPE) -> viewModel.getActorMovies(personId, page)
-            personType.contains(Constants.DIRECTOR_TYPE) -> viewModel.getDirectorMovies(personId, page)
+            personType.contains(Constants.DIRECTOR_TYPE) -> viewModel.getDirectorMovies(
+                personId,
+                page
+            )
+
             else -> {
                 viewModel.getActorMovies(personId, page)
                 viewModel.getDirectorMovies(personId, page)

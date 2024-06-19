@@ -8,7 +8,7 @@ import com.stameni.com.moviebrowser.data.room.dao.MovieDao
 import com.stameni.com.moviebrowser.data.room.roomModels.Movie
 
 
-@Database(entities = [Movie::class], version = 1)
+@Database(entities = [Movie::class], version = 1, exportSchema = false)
 abstract class MovieDatabase : RoomDatabase() {
     abstract fun movieDao(): MovieDao
 

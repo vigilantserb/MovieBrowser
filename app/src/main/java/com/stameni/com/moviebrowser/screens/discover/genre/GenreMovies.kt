@@ -4,18 +4,20 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.stameni.com.moviebrowser.R
 import com.stameni.com.moviebrowser.common.ImageLoader
 import com.stameni.com.moviebrowser.common.ViewModelFactory
 import com.stameni.com.moviebrowser.common.baseClasses.BaseFragment
-import kotlinx.android.synthetic.main.genre_movies_fragment.*
+import com.stameni.com.moviebrowser.databinding.GenreMoviesFragmentBinding
 import javax.inject.Inject
 
-class GenreMovies : BaseFragment() {
+class GenreMovies : BaseFragment<GenreMoviesFragmentBinding>(GenreMoviesFragmentBinding::inflate) {
 
     private lateinit var viewModel: GenreMoviesViewModel
 
@@ -25,11 +27,12 @@ class GenreMovies : BaseFragment() {
     @Inject
     lateinit var imageLoader: ImageLoader
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.genre_movies_fragment, container, false)
+    private lateinit var movieRecyclerView: RecyclerView
+    private lateinit var gifProgressBar: ImageView
+
+    override fun setupViews() {
+        movieRecyclerView = binding.movieRecyclerView
+        gifProgressBar = binding.gifProgressBar
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -37,23 +40,23 @@ class GenreMovies : BaseFragment() {
         controllerComponent.inject(this)
         viewModel =
             ViewModelProviders.of(this, viewModelFactory).get(GenreMoviesViewModel::class.java)
-        val adapter = GenreListAdapter(ArrayList(), imageLoader)
-        movie_recycler_view.adapter = adapter
+        val adapter = GenreListAdapter(imageLoader)
+        movieRecyclerView.adapter = adapter
 
         viewModel.getGenreList()
 
-        movie_recycler_view.setHasFixedSize(true)
-        movie_recycler_view.layoutManager = LinearLayoutManager(context)
+        movieRecyclerView.setHasFixedSize(true)
+        movieRecyclerView.layoutManager = LinearLayoutManager(context)
 
         viewModel.fetchedGenres.observe(this, Observer {
-            movie_recycler_view.visibility = View.VISIBLE
-            gif_progress_bar.visibility = View.GONE
+            movieRecyclerView.visibility = View.VISIBLE
+            gifProgressBar.visibility = View.GONE
             adapter.addAll(it)
         })
 
         viewModel.fetchError.observe(this, Observer {
-            movie_recycler_view.visibility = View.VISIBLE
-            gif_progress_bar.visibility = View.GONE
+            movieRecyclerView.visibility = View.VISIBLE
+            gifProgressBar.visibility = View.GONE
             Toast.makeText(context, it, Toast.LENGTH_LONG).show()
         })
     }

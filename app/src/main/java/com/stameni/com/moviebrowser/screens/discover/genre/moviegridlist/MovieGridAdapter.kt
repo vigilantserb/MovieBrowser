@@ -8,19 +8,22 @@ import android.view.animation.AlphaAnimation
 import androidx.recyclerview.widget.RecyclerView
 import com.stameni.com.moviebrowser.R
 import com.stameni.com.moviebrowser.common.ImageLoader
+import com.stameni.com.moviebrowser.common.baseClasses.BaseAdapter
+import com.stameni.com.moviebrowser.common.baseClasses.BaseViewHolder
 import com.stameni.com.moviebrowser.common.listen
 import com.stameni.com.moviebrowser.data.models.movie.Movie
+import com.stameni.com.moviebrowser.databinding.MovieGridItemBinding
 import com.stameni.com.moviebrowser.screens.singleMovie.SingleMovieActivity
-import kotlinx.android.synthetic.main.movie_grid_item.view.*
 
 class MovieGridAdapter(
-    private val items: ArrayList<Movie>,
     private val imageLoader: ImageLoader
-) : RecyclerView.Adapter<MovieGridAdapter.ViewHolder>() {
+) : BaseAdapter<Movie, MovieGridItemBinding>(MovieGridItemBinding::inflate) {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val v = LayoutInflater.from(parent.context).inflate(R.layout.movie_grid_item, parent, false)
-        return ViewHolder(v, parent).listen { position, type ->
+    override fun onCreateViewHolder(
+        parent: ViewGroup,
+        viewType: Int
+    ): BaseViewHolder<MovieGridItemBinding> {
+        return super.onCreateViewHolder(parent, viewType).listen { position, type ->
             val item = items[position]
             val intent = Intent(parent.context, SingleMovieActivity::class.java)
             intent.putExtra("posterUrl", item.moviePosterUrl)
@@ -34,36 +37,36 @@ class MovieGridAdapter(
         return items.size
     }
 
-    fun add(response: Movie) {
-        items.add(response)
+    override fun bind(binding: MovieGridItemBinding, item: Movie, position: Int) {
+        val url = item.moviePosterUrl
+        binding.movieName.text = item.movieTitle
+
+        url?.let {
+            imageLoader.loadImageFromTmdb(
+                it,
+                binding.myImageView,
+                binding.gifProgressBar,
+                "w500"
+            )
+        }
+        setFadeAnimation(binding.root) // todo - see if it works
+    }
+
+    override fun add(item: Movie) {
+        items.add(item)
         notifyItemInserted(items.size - 1)
     }
 
-    fun addAll(postItems: List<Movie>) {
-        for (response in postItems) {
+    override fun addAll(items: List<Movie>) {
+        for (response in items) {
             add(response)
         }
     }
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val listItem = items[position]
-        val url = listItem.moviePosterUrl
-        holder.movieNameTxtView.text = listItem.movieTitle
-
-        url?.let { imageLoader.loadImageFromTmdb(it, holder.moviePoster, holder.progressBar, "w500") }
-        holder.setFadeAnimation(holder.itemView)
-    }
-
-    class ViewHolder(itemView: View, parent: ViewGroup) : RecyclerView.ViewHolder(itemView) {
-        var moviePoster = itemView.myImageView
-        var progressBar = itemView.gif_progress_bar
-        var movieNameTxtView = itemView.movie_name
-
-        fun setFadeAnimation(view: View) {
-            val anim = AlphaAnimation(0.0f, 1.0f)
-            anim.duration = 500
-            view.startAnimation(anim)
-        }
+    private fun setFadeAnimation(view: View) {
+        val anim = AlphaAnimation(0.0f, 1.0f)
+        anim.duration = 500
+        view.startAnimation(anim)
     }
 }
 

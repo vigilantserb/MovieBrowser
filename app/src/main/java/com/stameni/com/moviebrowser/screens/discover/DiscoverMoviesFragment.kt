@@ -1,29 +1,28 @@
 package com.stameni.com.moviebrowser.screens.discover
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
-import com.stameni.com.moviebrowser.R
-import kotlinx.android.synthetic.main.discover_movies_fragment.*
+import androidx.viewpager.widget.ViewPager
+import com.google.android.material.tabs.TabLayout
+import com.stameni.com.moviebrowser.common.baseClasses.BaseFragment
+import com.stameni.com.moviebrowser.databinding.DiscoverMoviesFragmentBinding
 
-class DiscoverMoviesFragment : Fragment() {
+class DiscoverMoviesFragment : BaseFragment<DiscoverMoviesFragmentBinding>(DiscoverMoviesFragmentBinding::inflate) {
 
     private lateinit var viewModel: DiscoverMoviesViewModel
+    private lateinit var viewpagerMain: ViewPager
+    private lateinit var tabs: TabLayout
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.discover_movies_fragment, container, false)
+    override fun setupViews() {
+        viewpagerMain = binding.viewpagerMain
+        tabs = binding.tabs
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewpager_main.adapter = MovieTypeAdapter(childFragmentManager)
-        tabs.setupWithViewPager(viewpager_main)
+        viewpagerMain.adapter = MovieTypeAdapter(childFragmentManager)
+        tabs.setupWithViewPager(viewpagerMain)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {

@@ -1,25 +1,21 @@
 package com.stameni.com.moviebrowser.screens.discover.genre
 
 import android.content.Intent
-import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import androidx.recyclerview.widget.RecyclerView
-import com.stameni.com.moviebrowser.R
 import com.stameni.com.moviebrowser.common.ImageLoader
+import com.stameni.com.moviebrowser.common.baseClasses.BaseAdapter
+import com.stameni.com.moviebrowser.common.baseClasses.BaseViewHolder
 import com.stameni.com.moviebrowser.common.listen
 import com.stameni.com.moviebrowser.data.models.Genre
+import com.stameni.com.moviebrowser.databinding.ListItemBinding
 import com.stameni.com.moviebrowser.screens.discover.genre.moviegridlist.MovieGridActivity
-import kotlinx.android.synthetic.main.list_item.view.*
 
 class GenreListAdapter(
-    private val items: ArrayList<Genre>,
     private val imageLoader: ImageLoader
-) : RecyclerView.Adapter<GenreListAdapter.ViewHolder>() {
+) : BaseAdapter<Genre, ListItemBinding>(ListItemBinding::inflate) {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val v = LayoutInflater.from(parent.context).inflate(R.layout.list_item, parent, false)
-        return ViewHolder(v, parent).listen { position, type ->
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder<ListItemBinding> {
+        return super.onCreateViewHolder(parent, viewType).listen { position, type ->
             val item = items[position]
             val intent = Intent(parent.context, MovieGridActivity::class.java)
             intent.putExtra("genreId", item.genreId)
@@ -32,28 +28,21 @@ class GenreListAdapter(
         return items.size
     }
 
-    fun add(response: Genre) {
+    override fun bind(binding: ListItemBinding, item: Genre, position: Int) {
+        binding.listTitle.text = item.genreName
+        val url = item.url
+
+        imageLoader.loadListImageCenterCrop(url, binding.listPoster, "w500")
+    }
+
+    override fun add(response: Genre) {
         items.add(response)
         notifyItemInserted(items.size - 1)
     }
 
-    fun addAll(postItems: List<Genre>) {
+    override fun addAll(postItems: List<Genre>) {
         for (response in postItems) {
             add(response)
         }
-    }
-
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        var listItem = items[position]
-        holder.movieListTitle.text = listItem.genreName
-        val url = listItem.url
-
-        imageLoader.loadListImageCenterCrop(url, holder.movieListPoster, "w500")
-    }
-
-    class ViewHolder(itemView: View, parent: ViewGroup) : RecyclerView.ViewHolder(itemView) {
-        var movieListTitle = itemView.list_title
-        var movieListPoster = itemView.list_poster
-        var context = parent.context
     }
 }

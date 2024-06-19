@@ -4,19 +4,22 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ProgressBar
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.pollux.widget.DualProgressView
 import com.stameni.com.moviebrowser.R
 import com.stameni.com.moviebrowser.common.ImageLoader
 import com.stameni.com.moviebrowser.common.ViewModelFactory
 import com.stameni.com.moviebrowser.common.baseClasses.BaseFragment
 import com.stameni.com.moviebrowser.common.libraries.CustomSnackbar
-import kotlinx.android.synthetic.main.news_fragment.*
+import com.stameni.com.moviebrowser.databinding.NewsFragmentBinding
 import javax.inject.Inject
 
-class NewsFragment : BaseFragment() {
+class NewsFragment : BaseFragment<NewsFragmentBinding>(NewsFragmentBinding::inflate) {
+
     private lateinit var viewModel: NewsViewModel
 
     @Inject
@@ -28,24 +31,25 @@ class NewsFragment : BaseFragment() {
     private var currentPage = 1
     private var totalPages = 0
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.news_fragment, container, false)
+    private lateinit var news_recycler_view: RecyclerView
+    private lateinit var gif_progress_bar: DualProgressView
+
+    override fun setupViews() {
+        news_recycler_view = binding.newsRecyclerView
+        gif_progress_bar = binding.gifProgressBar
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         controllerComponent.inject(this)
 
-        val adapter = NewsAdapter(ArrayList(), imageLoader)
+        val adapter = NewsAdapter(imageLoader)
 
         news_recycler_view.adapter = adapter
         news_recycler_view.layoutManager = LinearLayoutManager(view.context)
         news_recycler_view.isNestedScrollingEnabled = false
 
-        var snackbar = CustomSnackbar.make(view)
+        val snackbar = CustomSnackbar.make(view)
         snackbar.duration = 2000
 
         viewModel = ViewModelProviders.of(this, viewModelFactory).get(NewsViewModel::class.java)

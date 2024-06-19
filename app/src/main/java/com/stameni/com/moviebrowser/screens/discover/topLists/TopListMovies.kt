@@ -6,26 +6,27 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.stameni.com.moviebrowser.R
 import com.stameni.com.moviebrowser.common.ImageLoader
 import com.stameni.com.moviebrowser.common.baseClasses.BaseFragment
 import com.stameni.com.moviebrowser.data.local.FetchListOfTopMoviesUseCase
-import kotlinx.android.synthetic.main.top_list_movies_fragment.*
+import com.stameni.com.moviebrowser.databinding.TopListMoviesFragmentBinding
 import javax.inject.Inject
 
-class TopListMovies : BaseFragment() {
+class TopListMovies :
+    BaseFragment<TopListMoviesFragmentBinding>(TopListMoviesFragmentBinding::inflate) {
 
     @Inject
     lateinit var imageLoader: ImageLoader
-    
+
     @Inject
     lateinit var fetchListOfTopMovies: FetchListOfTopMoviesUseCase
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.top_list_movies_fragment, container, false)
+    private lateinit var movie_recycler_view: RecyclerView
+
+    override fun setupViews() {
+        movie_recycler_view = binding.movieRecyclerView
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -34,6 +35,8 @@ class TopListMovies : BaseFragment() {
 
         movie_recycler_view.setHasFixedSize(true)
         movie_recycler_view.layoutManager = LinearLayoutManager(context)
-        movie_recycler_view.adapter = TopListAdapter(fetchListOfTopMovies.getData(), imageLoader)
+        movie_recycler_view.adapter = TopListAdapter(imageLoader).apply {
+            submitList(ArrayList(fetchListOfTopMovies.getData()))
+        }
     }
 }
