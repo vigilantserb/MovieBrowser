@@ -22,7 +22,8 @@ class NewsWebViewActivity :
     private lateinit var gif_progress_bar: ProgressBar
 
     override fun setupViews() {
-
+        web_view = binding.webView
+        gif_progress_bar = binding.gifProgressBar
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

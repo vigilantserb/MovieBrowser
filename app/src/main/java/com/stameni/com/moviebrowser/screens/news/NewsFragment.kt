@@ -9,6 +9,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.pollux.widget.DualProgressView
 import com.stameni.com.moviebrowser.R
 import com.stameni.com.moviebrowser.common.ImageLoader
 import com.stameni.com.moviebrowser.common.ViewModelFactory
@@ -31,10 +32,11 @@ class NewsFragment : BaseFragment<NewsFragmentBinding>(NewsFragmentBinding::infl
     private var totalPages = 0
 
     private lateinit var news_recycler_view: RecyclerView
-    private lateinit var gif_progress_bar: ProgressBar
+    private lateinit var gif_progress_bar: DualProgressView
 
     override fun setupViews() {
-
+        news_recycler_view = binding.newsRecyclerView
+        gif_progress_bar = binding.gifProgressBar
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -47,7 +49,7 @@ class NewsFragment : BaseFragment<NewsFragmentBinding>(NewsFragmentBinding::infl
         news_recycler_view.layoutManager = LinearLayoutManager(view.context)
         news_recycler_view.isNestedScrollingEnabled = false
 
-        var snackbar = CustomSnackbar.make(view)
+        val snackbar = CustomSnackbar.make(view)
         snackbar.duration = 2000
 
         viewModel = ViewModelProviders.of(this, viewModelFactory).get(NewsViewModel::class.java)

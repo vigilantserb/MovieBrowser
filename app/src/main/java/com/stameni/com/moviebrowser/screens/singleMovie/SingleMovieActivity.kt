@@ -148,7 +148,6 @@ class SingleMovieActivity : BaseActivity<ActivitySingleMovieBinding>(ActivitySin
             })
 
             viewModel.fetchError.observe(this, Observer {
-                println("Error $it")
                 Toast.makeText(this, it, Toast.LENGTH_LONG).show()
             })
         }
