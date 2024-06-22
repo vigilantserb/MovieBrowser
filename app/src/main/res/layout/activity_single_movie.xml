@@ -35,24 +35,24 @@
 
         </com.google.android.material.appbar.AppBarLayout>
 
-        <ImageView
+        <com.stameni.com.moviebrowser.common.customviews.FullscreenImageView
             android:id="@+id/poster_image"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintBottom_toTopOf="@id/buttons_group"
             app:layout_constraintEnd_toEndOf="parent"
-            android:scaleType="fitStart"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <com.stameni.com.moviebrowser.common.customviews.FixedHeightConstraintLayout
             android:id="@+id/buttons_group"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/color_background_dark"
             android:padding="8dp"
-            app:layout_constraintBottom_toTopOf="@id/watch_for_free_btn"
+            app:layout_constraintBottom_toTopOf="@id/imdb_placeholder"
             app:layout_constraintEnd_toEndOf="parent"
+            app:targetHeightPercentage="0.15"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/poster_image">
 
@@ -64,7 +64,6 @@
                 android:background="@drawable/ic_play"
                 android:foreground="?android:attr/selectableItemBackground"
                 android:scaleType="centerCrop"
-                app:layout_constraintBottom_toBottomOf="@id/buttons_group"
                 app:layout_constraintEnd_toStartOf="@+id/watch_later_button"
                 app:layout_constraintHorizontal_chainStyle="spread_inside"
                 app:layout_constraintStart_toStartOf="parent"
@@ -77,7 +76,6 @@
                 android:background="@drawable/ic_watch_later"
                 android:foreground="?android:attr/selectableItemBackground"
                 android:scaleType="centerCrop"
-                app:layout_constraintBottom_toBottomOf="@id/buttons_group"
                 app:layout_constraintEnd_toStartOf="@+id/share_movie_button"
                 app:layout_constraintStart_toEndOf="@+id/trailer_button"
                 app:layout_constraintTop_toTopOf="@id/buttons_group" />
@@ -90,24 +88,24 @@
                 android:background="@drawable/ic_share"
                 android:foreground="?android:attr/selectableItemBackground"
                 android:scaleType="centerCrop"
-                app:layout_constraintBottom_toBottomOf="@id/buttons_group"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/watch_later_button"
                 app:layout_constraintTop_toTopOf="@id/buttons_group" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <Button
-            android:id="@+id/watch_for_free_btn"
-            android:layout_width="0dp"
-            android:layout_height="48dp"
-            android:padding="8dp"
-            android:background="@drawable/btn_rounded"
-            android:textColor="@color/color_text"
-            android:layout_marginTop="16dp"
-            app:layout_constraintTop_toBottomOf="@id/buttons_group"
-            app:layout_constraintEnd_toEndOf="@id/guideline3"
-            app:layout_constraintStart_toStartOf="@id/guideline2"
-            app:layout_constraintBottom_toTopOf="@id/imdb_placeholder"/>
+            <Button
+                android:id="@+id/watch_for_free_btn"
+                android:layout_width="0dp"
+                android:layout_height="48dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:background="@drawable/btn_rounded"
+                android:padding="8dp"
+                android:textColor="@color/color_text"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/watch_later_button"
+                app:layout_constraintBottom_toBottomOf="parent"/>
+        </com.stameni.com.moviebrowser.common.customviews.FixedHeightConstraintLayout>
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline2"
@@ -127,11 +125,11 @@
             android:id="@+id/imdb_placeholder"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="imdb.com"
             android:layout_marginTop="16dp"
+            android:text="imdb.com"
             android:textColor="@color/light_gray"
             app:layout_constraintStart_toStartOf="@id/guideline2"
-            app:layout_constraintTop_toBottomOf="@id/watch_for_free_btn" />
+            app:layout_constraintTop_toBottomOf="@id/buttons_group" />
 
         <ImageView
             android:id="@+id/imdb_rating"
@@ -144,13 +142,13 @@
 
         <TextView
             android:id="@+id/tmdb_placeholder"
-            android:layout_marginTop="16dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
             android:text="themoviedb.com"
             android:textColor="@color/light_gray"
             app:layout_constraintEnd_toStartOf="@+id/guideline3"
-            app:layout_constraintTop_toBottomOf="@id/watch_for_free_btn" />
+            app:layout_constraintTop_toBottomOf="@id/buttons_group" />
 
         <TextView
             android:id="@+id/tmdb_rating"

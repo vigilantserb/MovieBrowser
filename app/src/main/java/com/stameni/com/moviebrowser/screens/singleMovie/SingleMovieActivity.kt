@@ -131,10 +131,6 @@ class SingleMovieActivity : BaseActivity<ActivitySingleMovieBinding>(ActivitySin
                 recommendationsAdapter!!.addAll(it)
             })
 
-            viewModel.fetchedCertification.observe(this, Observer {
-                rating.text = it
-            })
-
             viewModel.fetchedTrailerUrl.observe(this, Observer {
                 youtubeVideoKey = it
             })
@@ -219,6 +215,7 @@ class SingleMovieActivity : BaseActivity<ActivitySingleMovieBinding>(ActivitySin
         if (!details.imdbId.isNullOrEmpty()) imdbId = details.imdbId
         directorName.text = details.directorName
         tmdbRating.text = "%.1f / 10".format(details.tmdbRating)
+        rating.text = "%.1f / 10".format(details.tmdbRating)
         movieDescription.text = details.movieDescription
         releaseDate.text = details.releaseDate
         runtime.text = "${details.runtime.toString()} min"
