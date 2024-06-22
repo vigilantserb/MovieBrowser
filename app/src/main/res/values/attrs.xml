@@ -6,4 +6,7 @@
             <flag name="right" value="2" />
         </attr>
     </declare-styleable>
+    <declare-styleable name="FixedHeightConstraintLayout">
+        <attr name="targetHeightPercentage" format="float" />
+    </declare-styleable>
 </resources>
